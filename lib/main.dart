@@ -4,6 +4,7 @@ import 'package:podcast_app/data/user_provider.dart';
 import 'package:podcast_app/firebase_options.dart';
 import 'package:podcast_app/route/router.dart';
 import 'package:podcast_app/route/routes.dart';
+import 'package:podcast_app/theme/theme.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -26,9 +27,7 @@ class MyApp extends StatelessWidget {
         ],
         child: MaterialApp(
           title: 'Podcast App',
-          theme: ThemeData(
-            primarySwatch: Colors.blue,
-          ),
+          theme: theme,
           onGenerateRoute: RoutePage.generateRoute,
           initialRoute: Routes.splash,
           debugShowCheckedModeBanner: false,
