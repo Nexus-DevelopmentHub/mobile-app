@@ -12,15 +12,16 @@ Color surface = HexColor.fromHex("#FFFFFF");
 Color onSurface = HexColor.fromHex("#49484C");
 
 
+//todo:: masih mencari schema
 ThemeData theme = ThemeData(
-  primaryColor: primary
-  onPrimaryColor : onPrimary
-  primaryContainerColor : primaryContainer
-  onPrimaryContainerColor : onPrimaryContainerColor
-  neutralColor : neutral
-  onNeutralColor : onNeutral
-  surfaceColor : surface
-  onSurfaceColor : onSurface
+  primaryColor: primary,
+  // onPrimaryColor : onPrimary,
+  // primaryContainerColor : primaryContainer
+  // onPrimaryContainerColor : onPrimaryContainerColor
+  // neutralColor : neutral
+  // onNeutralColor : onNeutral
+  // surfaceColor : surface
+  // onSurfaceColor : onSurface
 );
 
 
