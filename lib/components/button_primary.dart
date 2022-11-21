@@ -21,11 +21,12 @@ class _ButtonPrimaryState extends State<ButtonPrimary> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         ElevatedButton(
-            style: buttonPrimary,
-            onPressed: () {
-              widget?.onClick?.call();
-            },
-            child: Text(widget.name)),
+          style: buttonPrimary,
+          child: Text(widget.name),
+          onPressed: () {
+            widget?.onClick?.call();
+          },
+        ),
       ],
     );
   }
