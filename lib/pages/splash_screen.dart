@@ -11,11 +11,11 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Scaffold(body: Container(
       color: Colors.white,
       child: Column(
         children: [InputSearch()],
       ),
-    );
+    ));
   }
 }
