@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 
-import '../../theme/theme.dart';
+import '../theme/theme.dart';
 
 class InputSearch extends StatefulWidget {
   const InputSearch({super.key});

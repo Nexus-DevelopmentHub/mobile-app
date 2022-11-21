@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import "../pages/component/input_search.dart";
+import '../components/input_search.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
