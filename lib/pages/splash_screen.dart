@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../components/input_search.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -10,9 +11,11 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Scaffold(body: Container(
       color: Colors.white,
-      child: Column(),
-    );
+      child: Column(
+        children: [InputSearch()],
+      ),
+    ));
   }
 }
