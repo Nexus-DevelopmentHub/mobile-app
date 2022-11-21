@@ -16,21 +16,19 @@ class _InputSearchState extends State<InputSearch> {
   @override
   Widget build(BuildContext context) {
     return Column(children: [
-       TextFormField(
-        textInputAction: TextInputAction.search,
-        style: Theme.of(context).textTheme.bodyText1,
-        decoration: InputDecoration(
-          labelText: "widget.label",
-          border: OutlineInputBorder(),
-          focusColor: neutral,
-          labelStyle: 
-            TextStyle(fontWeight: FontWeight.normal, fontSize: 12),
-          prefixIcon: Icon(
-            Icons.search,
-          )
-        )
-       )
-      ]
-    );
+      TextFormField(
+          textInputAction: TextInputAction.search,
+          style: Theme.of(context).textTheme.bodyText1,
+          decoration: InputDecoration(
+              hintText: "Find topics, podcaster, etc",
+              fillColor: neutral,
+              border: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0)),
+              focusColor: neutral,
+              labelStyle:
+                  TextStyle(fontWeight: FontWeight.normal, fontSize: 12),
+              prefixIcon: Icon(
+                Icons.search,
+              )))
+    ]);
   }
 }
