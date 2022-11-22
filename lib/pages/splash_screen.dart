@@ -2,8 +2,8 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:podcast_app/components/button_primary.dart';
+import 'package:podcast_app/components/button_socialgoogle.dart';
 import 'package:podcast_app/components/chip_text.dart';
-import 'package:podcast_app/pages/component/chip_text.dart';
 import 'package:podcast_app/theme/theme.dart';
 import '../components/input_search.dart';
 
@@ -23,16 +23,7 @@ class _SplashScreenState extends State<SplashScreen> {
         body: Container(
       color: onNeutral,
       child: Column(
-        children: [
-          ChipText(
-            name: '$clicked',
-            selected: clicked,
-            onClick: () => {
-              log("$clicked"),
-              clicked = !clicked
-            },
-          )
-        ],
+        children: [ButtonGoogle(name: 'Masuk Dengan Google')],
       ),
     ));
   }
