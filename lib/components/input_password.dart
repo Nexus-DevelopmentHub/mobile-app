@@ -5,7 +5,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:podcast_app/theme/theme.dart';
 
 class InputPassword extends StatefulWidget {
-  const InputPassword({super.key, required this.name, this.onClick});
+  const InputPassword({super.key, required this.name, this.onChange});
 
   final String name;
   final VoidCallback? onChange;
