@@ -27,6 +27,7 @@ class _SplashScreenState extends State<SplashScreen> {
           InputPassword(
             name: 'Password',
             onChange: (value) {},
+            placeholder: 'Masukan password kamu',
           )
         ],
       ),

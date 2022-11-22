@@ -5,10 +5,15 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:podcast_app/theme/theme.dart';
 
 class InputPassword extends StatefulWidget {
-  const InputPassword({super.key, required this.name, required this.onChange})
-;
+  const InputPassword(
+      {super.key,
+      required this.name,
+      required this.onChange,
+      required this.placeholder});
+
   final String name;
   final Function(String) onChange;
+  final String placeholder;
 
   @override
   State<InputPassword> createState() => _InputPasswordState();
@@ -51,7 +56,7 @@ class _InputPasswordState extends State<InputPassword> {
             focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(16),
                 borderSide: BorderSide(color: primary)),
-            hintText: "Masukan password kamu",
+            hintText: widget.placeholder,
             hintStyle: TextStyle(color: onSecondary),
             contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
           ),
