@@ -26,7 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
         children: [
           ChipText(
             name: '$clicked',
-            selek: clicked,
+            selected: clicked,
             onClick: () => {
               log("$clicked"),
               clicked = !clicked

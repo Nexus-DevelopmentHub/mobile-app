@@ -7,10 +7,10 @@ import 'package:podcast_app/theme/theme.dart';
 
 class ChipText extends StatefulWidget {
   const ChipText(
-      {super.key, required this.name, required this.selek, this.onClick});
+      {super.key, required this.name, required this.selected, this.onClick});
 
   final String name;
-  final bool selek;
+  final bool selected;
   final VoidCallback? onClick;
 
   @override
@@ -24,7 +24,7 @@ class _ChipTextState extends State<ChipText> {
         child: InputChip(
       labelStyle: TextStyle(color: neutral),
       padding: EdgeInsets.all(8.16),
-      backgroundColor: widget.selek == false ? onSurface : primary,
+      backgroundColor: widget.selected == false ? onSurface : primary,
       label: Text(widget.name),
       onPressed: (() {
         widget.onClick?.call();
