@@ -16,15 +16,19 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-      bool clicked = false;
+  bool clicked = false;
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
         body: Container(
       color: onNeutral,
       child: Column(
-        children: [InputPassword(name: 'Password',)],
+        children: [
+          InputPassword(
+            name: 'Password',
+            onChange: (value) {},
+          )
+        ],
       ),
     ));
   }

@@ -5,10 +5,10 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:podcast_app/theme/theme.dart';
 
 class InputPassword extends StatefulWidget {
-  const InputPassword({super.key, required this.name, this.onChange});
-
+  const InputPassword({super.key, required this.name, required this.onChange})
+;
   final String name;
-  final VoidCallback? onChange;
+  final Function(String) onChange;
 
   @override
   State<InputPassword> createState() => _InputPasswordState();
@@ -28,7 +28,7 @@ class _InputPasswordState extends State<InputPassword> {
         SizedBox(height: 8),
         TextField(
           onChanged: (value) {
-            widget.onChange;
+            widget.onChange(value);
           },
           style: TextStyle(color: neutral),
           obscureText: !isVisible,
