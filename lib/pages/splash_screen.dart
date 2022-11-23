@@ -25,6 +25,8 @@ class _SplashScreenState extends State<SplashScreen> {
       child: Column(
         children: [
           InputSearch(
+            name: 'Find us',
+            placeholder: 'Find topics, podcaster. etc',
             onChange: (value) {},
           )
         ],
