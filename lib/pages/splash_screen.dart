@@ -21,13 +21,11 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Container(
-      color: onNeutral,
+      color: neutral,
       child: Column(
         children: [
-          InputPassword(
-            name: 'Password',
+          InputSearch(
             onChange: (value) {},
-            placeholder: 'Masukan password kamu',
           )
         ],
       ),
