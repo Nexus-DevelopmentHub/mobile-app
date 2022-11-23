@@ -10,7 +10,8 @@ Color neutral = HexColor.fromHex("#FFFFFF");
 Color onNeutral = HexColor.fromHex("#1B1A1F");
 Color surface = HexColor.fromHex("#FFFFFF");
 Color onSurface = HexColor.fromHex("#49484C");
-
+Color secondary = HexColor.fromHex("#333236");
+Color onSecondary = HexColor.fromHex("#858486");
 
 //todo:: masih mencari schema
 ThemeData theme = ThemeData(
