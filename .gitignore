@@ -22,6 +22,7 @@ android/.gradle/
 # is commented out by default.
 #.vscode/
 /lib/pages/splash_screen.dart
+splash_screen.dart
 
 # Flutter/Dart/Pub related
 **/doc/api/
@@ -33,6 +34,7 @@ android/.gradle/
 .pub-cache/
 .pub/
 /build/
+pubspec.lock
 
 # Symbolication related
 app.*.symbols
