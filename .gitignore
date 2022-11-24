@@ -21,7 +21,7 @@ android/.gradle/
 # VS Code which you may wish to be included in version control, so this line
 # is commented out by default.
 #.vscode/
-/lib/pages/splash_screen.dart
+./lib/pages/splash_screen.dart
 splash_screen.dart
 
 # Flutter/Dart/Pub related
