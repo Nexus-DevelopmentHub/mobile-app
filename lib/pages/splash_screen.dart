@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:podcast_app/components/button_primary.dart';
 import 'package:podcast_app/components/button_socialgoogle.dart';
 import 'package:podcast_app/components/chip_text.dart';
+import 'package:podcast_app/components/input_text.dart';
 import 'package:podcast_app/components/input_password.dart';
 import 'package:podcast_app/theme/theme.dart';
 import '../components/input_search.dart';
@@ -24,12 +25,17 @@ class _SplashScreenState extends State<SplashScreen> {
       color: onNeutral,
       child: Column(
         children: [
-          InputPassword(
+          InputText(
+            name: 'Nama',
+            onChange: (value) {},
+            placeholder: 'Masukan Nama Pengguna',
+          ),
+           InputPassword(
             name: 'Password',
             onChange: (value) {},
-            placeholder: 'Masukan password kamu',
-          )
-        ],
+            placeholder: 'Masukan Password Pengguna',
+          ),
+        ]
       ),
     ));
   }
