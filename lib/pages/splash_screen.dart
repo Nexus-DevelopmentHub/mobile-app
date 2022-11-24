@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:podcast_app/components/button_primary.dart';
 import 'package:podcast_app/components/button_socialgoogle.dart';
 import 'package:podcast_app/components/chip_text.dart';
+import 'package:podcast_app/components/input_ctadetailepisode.dart';
 import 'package:podcast_app/components/input_dateofbirth.dart';
 import 'package:podcast_app/components/input_password.dart';
 import 'package:podcast_app/theme/theme.dart';
@@ -25,7 +26,11 @@ class _SplashScreenState extends State<SplashScreen> {
       color: onNeutral,
       child: Column(
         children: [
-          InputDateOfBirth(placeholder: 'Bulan', name: 'Tahun Lahir')
+          CtaDetailEpisode(
+            name: 'Play', 
+            onClick: (() {
+              
+          }),)
         ],
       ),
     ));
