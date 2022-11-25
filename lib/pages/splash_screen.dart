@@ -9,6 +9,7 @@ import 'package:podcast_app/components/input_dateofbirth.dart';
 import 'package:podcast_app/components/input_password.dart';
 import 'package:podcast_app/theme/theme.dart';
 import '../components/input_search.dart';
+import '../components/input_gender.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -26,11 +27,10 @@ class _SplashScreenState extends State<SplashScreen> {
       color: onNeutral,
       child: Column(
         children: [
-          CtaDetailEpisode(
-            name: 'Play', 
-            onClick: (() {
-              
-          }),)
+          InputGender(
+            name: 'Jenis kelamin', 
+            male: 'Laki-laki',
+            female: 'Perempuan')
         ],
       ),
     ));
