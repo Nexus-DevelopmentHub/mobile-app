@@ -8,13 +8,12 @@ class CardTopics extends StatefulWidget {
   const CardTopics({
     super.key,
     required this.name,
-    required this.color,
-    this.nameImage,
+    required this.color, required this.Image,
   });
 
   final String name;
   final Color? color;
-  final nameImage;
+  final String Image;
 
   @override
   State<CardTopics> createState() => _CardTopicsState();
@@ -42,7 +41,7 @@ class _CardTopicsState extends State<CardTopics> {
                 ),
               ),
               Container(
-                child: Image.asset('assets/' + widget.nameImage),
+                child: Image.network(widget.Image),
               ),
             ],
           ),
