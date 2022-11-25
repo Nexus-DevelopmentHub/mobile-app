@@ -12,6 +12,7 @@ Color surface = HexColor.fromHex("#FFFFFF");
 Color onSurface = HexColor.fromHex("#49484C");
 Color secondary = HexColor.fromHex("#333236");
 Color onSecondary = HexColor.fromHex("#858486");
+Color subtitle = HexColor.fromHex("#BBBABC");
 
 //todo:: masih mencari schema
 ThemeData theme = ThemeData(
