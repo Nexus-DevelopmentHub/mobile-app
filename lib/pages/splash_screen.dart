@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:podcast_app/components/card_episode.dart';
 import 'package:podcast_app/components/card_topepisode.dart';
+import 'package:podcast_app/components/header_detailpodcast.dart';
 import 'package:podcast_app/components/input_text.dart';
 import 'package:podcast_app/theme/theme.dart';
 
@@ -19,12 +20,6 @@ class _PageSplashScreenState extends State<PageSplashScreen> {
       body: Column(
         children: [
           //cobain componentnya disini
-          TopEpisode(
-              name: 'Stories & Cities Jakarta',
-              artist: 'The Fahrul Show',
-              image:
-                  'https://yt3.ggpht.com/ytc/AMLnZu9PNHmf0ltJ2Rx4xY6Px-6osvSDbnmhR6S3t7LF=s900-c-k-c0x00ffffff-no-rj',
-              )
         ],
       ),
     );
