@@ -33,11 +33,11 @@ class _CardEpisodeState extends State<CardEpisode> {
           Container(
             width: 120,
             height: 120,
-            child: Image.network(widget.image),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(16),
-              // color: primary,
-            ),
+            child: ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: Image(
+                  image: NetworkImage(widget.image),
+                )),
           ),
           SizedBox(height: 8),
           Container(
