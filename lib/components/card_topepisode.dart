@@ -45,7 +45,7 @@ class _TopEpisodeState extends State<TopEpisode> {
                 widget.name,
                 style: TextStyle(
                   color: neutral,
-                  fontSize: 14,
+                  fontSize: 12,
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -54,7 +54,7 @@ class _TopEpisodeState extends State<TopEpisode> {
                 widget.artist,
                 style: TextStyle(
                   color: subtitle,
-                  fontSize: 12,
+                  fontSize: 10,
                   fontWeight: FontWeight.normal,
                 ),
               ),

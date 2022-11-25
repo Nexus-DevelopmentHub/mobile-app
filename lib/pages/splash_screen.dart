@@ -19,7 +19,12 @@ class _PageSplashScreenState extends State<PageSplashScreen> {
       body: Column(
         children: [
           //cobain componentnya disini
-          TopEpisode(name: 'Stories & Cities Jakarta', artist: 'Media Production', image: 'https://yt3.ggpht.com/ytc/AMLnZu9PNHmf0ltJ2Rx4xY6Px-6osvSDbnmhR6S3t7LF=s900-c-k-c0x00ffffff-no-rj')
+          TopEpisode(
+              name: 'Stories & Cities Jakarta',
+              artist: 'The Fahrul Show',
+              image:
+                  'https://yt3.ggpht.com/ytc/AMLnZu9PNHmf0ltJ2Rx4xY6Px-6osvSDbnmhR6S3t7LF=s900-c-k-c0x00ffffff-no-rj',
+              )
         ],
       ),
     );
