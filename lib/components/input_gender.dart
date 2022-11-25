@@ -39,6 +39,15 @@ class _InputGenderState extends State<InputGender> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
+              Radio(
+                  value: 1,
+                  groupValue: _value,
+                  onChanged: (value) {
+                    setState(() {
+                      _value = value as int?;
+                    });
+                  },
+                ),
               Text(
                 widget.male,
                 style: TextStyle(
@@ -46,15 +55,6 @@ class _InputGenderState extends State<InputGender> {
                     fontWeight: FontWeight.w500, 
                     color: neutral),
               ),
-          Radio(
-            value: 1,
-            groupValue: _value,
-            onChanged: (value) {
-              setState(() {
-                _value = value as int?;
-              });
-            },
-          )
             ],
           ),
         ),
@@ -65,6 +65,15 @@ class _InputGenderState extends State<InputGender> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
+              Radio(
+                value: 2,
+                groupValue: _value,
+                onChanged: (value) {
+                  setState(() {
+                    _value = value as int?;
+                  });
+                },
+              ),
               Text(
                 widget.female,
                 style: TextStyle(
@@ -72,15 +81,6 @@ class _InputGenderState extends State<InputGender> {
                     fontWeight: FontWeight.w500, 
                     color: neutral),
               ),
-          Radio(
-            value: 2,
-            groupValue: _value,
-            onChanged: (value) {
-              setState(() {
-                _value = value as int?;
-              });
-            },
-          )
             ],
           ),
         )
