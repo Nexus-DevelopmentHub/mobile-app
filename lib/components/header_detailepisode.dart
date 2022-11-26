@@ -12,14 +12,15 @@ class HeaderDetailEpisode extends StatefulWidget {
       required this.image,
       required this.artist,
       required this.placeholder,
-      this.onClick, required this.value});
+      this.onClick,
+      required this.percent});
 
   final String name;
   final String image;
   final String artist;
   final String placeholder;
-  final String value;
   final VoidCallback? onClick;
+  final double percent;
 
   @override
   State<HeaderDetailEpisode> createState() => _HeaderDetailEpisodeState();
@@ -73,10 +74,12 @@ class _HeaderDetailEpisodeState extends State<HeaderDetailEpisode> {
                 barRadius: Radius.circular(8),
                 backgroundColor: onPrimaryContainer,
                 progressColor: primary,
-                percent: 0.6,
+                percent: widget.percent,
               ),
             ),
-            SizedBox(height: 12,),
+            SizedBox(
+              height: 12,
+            ),
             Text(
               widget.name,
               style: TextStyle(

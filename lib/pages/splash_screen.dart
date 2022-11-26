@@ -25,7 +25,7 @@ class _PageSplashScreenState extends State<PageSplashScreen> {
               image:
                   "https://thumbs.dreamstime.com/b/template-social-media-banner-podcast-sunday-vector-promotion-elegant-charming-appearance-suitable-promoting-your-197926266.jpg",
               artist: "Joe Mama Podcast",
-              value: '',
+              percent: 0.6,
               placeholder: 'Conversations about science. tech, history, philosophu, and nature intellegence')
           //cobain componentnya disini
         ],
