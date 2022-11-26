@@ -81,7 +81,7 @@ class _HeaderDetailPodcastState extends State<HeaderDetailPodcast> {
                 ),
               ),
             ],
-          )
+          ),
         ],
       ),
     );
