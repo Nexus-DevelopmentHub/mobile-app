@@ -10,7 +10,8 @@ class ListEpisode extends StatefulWidget {
       {super.key,
       required this.name,
       required this.artist,
-      required this.image, this.onClick});
+      required this.image,
+      this.onClick});
 
   final String name;
   final String artist;
@@ -67,13 +68,12 @@ class _ListEpisodeState extends State<ListEpisode> {
             ],
           ),
           IconButton(
-                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 25),
-                  color: neutral,
-                  onPressed: () {
-                    widget?.onClick?.call();
-                  },
-                  icon: Icon(Icons.download_rounded)
-          ),
+              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 25),
+              color: neutral,
+              onPressed: () {
+                widget?.onClick?.call();
+              },
+              icon: Icon(Icons.download_rounded)),
         ],
       ),
     );
