@@ -11,14 +11,14 @@ class HeaderDetailEpisode extends StatefulWidget {
       required this.name,
       required this.image,
       required this.artist,
-      required this.placeholder,
+      required this.description,
       this.onClick,
       required this.percent});
 
   final String name;
   final String image;
   final String artist;
-  final String placeholder;
+  final String description;
   final VoidCallback? onClick;
   final double percent;
 
@@ -103,7 +103,7 @@ class _HeaderDetailEpisodeState extends State<HeaderDetailEpisode> {
               height: 4,
             ),
             Text(
-              widget.placeholder,
+              widget.description,
               style: TextStyle(
                 color: subtitle,
                 fontSize: 14,
