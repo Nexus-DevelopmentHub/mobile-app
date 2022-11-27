@@ -5,6 +5,8 @@ import 'package:podcast_app/components/card_topepisode.dart';
 import 'package:podcast_app/components/input_text.dart';
 import 'package:podcast_app/theme/theme.dart';
 
+import '../components/card_recentsearch.dart';
+
 class PageSplashScreen extends StatefulWidget {
   const PageSplashScreen({Key? key}) : super(key: key);
 
@@ -20,11 +22,9 @@ class _PageSplashScreenState extends State<PageSplashScreen> {
       body: Column(
         children: [
           //cobain componentnya disini
-          ListEpisode(
-              name: 'Tech talk episode: Metaverse',
-              artist: 'fahrul',
-              image:
-                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQliXjC4vzVLAfH721TX1kz_ZJfOI-xi77bMA&usqp=CAU')
+          RecentSearch(
+              name: 'What are the smart contacts anyway',
+              image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQliXjC4vzVLAfH721TX1kz_ZJfOI-xi77bMA&usqp=CAU')
         ],
       ),
     );
