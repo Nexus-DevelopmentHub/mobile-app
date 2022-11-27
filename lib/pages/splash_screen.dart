@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:podcast_app/components/card_episode.dart';
+import 'package:podcast_app/components/card_listepisode.dart';
 import 'package:podcast_app/components/card_topepisode.dart';
 import 'package:podcast_app/components/header_detailepisode.dart';
 import 'package:podcast_app/components/header_detailpodcast.dart';
@@ -9,6 +10,8 @@ import 'package:podcast_app/components/slider_banner.dart';
 import 'package:podcast_app/theme/theme.dart';
 import '../components/input_gender.dart';
 
+
+import '../components/card_recentsearch.dart';
 
 class PageSplashScreen extends StatefulWidget {
   const PageSplashScreen({Key? key}) : super(key: key);
@@ -24,22 +27,6 @@ class _PageSplashScreenState extends State<PageSplashScreen> {
       backgroundColor: onNeutral,
       body: Column(
         children: [
-
-          HeaderDetailEpisode(
-              name: "3 Things you shoud know about NFT",
-              image:
-                  "https://thumbs.dreamstime.com/b/template-social-media-banner-podcast-sunday-vector-promotion-elegant-charming-appearance-suitable-promoting-your-197926266.jpg",
-              artist: "Joe Mama Podcast",
-              percent: 0.6,
-              description: 'Conversations about science. tech, history, philosophu, and nature intellegence'
-              ),
-          //cobain componentnya disini
-          //cobain componentnya disini
-          SliderBanner(
-            onClick: (value){
-              
-            },
-          )
         ],
       ),
     );
