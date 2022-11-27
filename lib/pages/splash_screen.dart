@@ -19,7 +19,9 @@ class _PageSplashScreenState extends State<PageSplashScreen> {
       backgroundColor: onNeutral,
       body: Column(
         children: [
-          Upload()
+          Upload(
+            onSuccess: ((p0) {}),
+          )
         ],
       ),
     );

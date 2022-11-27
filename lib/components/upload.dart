@@ -4,7 +4,17 @@ import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'dart:async';
 
+import 'package:podcast_app/theme/style/button_oufline.dart';
+import 'package:podcast_app/theme/theme.dart';
+
 class Upload extends StatefulWidget {
+  const Upload({
+    super.key,
+    required this.onSuccess,
+  });
+
+  final Function(String) onSuccess;
+
   @override
   _UploadState createState() => _UploadState();
 }
@@ -53,20 +63,22 @@ class _UploadState extends State<Upload> {
 
   Container buildSplashScreen() {
     return Container(
-      color: Theme.of(context).accentColor.withOpacity(0.6),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          SvgPicture.asset('asset/images/upload.svg', height: 260.0),
+          Container(
+            height: 98,
+            width: 98,
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(24), color: primary),
+          ),
+          SizedBox(width: 24,),
+          // SvgPicture.asset('asset/images/upload.svg', height: 260.0),
           Padding(
             padding: EdgeInsets.only(top: 20.0),
             child: ElevatedButton(
+                style: buttonOutline,
                 child: Text(
                   "Photo Profil",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 22.0,
-                  ),
                 ),
                 onPressed: () => selectImage(context)),
           ),
