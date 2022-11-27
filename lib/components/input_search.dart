@@ -44,7 +44,7 @@ class _InputSearchState extends State<InputSearch> {
                   OutlineInputBorder(
                     borderRadius: BorderRadius.circular(16),
                     borderSide: BorderSide(color: primary)),
-              focusColor: onNeutral,
+              focusColor: neutral,
               labelStyle:
                   TextStyle(fontWeight: FontWeight.normal, fontSize: 12),
               prefixIcon: Icon(
