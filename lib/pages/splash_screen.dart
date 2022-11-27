@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:podcast_app/components/card_episode.dart';
 import 'package:podcast_app/components/card_listepisode.dart';
 import 'package:podcast_app/components/card_topepisode.dart';
+import 'package:podcast_app/components/header_detailepisode.dart';
+import 'package:podcast_app/components/header_detailpodcast.dart';
 import 'package:podcast_app/components/input_text.dart';
+import 'package:podcast_app/components/slider_banner.dart';
 import 'package:podcast_app/theme/theme.dart';
+import '../components/input_gender.dart';
+
 
 import '../components/card_recentsearch.dart';
 
@@ -21,10 +27,6 @@ class _PageSplashScreenState extends State<PageSplashScreen> {
       backgroundColor: onNeutral,
       body: Column(
         children: [
-          //cobain componentnya disini
-          RecentSearch(
-              name: 'What are the smart contacts anyway',
-              image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQliXjC4vzVLAfH721TX1kz_ZJfOI-xi77bMA&usqp=CAU')
         ],
       ),
     );
