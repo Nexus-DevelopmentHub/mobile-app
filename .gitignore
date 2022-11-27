@@ -23,6 +23,7 @@ android/.gradle/
 #.vscode/
 ./lib/pages/splash_screen.dart
 splash_screen.dart
+/lib/pages/splash_screen.dart
 
 # Flutter/Dart/Pub related
 **/doc/api/
