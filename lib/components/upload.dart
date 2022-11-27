@@ -66,12 +66,12 @@ class _UploadState extends State<Upload> {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Container(
-            height: 98,
-            width: 98,
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(24), color: primary),
+          this.file == null
+              ? Image.asset('lib/icons/icons_google.png')
+              : Image.file(this.file!),
+          SizedBox(
+            width: 24,
           ),
-          SizedBox(width: 24,),
           // SvgPicture.asset('asset/images/upload.svg', height: 260.0),
           Padding(
             padding: EdgeInsets.only(top: 20.0),
@@ -87,12 +87,8 @@ class _UploadState extends State<Upload> {
     );
   }
 
-  buildUploadForm() {
-    return Text("File Loaded");
-  }
-
   @override
   Widget build(BuildContext context) {
-    return file == null ? buildSplashScreen() : buildUploadForm();
+    return buildSplashScreen();
   }
 }
