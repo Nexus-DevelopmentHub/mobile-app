@@ -25,6 +25,7 @@ android/.gradle/
 splash_screen.dart
 /lib/pages/splash_screen.dart
 
+
 # Flutter/Dart/Pub related
 **/doc/api/
 **/ios/Flutter/.last_build_id
