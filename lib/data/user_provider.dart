@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart';
 
 class UserProvider with ChangeNotifier,DiagnosticableTreeMixin{
+   bool _isLoggedIn=false;
+   bool get isLoggedIn =>_isLoggedIn;
 
   /// TODO :: sign with email and password
   /// login menggunakan email dan password kemudian mengembalikan callback
