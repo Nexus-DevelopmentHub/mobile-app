@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:podcast_app/components/card_episode.dart';
 import 'package:podcast_app/components/card_topepisode.dart';
 import 'package:podcast_app/components/input_text.dart';
+import 'package:podcast_app/components/slider_banner.dart';
 import 'package:podcast_app/theme/theme.dart';
 import '../components/input_gender.dart';
 
@@ -21,10 +23,11 @@ class _PageSplashScreenState extends State<PageSplashScreen> {
       body: Column(
         children: [
           //cobain componentnya disini
-          InputGender(
-            name: 'Jenis kelamin', 
-            male: 'Laki-laki',
-            female: 'Perempuan')
+          SliderBanner(
+            onClick: (value){
+              
+            },
+          )
         ],
       ),
     );
