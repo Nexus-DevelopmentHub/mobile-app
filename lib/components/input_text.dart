@@ -4,8 +4,8 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:podcast_app/theme/theme.dart';
 
-class InputPassword extends StatefulWidget {
-  const InputPassword(
+class InputText extends StatefulWidget {
+  const InputText(
       {super.key,
       required this.name,
       required this.onChange,
@@ -16,11 +16,11 @@ class InputPassword extends StatefulWidget {
   final String placeholder;
 
   @override
-  State<InputPassword> createState() => _InputPasswordState();
+  State<InputText> createState() => _InputTextState();
 }
 
-class _InputPasswordState extends State<InputPassword> {
-  bool isVisible = false;
+class _InputTextState extends State<InputText> {
+  bool isVisible = true;
 
   @override
   Widget build(BuildContext context) {
@@ -38,16 +38,6 @@ class _InputPasswordState extends State<InputPassword> {
           style: TextStyle(color: neutral),
           obscureText: !isVisible,
           decoration: InputDecoration(
-            suffixIcon: IconButton(
-              onPressed: () {
-                setState(() {
-                  isVisible = !isVisible;
-                });
-              },
-              icon: isVisible
-                  ? Icon(Icons.visibility, color: neutral)
-                  : Icon(Icons.visibility_off, color: neutral),
-            ),
             filled: true,
             fillColor: secondary,
             border: OutlineInputBorder(
