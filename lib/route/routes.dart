@@ -9,4 +9,5 @@ class Routes{
   static const search = 'search';
   static const detailPodcast = 'detail_podcast';
   static const detailPlayer = 'detail_player';
+  static const completeProfile = 'complete_profile';
 }

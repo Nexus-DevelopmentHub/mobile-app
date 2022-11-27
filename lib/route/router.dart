@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:podcast_app/pages/choose_topic.dart';
+import 'package:podcast_app/pages/complete_profile.dart';
 import 'package:podcast_app/pages/detail_episode.dart';
 import 'package:podcast_app/pages/detail_player.dart';
 import 'package:podcast_app/pages/detail_podcast.dart';
@@ -34,6 +35,8 @@ class RoutePage{
         return MaterialPageRoute(builder: (_)=>const PageDetailPodcast());
       case Routes.detailPlayer:
         return MaterialPageRoute(builder: (_)=>const PageDetailPlayer());
+      case Routes.completeProfile:
+        return MaterialPageRoute(builder: (_)=>const PageCompleteProfile());
       default:
         return MaterialPageRoute(builder: (_)=>const PageSplashScreen());
     }
