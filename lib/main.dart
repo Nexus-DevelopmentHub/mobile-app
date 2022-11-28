@@ -6,6 +6,7 @@ import 'package:podcast_app/route/router.dart';
 import 'package:podcast_app/route/routes.dart';
 import 'package:podcast_app/theme/theme.dart';
 import 'package:provider/provider.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
           title: 'Podcast App',
           theme: theme,
           onGenerateRoute: RoutePage.generateRoute,
-          initialRoute: Routes.splash,
+          initialRoute: Routes.signUp,
           debugShowCheckedModeBanner: false,
         )
     );
