@@ -1,35 +1,85 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
+import 'package:podcast_app/models/callback_model.dart';
+import 'package:podcast_app/models/topic_model.dart';
+import 'package:podcast_app/models/user_model.dart';
 
-class UserProvider with ChangeNotifier,DiagnosticableTreeMixin{
-   bool _isLoggedIn=false;
-   bool get isLoggedIn =>_isLoggedIn;
+class UserProvider with ChangeNotifier, DiagnosticableTreeMixin {
+  //region state
+  bool _isLoggedIn = false;
 
-  /// TODO :: sign with email and password
-  /// login menggunakan email dan password kemudian mengembalikan callback
-  /// @return {
-  ///   success:boolean,
-  ///   message:string
-  /// }
-  /// **/
-  void signInWithEmailAndPassword(
-      String email,
-      String password,
-      Function(bool success,String message) callback
-  ){
+  bool get isLoggedIn => _isLoggedIn;
 
+  UserModel _user = UserModel();
+
+  UserModel get user => _user;
+
+  List<TopicModel> _myTopics = [];
+
+  List<TopicModel> get myTopics => _myTopics;
+
+  //end region
+
+  FirebaseFirestore get db => FirebaseFirestore.instance;
+
+  FirebaseAuth get auth => FirebaseAuth.instance;
+
+  //region
+  Future<Response> getMyProfile() {
+    //TODO : ambil profile user yang sedang login
+    return Future.value(Response.Ok(message: ""));
   }
 
-  /// TODO :: sign with google
-  /// login menggunakan akun google
-  /// @return {
-  ///   success:boolean,
-  ///   message:string
-  /// }
-  /// **/
-  void signInWithGoogle(
-      Function(bool success,String message) callback
-      ){
+  //endregion
 
+  //region
+  Future<bool> checkIsLoggedIn() async {
+    //TODO :: cek user sudah login atau belum
+    _isLoggedIn = true;
+    notifyListeners();
+    return false;
   }
 
+  //end region
+
+  //region
+  Future<Response> signInWithEmailAndPassword(String email, String password) {
+    //TODO :: sign with email and password
+    return Future.value(Response.Ok(message: ""));
+  }
+
+  //end region
+
+  //region
+  Future<Response> signInWithGoogle() {
+    //TODO :: sign with google
+    return Future.value(Response.Ok(message: ""));
+  }
+
+  //endregion
+
+//region register
+  Future<Response> registerWithEmailAndPassword(
+      String email, String password, String name) {
+    //TODO:: register with email and password
+    return Future.value(Response.Ok(message: ""));
+  }
+
+//end region
+
+  // region
+  Future<Response> completeProfile(UserModel arg) {
+    //TODO:: complete profile
+    return Future.value(Response.Ok(message: ""));
+  }
+
+  // end region
+
+  // region
+  Future<Response> saveMyTopic(List<TopicModel> topics) {
+    return Future.value(Response.Ok(message: ""));
+  }
+
+  // end region
 }

@@ -9,8 +9,11 @@ class ContinueListening extends StatefulWidget {
       {super.key,
       required this.image,
       required this.name,
-      required this.percent});
+      required this.percent,
+      required this.index, required this.totalIndex});
 
+  final int totalIndex;
+  final int index;
   final String image;
   final String name;
   final double percent;
@@ -25,6 +28,9 @@ class _ContinueListeningState extends State<ContinueListening> {
     return Container(
       width: 104,
       height: 167,
+      margin: EdgeInsets.only(
+          left: (widget.index == 0) ? 24 : 8,
+          right: (widget.index == widget.totalIndex - 1) ? 24 : 0),
       child: Column(
         children: [
           Container(
