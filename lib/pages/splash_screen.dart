@@ -15,7 +15,7 @@ class _PageSplashScreenState extends State<PageSplashScreen> {
   void initState() {
     /**
      * when user already logged in redirect to home and otherwise redirect to sign in
-     * */
+     */
     context.read<UserProvider>().checkIsLoggedIn().then((isLoggedIn) => {
       if(isLoggedIn){
         Navigator.of(context).pushNamed(Routes.home)
