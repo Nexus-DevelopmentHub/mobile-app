@@ -17,16 +17,20 @@ class _PageSplashScreenState extends State<PageSplashScreen> {
      * when user already logged in redirect to home and otherwise redirect to sign in
      */
     context.read<UserProvider>().checkIsLoggedIn().then((isLoggedIn) => {
-      if(isLoggedIn){
-        Navigator.of(context).pushNamed(Routes.home)
-      }else{
-        Navigator.of(context).pushNamed(Routes.signIn)
-      }
-    });
+          if (isLoggedIn)
+            {Navigator.of(context).pushNamed(Routes.home)}
+          else
+            {Navigator.of(context).pushNamed(Routes.signIn)}
+        });
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      body: Column(
+        children: const [Text("Ini splash")],
+      ),
+    );
   }
 }
