@@ -35,6 +35,7 @@ class _SliderBannerState extends State<SliderBanner> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 200,
       child: 
         Expanded(
           child: CarouselSlider(

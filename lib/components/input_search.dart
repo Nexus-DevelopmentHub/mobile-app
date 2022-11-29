@@ -5,9 +5,9 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import '../theme/theme.dart';
 
 class InputSearch extends StatefulWidget {
-  const InputSearch({
-    super.key, 
-      required this.name, 
+  const InputSearch(
+      {super.key,
+      required this.name,
       required this.onChange,
       required this.placeholder});
 
@@ -22,35 +22,32 @@ class InputSearch extends StatefulWidget {
 class _InputSearchState extends State<InputSearch> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
+    return Column(children: [
       Text(widget.name,
-            style: TextStyle(
-                color: neutral, fontSize: 14, fontWeight: FontWeight.w500)),
+          style: TextStyle(
+              color: neutral, fontSize: 14, fontWeight: FontWeight.w500)),
       TextFormField(
           textInputAction: TextInputAction.search,
-          style: Theme.of(context).textTheme.bodyText1,
+          style: TextStyle(color: neutral),
           onChanged: (value) {
             widget.onChange(value);
           },
           decoration: InputDecoration(
-              hintText: widget.placeholder, 
-              hintStyle: TextStyle(color: onSecondary),
-              fillColor: onNeutral,
-              border:
-                  OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(16)),
-              focusedBorder: 
-                  OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(16),
-                    borderSide: BorderSide(color: primary)),
-              focusColor: neutral,
-              labelStyle:
-                  TextStyle(fontWeight: FontWeight.normal, fontSize: 12),
-              prefixIcon: Icon(
-                color: primary,
-                Icons.search,
-              )))
+            filled: true,
+            fillColor: secondary,
+            hintText: widget.placeholder,
+            hintStyle: TextStyle(color: onSecondary),
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(16)),
+            focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(16),
+                borderSide: BorderSide(color: primary)),
+            focusColor: neutral,
+            labelStyle: TextStyle(fontWeight: FontWeight.normal, fontSize: 12),
+            // prefixIcon: Icon(
+            //   color: primary,
+            //   Icons.search,
+            // ),
+          ))
     ]);
   }
 }
