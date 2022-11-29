@@ -25,15 +25,15 @@ class EpisodeProvider with ChangeNotifier, DiagnosticableTreeMixin {
 
   //region
   Future<Response> getDetailEpisode(String podcastId) {
-    //TODO : ambil podcast berdasarkan id
+    //TODO : ambil episode berdasarkan id
     return Future.value(Response.Ok(message: ""));
   }
 
   //end region
 
   //region
-  Future<Response> getListEpisode() {
-    //TODO: ambil data keseluruhan podcast
+  Future<Response> getListEpisodeByPodcast(String podcastId) {
+    //TODO: ambil data  episode berdasarkan podcast
     return Future.value(Response.Ok(message: ""));
   }
 //
