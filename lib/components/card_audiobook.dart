@@ -1,48 +1,48 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:podcast_app/theme/theme.dart';
 
-class CardEpisode extends StatefulWidget {
-  const CardEpisode(
-      {super.key,
-      required this.name,
-      required this.artist,
-      required this.image,
-      required this.time,
-      required this.index,
-      required this.totalIndex});
+class CardAudioBook extends StatefulWidget {
+  const CardAudioBook({
+    super.key,
+    required this.image,
+    required this.name,
+    required this.description,
+    required this.index,
+    required this.totalIndex,
+  });
+
   final int totalIndex;
-  final int index;
-  final String name;
-  final String artist;
   final String image;
-  final String time;
+  final String name;
+  final String description;
+  final int index;
 
   @override
-  State<CardEpisode> createState() => _CardEpisodeState();
+  State<CardAudioBook> createState() => _CardAudioBookState();
 }
 
-class _CardEpisodeState extends State<CardEpisode> {
+class _CardAudioBookState extends State<CardAudioBook> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        margin: EdgeInsets.only(
+      margin: EdgeInsets.only(
           left: (widget.index == 0) ? 24 : 8,
           right: (widget.index == widget.totalIndex - 1) ? 24 : 0),
       width: 120,
-      height: 218,
+      height: 210,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
             width: 120,
-            height: 120,
+            height: 144,
             child: ClipRRect(
                 borderRadius: BorderRadius.circular(8),
                 child: Image(
                   image: NetworkImage(widget.image),
+                  fit: BoxFit.fill,
                 )),
           ),
           SizedBox(height: 8),
@@ -60,19 +60,10 @@ class _CardEpisodeState extends State<CardEpisode> {
                 ),
                 SizedBox(height: 4),
                 Text(
-                  widget.artist,
+                  widget.description,
                   style: TextStyle(
                     color: subtitle,
                     fontSize: 12,
-                    fontWeight: FontWeight.normal,
-                  ),
-                ),
-                SizedBox(height: 4),
-                Text(
-                  widget.time,
-                  style: TextStyle(
-                    color: subtitle,
-                    fontSize: 10,
                     fontWeight: FontWeight.normal,
                   ),
                 ),
