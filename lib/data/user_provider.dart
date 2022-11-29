@@ -68,18 +68,18 @@ class UserProvider with ChangeNotifier, DiagnosticableTreeMixin {
 
 //end region
 
-  /// region
+  // region
   Future<Response> completeProfile(UserModel arg) {
     //TODO:: complete profile
     return Future.value(Response.Ok(message: ""));
   }
 
-  /// end region
+  // end region
 
-  /// region
+  // region
   Future<Response> saveMyTopic(List<TopicModel> topics) {
     return Future.value(Response.Ok(message: ""));
   }
 
-  /// end region
+  // end region
 }
