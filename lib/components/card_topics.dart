@@ -8,9 +8,11 @@ class CardTopics extends StatefulWidget {
   const CardTopics({
     super.key,
     required this.name,
-    required this.color, required this.Image,
+    required this.color, required this.Image, required this.index, required this.totalIndex,
   });
 
+  final int totalIndex;
+  final int index;
   final String name;
   final Color? color;
   final String Image;
@@ -26,6 +28,9 @@ class _CardTopicsState extends State<CardTopics> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
+          margin: EdgeInsets.only(
+          left: (widget.index == 0) ? 24 : 8,
+          right: (widget.index == widget.totalIndex - 1) ? 24 : 0),
           height: 88,
           width: 152,
           padding: EdgeInsets.symmetric(horizontal: 16, vertical: 28),
