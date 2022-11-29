@@ -23,7 +23,7 @@ class UserProvider with ChangeNotifier, DiagnosticableTreeMixin {
   ///region
     Future<Response> getMyProfile(){
 
-      return Future.value(Response.Ok(msg: ""));
+      return Future.value(Response.Ok(message: ""));
     }
   ///endregion
 
@@ -38,7 +38,7 @@ class UserProvider with ChangeNotifier, DiagnosticableTreeMixin {
             notifyListeners();
         })
       });
-      return Future.value(Response.Ok(msg: ""));
+      return Future.value(Response.Ok(message: ""));
     }
   ///end region
 
@@ -54,34 +54,34 @@ class UserProvider with ChangeNotifier, DiagnosticableTreeMixin {
   ///region
   Future<Response> signInWithEmailAndPassword(String email, String password) {
     //TODO :: sign with email and password
-    return Future.value(Response.Ok(msg: ""));
+    return Future.value(Response.Ok(message: ""));
   }
   ///end region
 
   ///region
   Future<Response> signInWithGoogle() {
     //TODO :: sign with google
-    return Future.value(Response.Ok(msg: ""));
+    return Future.value(Response.Ok(message: ""));
   }
   ///endregion
 
 ///region register
   Future<Response> registerWithEmailAndPassword(String email,String password,String name){
     //TODO:: register with email and password
-    return Future.value(Response.Ok(msg: ""));
+    return Future.value(Response.Ok(message: ""));
   }
 ///end region
 
 /// region
   Future<Response> completeProfile(UserModel arg){
     //TODO:: complete profile
-    return Future.value(Response.Ok(msg:""));
+    return Future.value(Response.Ok(message:""));
   }
 /// end region
 
 /// region
   Future<Response> saveMyTopic(List<TopicModel> topics){
-    return Future.value(Response.Ok(msg: ""));
+    return Future.value(Response.Ok(message: ""));
   }
 /// end region
 }

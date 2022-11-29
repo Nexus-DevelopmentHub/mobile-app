@@ -6,15 +6,15 @@ class Response{
   Response(this.success,this.message);
 
 
-  static Response Ok({String msg=""}){
+  static Response Ok({String message=""}){
     return Response(
       true,
-      msg
+      message
     );
   }
 
-  static Response Failed({String msg=""}){
-    return Response(false, msg);
+  static Response Failed({String message=""}){
+    return Response(false, message);
   }
 }
 
