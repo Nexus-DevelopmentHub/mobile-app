@@ -37,7 +37,7 @@ class UserModel{
 
   }
 
-  Map<String,dynamic> toFirestore(){
+  Map<String,Object?> toFirestore(){
     return {
       if(name != null) "name":name,
       if(email != null) "email":email,

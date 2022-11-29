@@ -14,6 +14,8 @@ class UserProvider with ChangeNotifier, DiagnosticableTreeMixin {
 
   List<TopicModel> _myTopics = [];
   List<TopicModel> get myTopics => _myTopics;
+  List<UserModel> _users =[];
+  List<UserModel> get users=>_users;
 
   FirebaseFirestore get db=>FirebaseFirestore.instance;
   FirebaseAuth get auth =>FirebaseAuth.instance;
@@ -27,6 +29,15 @@ class UserProvider with ChangeNotifier, DiagnosticableTreeMixin {
 
   ///region
     Future<Response> getMyTopics(){
+      db.collection("TOPIC")
+        .withConverter(fromFirestore: UserModel.fromFirestore, toFirestore: (usr,_)=>UserModel().toFirestore())
+        .get()
+        .then((value) => {
+          value.docs.forEach((element) {
+            _users.add(element.data());
+            notifyListeners();
+        })
+      });
       return Future.value(Response.Ok(msg: ""));
     }
   ///end region
