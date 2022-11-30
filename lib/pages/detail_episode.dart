@@ -21,10 +21,9 @@ class _PageDetailEpisodeState extends State<PageDetailEpisode> {
         physics: NeverScrollableScrollPhysics(),
         headerSliverBuilder: (context, innerBoxIsScrolled) => [
           SliverPadding(
-            padding: EdgeInsets.only(left: 24, right: 24),
+            padding: EdgeInsets.only(left: 8, right: 8),
             sliver: SliverAppBar(
               leading: Icon(Icons.arrow_back),
-              toolbarHeight: 72,
               forceElevated: innerBoxIsScrolled,
               backgroundColor: onNeutral,
               pinned: true,
@@ -82,7 +81,7 @@ class _PageDetailEpisodeState extends State<PageDetailEpisode> {
               ),
               Container(
                 padding: EdgeInsets.only(left: 24, right: 24),
-                height: 300,
+                height: 326,
                 child: ListView.builder(
                     scrollDirection: Axis.vertical,
                     itemCount: 50,

@@ -16,13 +16,13 @@ class CtaDetailEpisode extends StatefulWidget {
 }
 
 class _CtaDetailEpisodeState extends State<CtaDetailEpisode> {
-
   bool isFilled = false;
 
   @override
   Widget build(BuildContext context) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         ElevatedButton(
           style: buttonCta,
@@ -31,23 +31,26 @@ class _CtaDetailEpisodeState extends State<CtaDetailEpisode> {
           },
           child: Text(widget.name),
         ),
-        SizedBox(width: 8),
+        SizedBox(
+          width: 4,
+        ),
         IconButton(
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
             color: neutral,
             onPressed: () {
               widget?.onClick?.call();
             },
             icon: Icon(Icons.share_rounded)),
-        SizedBox(width: 8),
+        SizedBox(
+          width: 4,
+        ),
         IconButton(
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
             color: neutral,
             onPressed: () {
               widget?.onClick?.call();
             },
-            icon: Icon(Icons.favorite_outline_rounded)
-          ),
+            icon: Icon(Icons.favorite_outline_rounded)),
       ],
     );
   }

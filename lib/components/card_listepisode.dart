@@ -31,8 +31,8 @@ class _ListEpisodeState extends State<ListEpisode> {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(
-          top: (widget.index == 0) ? 16 : 8,
-          bottom: (widget.index == widget.totalIndex - 1) ? 16 : 0),
+          top: (widget.index == 0) ? 8 : 8,
+          bottom: (widget.index == widget.totalIndex - 1) ? 8 : 0),
       width: 327,
       height: 80,
       child: Row(
