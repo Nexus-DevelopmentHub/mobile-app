@@ -80,7 +80,9 @@ class _PageDetailEpisodeState extends State<PageDetailEpisode> {
                 ),
               ),
               Container(
-                padding: EdgeInsets.only(left: 24, right: 24),
+                padding: EdgeInsets.only(
+                  left: 24,
+                ),
                 height: 326,
                 child: ListView.builder(
                     scrollDirection: Axis.vertical,

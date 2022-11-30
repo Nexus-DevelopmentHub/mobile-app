@@ -35,18 +35,17 @@ class _PageCompleteProfileState extends State<PageCompleteProfile> {
               width: 10.0,
             ),
             InputText(
-                name: "Nama Lengkap", onChange: (v) {}, placeholder: "Nama"),
+                name: "*Nama Lengkap", onChange: (v) {}, placeholder: "Nama"),
             SizedBox(
               height: 20.0,
               width: 10.0,
             ),
             InputText(
-                name: "Username",
+                name: "*Username",
                 onChange: (v) {},
                 placeholder: "Username kamu"),
             SizedBox(
-              height: 20.0,
-              width: 10.0,
+              height: 8,
             ),
             Container(
               padding: EdgeInsets.only(bottom: 8, top: 1),
@@ -61,7 +60,7 @@ class _PageCompleteProfileState extends State<PageCompleteProfile> {
             ),
             Container(
               padding: EdgeInsets.only(bottom: 8, top: 10),
-              child: InputDateOfBirth(placeholder: (""), name: "Tahun Lahir"),
+              child: InputDateOfBirth(placeholder: (""), name: "*Tahun Lahir"),
             ),
             Container(
               padding: EdgeInsets.only(bottom: 8, top: 1),
@@ -77,7 +76,7 @@ class _PageCompleteProfileState extends State<PageCompleteProfile> {
             Container(
               padding: EdgeInsets.only(bottom: 15, top: 10),
               child: InputGender(
-                label: "Jenis Kelamin",
+                label: "*Jenis Kelamin",
                 onChange: (v) {},
                 placeholder: "  Jenis Kelamin",
               ),
