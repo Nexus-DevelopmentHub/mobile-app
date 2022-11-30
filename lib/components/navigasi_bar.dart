@@ -13,12 +13,12 @@ class NavigasiBar extends StatefulWidget {
 }
 
 class _NavigasiBarState extends State<NavigasiBar> {
-  int Index = 0;
+  int CurentIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: Index,
+        currentIndex: CurentIndex,
         type: BottomNavigationBarType.fixed,
         unselectedItemColor: onSurface,
         selectedItemColor: primary,
@@ -43,7 +43,7 @@ class _NavigasiBarState extends State<NavigasiBar> {
         ],
         onTap: (index) {
           setState(() {
-            Index = index;
+            CurentIndex = index;
           });
         },
       ),
