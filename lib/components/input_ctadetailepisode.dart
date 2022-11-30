@@ -31,7 +31,7 @@ class _CtaDetailEpisodeState extends State<CtaDetailEpisode> {
           },
           child: Text(widget.name),
         ),
-        SizedBox(width: 12),
+        SizedBox(width: 8),
         IconButton(
             padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
             color: neutral,
@@ -39,7 +39,7 @@ class _CtaDetailEpisodeState extends State<CtaDetailEpisode> {
               widget?.onClick?.call();
             },
             icon: Icon(Icons.share_rounded)),
-        SizedBox(width: 12),
+        SizedBox(width: 8),
         IconButton(
             padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
             color: neutral,
