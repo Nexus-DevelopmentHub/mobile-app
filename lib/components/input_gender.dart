@@ -51,7 +51,7 @@ class _InputGenderState extends State<InputGender> {
                   },
                 ),
                 Text(
-                  'laki-laki',
+                  'Laki-laki',
                   style: TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w500,
