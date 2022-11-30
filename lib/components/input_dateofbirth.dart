@@ -101,7 +101,7 @@ class _InputDropdownState extends State<InputDateOfBirth> {
 
   Widget InputDateOfBirth(String type, TextEditingController controller) {
     return Container(
-      width: 160,
+      width: 150,
       height: 40,
       decoration: BoxDecoration(
         color: onSurface,
@@ -140,7 +140,7 @@ class _InputDropdownState extends State<InputDateOfBirth> {
   Widget SelectionField(String type, TextEditingController controller) {
     return Container(
       height: 200,
-      width: 160,
+      width: 150,
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       decoration: BoxDecoration(
           color: onSurface, borderRadius: BorderRadius.circular(16)),
