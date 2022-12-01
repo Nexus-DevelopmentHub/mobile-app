@@ -38,7 +38,6 @@ class _CardEpisodeLargeState extends State<CardEpisodeLarge> {
                   image: NetworkImage(widget.image),
                 )),
           ),
-          SizedBox(height: 4),
           Container(
             child: (Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -51,6 +50,7 @@ class _CardEpisodeLargeState extends State<CardEpisodeLarge> {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
+                SizedBox(height: 4),
                 Text(
                   widget.artist,
                   style: TextStyle(

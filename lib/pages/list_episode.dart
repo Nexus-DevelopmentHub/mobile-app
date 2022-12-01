@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:podcast_app/card_episodelarge.dart';
 import 'package:podcast_app/components/card_episode.dart';
 import '../components/input_search.dart';
 import '../theme/theme.dart';
@@ -46,81 +47,30 @@ class _PageListEpisodeState extends State<PageListEpisode> {
             ),
           ),
         ],
-        body:GridView.count(
-  primary: false,
-  padding: const EdgeInsets.all(20),
-  crossAxisSpacing: 10,
-  mainAxisSpacing: 10,
-  crossAxisCount: 2,
-  children: <Widget>[
-    Container(
-     height: 200,
-                      child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: 2,
-                          itemBuilder: (BuildContext context, int index) {
-                            return CardEpisode(
-                                totalIndex: 2,
-                                index: index,
-                                name: 'Stories & Cities Jakarta',
-                                artist: 'The Fahrul Show',
-                                image:
-                                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDXVBhpoyFQDdjlBcLiiu7i-TU0hlM5iBVdQ&usqp=CAU',
-                                time: '1 Hour, 5 Min');
-                          }),
-    ),
-    Container(
-height: 200,
-                      child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: 2,
-                          itemBuilder: (BuildContext context, int index) {
-                            return CardEpisode(
-                                totalIndex: 2,
-                                index: index,
-                                name: 'Stories & Cities Jakarta',
-                                artist: 'The Fahrul Show',
-                                image:
-                                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDXVBhpoyFQDdjlBcLiiu7i-TU0hlM5iBVdQ&usqp=CAU',
-                                time: '1 Hour, 5 Min');
-                          }),
-    ),
-    Container(
-height: 200,
-                      child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: 2,
-                          itemBuilder: (BuildContext context, int index) {
-                            return CardEpisode(
-                                totalIndex: 2,
-                                index: index,
-                                name: 'Stories & Cities Jakarta',
-                                artist: 'The Fahrul Show',
-                                image:
-                                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDXVBhpoyFQDdjlBcLiiu7i-TU0hlM5iBVdQ&usqp=CAU',
-                                time: '1 Hour, 5 Min');
-                          }),
-    ),
-    Container(
-height: 200,
-                      child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: 2,
-                          itemBuilder: (BuildContext context, int index) {
-                            return CardEpisode(
-                                totalIndex: 2,
-                                index: index,
-                                name: 'Stories & Cities Jakarta',
-                                artist: 'The Fahrul Show',
-                                image:
-                                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDXVBhpoyFQDdjlBcLiiu7i-TU0hlM5iBVdQ&usqp=CAU',
-                                time: '1 Hour, 5 Min');
-                          }),
-
-    ),
-  ],
-)
+        body: GridView.builder(
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            childAspectRatio: 0.7,
           ),
+          padding: EdgeInsets.only(left: 8,right: 8),
+          itemCount: 10,
+          itemBuilder: (BuildContext context, int index) {
+            return Container(
+              margin: EdgeInsets.only(
+                left: 24,
+                right: 24,
+              ),
+              height: 100,
+              child: CardEpisodeLarge(
+                  name: 'Stories & Cities Jakarta',
+                  artist: 'The Fahrul Show',
+                  image:
+                      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDXVBhpoyFQDdjlBcLiiu7i-TU0hlM5iBVdQ&usqp=CAU',
+                  time: '1 Hour, 5 Min'),
+            );
+          },
+        ),
+      ),
     );
   }
 }
