@@ -7,10 +7,7 @@ import '../theme/theme.dart';
 
 class RecentSearch extends StatefulWidget {
   const RecentSearch(
-      {super.key,
-      required this.name,
-      required this.image,
-      this.onClick});
+      {super.key, required this.name, required this.image, this.onClick});
 
   final String name;
   final String image;
@@ -28,31 +25,36 @@ class _RecentSearchState extends State<RecentSearch> {
       height: 56,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Container(
-              height: 56,
-              width: 56,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: Image(image: NetworkImage(widget.image)),
-              )),
-          SizedBox(width: 10),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          Row(
             children: [
               Container(
-                padding: EdgeInsets.only(
-                  top: 8,
-                  bottom: 8,
-                ),
-              ),
-              Text(
-                widget.name,
-                style: TextStyle(
-                  color: neutral,
-                  fontSize: 13,
-                  fontWeight: FontWeight.w600,
-                ),
+                  height: 56,
+                  width: 56,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: Image(image: NetworkImage(widget.image)),
+                  )),
+              SizedBox(width: 10),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    padding: EdgeInsets.only(
+                      top: 8,
+                      bottom: 8,
+                    ),
+                  ),
+                  Text(
+                    widget.name,
+                    style: TextStyle(
+                      color: neutral,
+                      fontSize: 13,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
