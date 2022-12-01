@@ -27,7 +27,7 @@ class _PageSignInState extends State<PageSignIn> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Container(
-              padding: EdgeInsets.only(bottom: 30, top: 8),
+              padding: EdgeInsets.only(bottom: 30, top: 60),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -120,11 +120,13 @@ class _PageSignInState extends State<PageSignIn> {
               width: 10.0,
             ),
             Container(
-              child: Row(children: [
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
                 Align(
                   alignment: Alignment.topCenter,
                   child: Text(
-                      "                              Kamu belum punya akun?",
+                      "Kamu belum punya akun?",
                       style: TextStyle(
                         color: neutral,
                         height: 1,

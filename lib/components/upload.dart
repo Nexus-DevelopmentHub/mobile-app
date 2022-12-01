@@ -67,7 +67,11 @@ class _UploadState extends State<Upload> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           this.file == null
-              ? Image.asset('lib/icons/icons_google.png')
+              ? Image.asset(
+                  'lib/icons/Avatar2.png',
+                  width: 98,
+                  height: 98,
+                )
               : Image.file(this.file!),
           SizedBox(
             width: 24,

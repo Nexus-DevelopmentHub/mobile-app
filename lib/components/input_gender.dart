@@ -24,25 +24,28 @@ class _InputGenderState extends State<InputGender> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            widget.label,
-            style: TextStyle(
+        child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          widget.label,
+          style: TextStyle(
               fontSize: 13, fontWeight: FontWeight.w500, color: neutral),
-            ),
+        ),
         SizedBox(height: 16),
-        Row(children: [
+        Row(mainAxisAlignment: MainAxisAlignment.start, children: [
           Container(
-            width: 164,
+            width: 120,
             height: 20,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Radio(
+                  activeColor: primary,
                   value: 1,
                   groupValue: _value,
+                  fillColor:
+                      MaterialStateColor.resolveWith((states) => primary),
                   onChanged: (value) {
                     widget.onChange('Laki-laki');
                     setState(() {
@@ -62,14 +65,17 @@ class _InputGenderState extends State<InputGender> {
           ),
           SizedBox(width: 16),
           Container(
-            width: 164,
+            width: 120,
             height: 20,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Radio(
+                  activeColor: primary,
                   value: 2,
                   groupValue: _value,
+                  fillColor:
+                      MaterialStateColor.resolveWith((states) => primary),
                   onChanged: (value) {
                     widget.onChange('Perempuan');
                     setState(() {
