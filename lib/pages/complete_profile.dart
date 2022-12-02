@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:podcast_app/components/upload.dart';
 import 'package:podcast_app/components/button_primary.dart';
-import 'package:podcast_app/components/input_text.dart';
 import 'package:podcast_app/components/input_dateofbirth.dart';
 import 'package:podcast_app/components/input_gender.dart';
+import 'package:podcast_app/components/input_text.dart';
+import 'package:podcast_app/components/upload.dart';
+import 'package:podcast_app/route/routes.dart';
 import 'package:podcast_app/theme/theme.dart';
 
 class PageCompleteProfile extends StatefulWidget {
@@ -15,6 +16,7 @@ class PageCompleteProfile extends StatefulWidget {
 
 class _PageCompleteProfileState extends State<PageCompleteProfile> {
   String photourl = "";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -100,11 +102,16 @@ class _PageCompleteProfileState extends State<PageCompleteProfile> {
               ),
             ),
             Container(
-              padding: EdgeInsets.only(
+              padding: const EdgeInsets.only(
                 bottom: 3,
                 top: 12,
               ),
-              child: ButtonPrimary(name: "Selesai"),
+              child: ButtonPrimary(
+                name: "Selesai",
+                onClick: () {
+                  Navigator.of(context).pushNamed(Routes.chooseTopic);
+                },
+              ),
             ),
           ],
         ),

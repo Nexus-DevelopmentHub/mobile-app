@@ -14,31 +14,15 @@ class PageDetailEpisode extends StatefulWidget {
 class _PageDetailEpisodeState extends State<PageDetailEpisode> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      backgroundColor: onNeutral,
-      body: NestedScrollView(
-        physics: NeverScrollableScrollPhysics(),
-        headerSliverBuilder: (context, innerBoxIsScrolled) => [
-          SliverPadding(
-            padding: EdgeInsets.only(left: 8, right: 8),
-            sliver: SliverAppBar(
-              leading: Icon(Icons.arrow_back),
-              forceElevated: innerBoxIsScrolled,
-              backgroundColor: onNeutral,
-              pinned: true,
-              actions: [Icon(Icons.more_vert_rounded)],
-            ),
-          ),
-        ],
-        body: Container(
+    return  SingleChildScrollView(
+        child:Container(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
                 padding: EdgeInsets.only(left: 24, right: 24),
-                child: HeaderDetailEpisode(
+                child: const HeaderDetailEpisode(
                     name: 'Stories & Cities Jakarta',
                     image:
                         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDXVBhpoyFQDdjlBcLiiu7i-TU0hlM5iBVdQ&usqp=CAU',
@@ -80,7 +64,7 @@ class _PageDetailEpisodeState extends State<PageDetailEpisode> {
                 ),
               ),
               Container(
-                padding: EdgeInsets.only(
+                padding: const EdgeInsets.only(
                   left: 24,
                 ),
                 height: 326,
@@ -99,8 +83,6 @@ class _PageDetailEpisodeState extends State<PageDetailEpisode> {
               ),
             ],
           ),
-        ),
-      ),
-    );
+        ));
   }
 }

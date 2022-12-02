@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:podcast_app/components/button_primary.dart';
 import 'package:podcast_app/components/chip_text.dart';
+import 'package:podcast_app/route/routes.dart';
 import 'package:podcast_app/theme/theme.dart';
 
 class PageChooseTopic extends StatefulWidget {
@@ -92,7 +93,9 @@ class _PageChooseTopicState extends State<PageChooseTopic> {
                   ),
                   child: ButtonPrimary(
                     name: "Memulai",
-                    onClick:(){},
+                    onClick:(){
+                      Navigator.of(context).pushNamed(Routes.home);
+                    },
                   ),
                 ),
 

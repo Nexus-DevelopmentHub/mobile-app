@@ -16,14 +16,19 @@ class PageSplashScreen extends StatefulWidget {
 class _PageSplashScreenState extends State<PageSplashScreen> {
   @override
   void initState() {
-//  when user already logged in redirect to home and otherwise redirect to sign in
+    /**
+     * when user already logged in redirect to home and otherwise redirect to sign in
+     */
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      context.read<UserProvider>().checkIsLoggedIn().then((isLoggedIn) =>
+      {
+        if (isLoggedIn)
+          {Navigator.of(context).pushNamed(Routes.home)}
+        else
+          {Navigator.of(context).pushNamed(Routes.signIn)}
+      });
+    });
 
-    context.read<UserProvider>().checkIsLoggedIn().then((isLoggedIn) => {
-          if (isLoggedIn)
-            {Navigator.of(context).pushNamed(Routes.home)}
-          else
-            {Navigator.of(context).pushNamed(Routes.signIn)}
-        });
     super.initState();
   }
 
