@@ -20,6 +20,11 @@ class TopicProvider with ChangeNotifier, DiagnosticableTreeMixin {
   //end region
 
   //region
+  Future<Response> createTopics(){
+    //TODO::
+    return Future.value(Response.Ok(message: ""));
+  }
+
   Future<Response> getListTopics() {
     //TODO: ambil data keseluruhan podcast
     return Future.value(Response.Ok(message: ""));

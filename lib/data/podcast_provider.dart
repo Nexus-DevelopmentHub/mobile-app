@@ -29,12 +29,15 @@ class PodcastProvider with ChangeNotifier, DiagnosticableTreeMixin {
     return Future.value(Response.Ok(message: ""));
   }
 
-  //end region
-
-  //region
   Future<Response> getListPodcast() {
     //TODO: ambil data keseluruhan podcast
     return Future.value(Response.Ok(message: ""));
   }
+
+  Future<Response> getTrendingPodcast() async {
+    //TODO: ambil data  episode berdasarkan likes terbanyak
+    return Future.value(Response.Ok(message: ""));
+  }
+
 //end region
 }

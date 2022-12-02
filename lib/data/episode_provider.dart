@@ -14,6 +14,10 @@ class EpisodeProvider with ChangeNotifier, DiagnosticableTreeMixin {
 
   List<EpisodeModel> get episodes => _episodes;
 
+  List<EpisodeModel> _topEpisodes = [];
+
+  List<EpisodeModel> get topEpisodes => _topEpisodes;
+
   //end region
 
   //region firebase
@@ -29,12 +33,14 @@ class EpisodeProvider with ChangeNotifier, DiagnosticableTreeMixin {
     return Future.value(Response.Ok(message: ""));
   }
 
-  //end region
-
-  //region
   Future<Response> getListEpisodeByPodcast(String podcastId) {
     //TODO: ambil data  episode berdasarkan podcast
     return Future.value(Response.Ok(message: ""));
   }
-//
+
+  Future<Response> getTopEpisodes() async {
+    //TODO: ambil data  episode berdasarkan likes terbanyak
+    return Future.value(Response.Ok(message: ""));
+  }
+//end region
 }

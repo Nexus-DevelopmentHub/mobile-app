@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
@@ -31,9 +33,6 @@ class UserProvider with ChangeNotifier, DiagnosticableTreeMixin {
     return Future.value(Response.Ok(message: ""));
   }
 
-  //endregion
-
-  //region
   Future<bool> checkIsLoggedIn() async {
     //TODO :: cek user sudah login atau belum
     _isLoggedIn = true;
@@ -41,45 +40,37 @@ class UserProvider with ChangeNotifier, DiagnosticableTreeMixin {
     return false;
   }
 
-  //end region
-
-  //region
   Future<Response> signInWithEmailAndPassword(String email, String password) {
     //TODO :: sign with email and password
     return Future.value(Response.Ok(message: ""));
   }
 
-  //end region
-
-  //region
   Future<Response> signInWithGoogle() {
     //TODO :: sign with google
     return Future.value(Response.Ok(message: ""));
   }
 
-  //endregion
-
-//region register
   Future<Response> registerWithEmailAndPassword(
       String email, String password, String name) {
     //TODO:: register with email and password
     return Future.value(Response.Ok(message: ""));
   }
 
-//end region
+  Future<Response> uploadProfilePicture(File file,String userUid){
+    return Future.value(Response.Ok(message: ""));
+  }
 
-  // region
   Future<Response> completeProfile(UserModel arg) {
     //TODO:: complete profile
     return Future.value(Response.Ok(message: ""));
   }
 
-  // end region
-
-  // region
   Future<Response> saveMyTopic(List<TopicModel> topics) {
     return Future.value(Response.Ok(message: ""));
   }
 
-  // end region
+  Future<Response> signOut()async{
+    return Future.value(Response.Ok(message: ""));
+  }
+  //end region
 }
