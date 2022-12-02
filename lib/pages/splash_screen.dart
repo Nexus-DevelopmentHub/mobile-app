@@ -16,12 +16,15 @@ class _PageSplashScreenState extends State<PageSplashScreen> {
     /**
      * when user already logged in redirect to home and otherwise redirect to sign in
      */
-    context.read<UserProvider>().checkIsLoggedIn().then((isLoggedIn) => {
-          if (isLoggedIn)
-            {Navigator.of(context).pushNamed(Routes.home)}
-          else
-            {Navigator.of(context).pushNamed(Routes.signIn)}
-        });
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      context.read<UserProvider>().checkIsLoggedIn().then((isLoggedIn) =>
+      {
+        if (isLoggedIn)
+          {Navigator.of(context).pushNamed(Routes.home)}
+        else
+          {Navigator.of(context).pushNamed(Routes.signIn)}
+      });
+    });
     super.initState();
   }
 

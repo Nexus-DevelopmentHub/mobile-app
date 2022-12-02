@@ -5,6 +5,7 @@ import 'package:podcast_app/components/input_text.dart';
 import 'package:podcast_app/components/button_primary.dart';
 import 'package:podcast_app/components/button_socialgoogle.dart';
 import 'package:podcast_app/components/input_password.dart';
+import 'package:podcast_app/route/routes.dart';
 import 'package:podcast_app/theme/style/button_google.dart';
 import 'package:podcast_app/theme/theme.dart';
 
@@ -114,7 +115,9 @@ class _PageSignInState extends State<PageSignIn> {
               padding: EdgeInsets.only(bottom: 150, top: 10),
               child: ButtonGoogle(name: "Masuk dengan Google"),
             ),
-            ButtonPrimary(name: "Masuk"),
+            ButtonPrimary(name: "Masuk",onClick: (){
+              Navigator.of(context).pushNamed(Routes.completeProfile);
+            },),
             SizedBox(
               height: 10.0,
               width: 10.0,

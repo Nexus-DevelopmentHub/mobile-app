@@ -36,9 +36,7 @@ class _SliderBannerState extends State<SliderBanner> {
   Widget build(BuildContext context) {
     return Container(
       height: 200,
-      child: 
-        Expanded(
-          child: CarouselSlider(
+      child: CarouselSlider(
             items: imgList
                 .map((item) => Container(
                       child: Container(
@@ -93,7 +91,7 @@ class _SliderBannerState extends State<SliderBanner> {
                   });
                 }),
           ),
-        ),
+
     );
   }
 }

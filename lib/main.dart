@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
           title: 'Podcast App',
           theme: theme,
           onGenerateRoute: RoutePage.generateRoute,
-          initialRoute: Routes.signUp,
+          initialRoute: Routes.splash,
           debugShowCheckedModeBanner: false,
         ));
   }

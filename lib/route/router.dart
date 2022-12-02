@@ -4,7 +4,7 @@ import 'package:podcast_app/pages/complete_profile.dart';
 import 'package:podcast_app/pages/detail_episode.dart';
 import 'package:podcast_app/pages/detail_player.dart';
 import 'package:podcast_app/pages/detail_podcast.dart';
-import 'package:podcast_app/pages/home.dart';
+import 'package:podcast_app/pages/base_page.dart';
 import 'package:podcast_app/pages/list_episode.dart';
 import 'package:podcast_app/pages/search.dart';
 import 'package:podcast_app/pages/sign_in.dart';
@@ -28,7 +28,7 @@ class RoutePage{
       case Routes.signUp:
         return MaterialPageRoute(builder: (_)=>const PageSignUp());
       case Routes.home:
-        return MaterialPageRoute(builder: (_)=>const PageHome());
+        return MaterialPageRoute(builder: (_)=>const BasePage());
       case Routes.search:
         return MaterialPageRoute(builder: (_)=>const PageSearch());
       case Routes.detailPodcast:

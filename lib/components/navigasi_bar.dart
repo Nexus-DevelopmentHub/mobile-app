@@ -5,24 +5,27 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:podcast_app/theme/theme.dart';
 
 class NavigasiBar extends StatefulWidget {
-  const NavigasiBar({super.key});
+  const NavigasiBar({super.key,this.selected = 0,required this.onItemClicked});
+
+  final Function(int) onItemClicked;
+  final int selected;
 
   @override
   State<NavigasiBar> createState() => _NavigasiBarState();
 }
 
 class _NavigasiBarState extends State<NavigasiBar> {
-  int CurentIndex = 0;
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: CurentIndex,
+
+    return BottomNavigationBar(
+        currentIndex: widget.selected,
         type: BottomNavigationBarType.fixed,
         unselectedItemColor: onSurface,
         selectedItemColor: primary,
         backgroundColor: onNeutral,
-        items: [
+        items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home_rounded),
             label: 'Home',
@@ -41,11 +44,8 @@ class _NavigasiBarState extends State<NavigasiBar> {
           ),
         ],
         onTap: (index) {
-          setState(() {
-            CurentIndex = index;
-          });
+          widget.onItemClicked(index);
         },
-      ),
-    );
+      );
   }
 }
