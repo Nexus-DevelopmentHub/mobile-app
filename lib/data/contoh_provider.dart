@@ -81,4 +81,17 @@ class UserProvider with ChangeNotifier, DiagnosticableTreeMixin {
     return Response.Ok(message: "");
   }
 //end region
+
+  Future<Response> autentikas(String email,String password) async {
+    try{
+      var result = await auth.signInWithEmailAndPassword(email: email, password: password);
+
+    }on FirebaseAuthException catch(e){
+      if(e.message == ""){
+
+      }
+    }
+
+    return Response.Ok(message: "");
+  }
 }
