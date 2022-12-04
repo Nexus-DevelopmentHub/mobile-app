@@ -28,7 +28,13 @@ class _PageSignInState extends State<PageSignIn> {
         .signInWithEmailAndPassword(email, password)
         .then((value) => {
           if(value.success) {
-            
+            if(value.shouldCompleteProfile) {
+              Navigator.of(context).pushNamed(Routes.completeProfile)
+            } else {
+              Navigator.of(context).pushNamed(Routes.home)
+            }
+          } else {
+            //TO DO KETIKA GAGAL
           }
         });
   }

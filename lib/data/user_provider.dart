@@ -45,8 +45,23 @@ class UserProvider with ChangeNotifier, DiagnosticableTreeMixin {
       String email, String password) async {
     //TODO :: sign with email and password
     try {
-      final Credential = await auth.signInWithEmailAndPassword(
+      final credential = await auth.signInWithEmailAndPassword(
           email: email, password: password);
+
+      if (credential.user == null) {
+        return Future.value(Response.Failed(message: 'Login Gagal'));
+      }
+      final alreadyCompleteProfile = await db
+          .collection('USER')
+          .doc(credential.user!.uid)
+          .withConverter(
+              fromFirestore: UserModel.fromFirestore,
+              toFirestore: (user, _) => user.toFirestore())
+          .get();
+      if (!alreadyCompleteProfile.exists) {
+        return Future.value(
+            Response.OkCompleteProfile(message: 'Login Berhasil'));
+      }
 
       return Future.value(Response.Ok(message: ""));
     } on FirebaseAuthException catch (e) {
