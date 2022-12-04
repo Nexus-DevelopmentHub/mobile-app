@@ -14,6 +14,9 @@ class PodcastProvider with ChangeNotifier, DiagnosticableTreeMixin {
 
   List<PodcastModel> get podcasts => _podcasts;
 
+  List<PodcastModel> _searchPodcast = [];
+  List<PodcastModel> get SearchPodcast => _searchPodcast;
+
   //end region
 
   //region firebase
@@ -24,10 +27,27 @@ class PodcastProvider with ChangeNotifier, DiagnosticableTreeMixin {
   //end region
 
   //region
-  Future<Response> getDetailPodcast(String podcastId) {
+  Future<Response> getDetailPodcast(String podcastId) async {
     //TODO : ambil podcast berdasarkan id
-    return Future.value(Response.Ok(message: ""));
-  }
+    final data = await db
+        .collection("PODCAST")
+        .doc(podcastId)
+        .withConverter(
+            fromFirestore: PodcastModel.fromFirestore,
+            toFirestore: (dp, _) => dp.toFirestore())
+        .get();
+
+    if (data.exists) {
+      final finalResult = data.data();
+      if (finalResult != null) {
+        _detailPodcast = finalResult;
+        notifyListeners();
+      }
+      return Future.value(Response.Ok(message: ""));
+      } else {
+      return Future.value(Response.Failed(message: ""));
+      }
+    }
 
   Future<Response> getListPodcast() {
     //TODO: ambil data keseluruhan podcast
@@ -36,6 +56,23 @@ class PodcastProvider with ChangeNotifier, DiagnosticableTreeMixin {
 
   Future<Response> getTrendingPodcast() async {
     //TODO: ambil data  episode berdasarkan likes terbanyak
+    return Future.value(Response.Ok(message: ""));
+  }
+
+  Future<Response> searchPodcast(String keyword) async {
+    final data = await db
+        .collection("PPODCAST")
+        .where("title", isEqualTo: keyword)
+        .withConverter(
+            fromFirestore: PodcastModel.fromFirestore,
+            toFirestore: (podcast, _) => podcast.toFirestore())
+        .get();
+
+    final convertData = data.docs.map((podcast) => podcast.data());
+
+    _searchPodcast.addAll(convertData);
+    notifyListeners();
+
     return Future.value(Response.Ok(message: ""));
   }
 

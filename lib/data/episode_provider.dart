@@ -28,9 +28,26 @@ class EpisodeProvider with ChangeNotifier, DiagnosticableTreeMixin {
   //end region
 
   //region
-  Future<Response> getDetailEpisode(String podcastId) {
+  Future<Response> getDetailEpisode(String episodeId) async {
     //TODO : ambil episode berdasarkan id
-    return Future.value(Response.Ok(message: ""));
+    final data = await db
+        .collection("EPISODE")
+        .doc(episodeId)
+        .withConverter(
+            fromFirestore: EpisodeModel.fromFirestore,
+            toFirestore: (e, _) => e.toFirestore())
+        .get();
+
+    if (data.exists) {
+      final finalResult = data.data();
+      if (finalResult != null) {
+        _detailEpisode = finalResult;
+        notifyListeners();
+      }
+      return Future.value(Response.Ok(message: "Berhasil"));
+    } else {
+      return Future.value(Response.Failed(message: "Gagal"));
+    }
   }
 
   Future<Response> getListEpisodeByPodcast(String podcastId) {
