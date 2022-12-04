@@ -23,7 +23,14 @@ class _PageSignInState extends State<PageSignIn> {
   String password = "";
 
   signInWithEmailAndPassword() {
-    context.read<UserProvider>().
+    context
+        .read<UserProvider>()
+        .signInWithEmailAndPassword(email, password)
+        .then((value) => {
+          if(value.success) {
+            
+          }
+        });
   }
 
   @override
