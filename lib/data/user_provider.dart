@@ -1,7 +1,7 @@
 import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:podcast_app/models/callback_model.dart';
 import 'package:podcast_app/models/topic_model.dart';
@@ -42,15 +42,17 @@ class UserProvider with ChangeNotifier, DiagnosticableTreeMixin {
 
   Future<Response> signInWithEmailAndPassword(
       String email, String password) async {
-    //TODO :: sign with email and password
     try {
-
+      //sign in with email and password
       final credential = await auth.signInWithEmailAndPassword(
           email: email, password: password);
 
+      //if user empty sign in should be failed
       if (credential.user == null) {
         return Future.value(Response.Failed(message: 'Login Gagal'));
       }
+
+      //check if profile already exist
       final alreadyCompleteProfile = await db
           .collection('USER')
           .doc(credential.user!.uid)
@@ -58,6 +60,7 @@ class UserProvider with ChangeNotifier, DiagnosticableTreeMixin {
               fromFirestore: UserModel.fromFirestore,
               toFirestore: (user, _) => user.toFirestore())
           .get();
+      //tell app that user neet complete profile after loggedin
       if (!alreadyCompleteProfile.exists) {
         return Future.value(
             Response.OkCompleteProfile(message: 'Login Berhasil'));
@@ -122,5 +125,5 @@ class UserProvider with ChangeNotifier, DiagnosticableTreeMixin {
   Future<Response> signOut() async {
     return Future.value(Response.Ok(message: ""));
   }
-  //end region
+//end region
 }
