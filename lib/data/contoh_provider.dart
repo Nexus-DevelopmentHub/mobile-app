@@ -2,10 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:podcast_app/models/callback_model.dart';
+import 'package:podcast_app/models/episode_model.dart';
+import 'package:podcast_app/models/podcast_model.dart';
 import 'package:podcast_app/models/topic_model.dart';
 import 'package:podcast_app/models/user_model.dart';
 
-class UserProvider with ChangeNotifier, DiagnosticableTreeMixin {
+class ContohProvider with ChangeNotifier, DiagnosticableTreeMixin {
   //region state
   bool _isLoggedIn = false;
 
@@ -22,6 +24,10 @@ class UserProvider with ChangeNotifier, DiagnosticableTreeMixin {
   List<TopicModel> _myTopics = [];
 
   List<TopicModel> get myTopics => _myTopics;
+
+  List<PodcastModel> _podcast = [];
+
+  List<PodcastModel> get podcast => _podcast;
 
   //end region
 
@@ -45,6 +51,26 @@ class UserProvider with ChangeNotifier, DiagnosticableTreeMixin {
 
     return Response.Ok(message: "");
   }
+
+  Future<Response> getDataListPodcast() async {
+
+    final data = await db.collection("PODCAST")
+    .doc("42356748")
+    .collection("EPISODE")
+    .doc("esanska")
+    .withConverter(
+        fromFirestore: EpisodeModel.fromFirestore,
+        toFirestore: (eps,_)=>eps.toFirestore())
+    .get();
+
+    if(data.exists) {
+      final convert = data.data();
+    }
+
+    return Response.Ok(message: "");
+  }
+
+
 
   //ambil salah satu data
   Future<Response> getDetail() async {
