@@ -44,6 +44,7 @@ class UserProvider with ChangeNotifier, DiagnosticableTreeMixin {
       String email, String password) async {
     //TODO :: sign with email and password
     try {
+
       final credential = await auth.signInWithEmailAndPassword(
           email: email, password: password);
 

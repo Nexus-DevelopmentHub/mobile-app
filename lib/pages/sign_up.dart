@@ -44,7 +44,7 @@ class _PageSignUpState extends State<PageSignUp> {
     return Scaffold(
         backgroundColor: onPrimary,
         body: Container(
-          padding: EdgeInsets.only(right: 24, left: 24, top: 60, bottom: 40),
+          padding: const EdgeInsets.only(right: 24, left: 24, top: 60, bottom: 40),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -53,7 +53,7 @@ class _PageSignUpState extends State<PageSignUp> {
                 style: GoogleFonts.poppins(
                     fontSize: 28, fontWeight: FontWeight.w600, color: surface),
               ),
-              SizedBox(height: 24),
+              const SizedBox(height: 24),
               InputText(
                   name: "Nama",
                   onChange: (v) {
@@ -62,7 +62,7 @@ class _PageSignUpState extends State<PageSignUp> {
                     });
                   },
                   placeholder: "Nama lengkap"),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               InputText(
                   name: "Email",
                   onChange: (v) {
@@ -71,7 +71,7 @@ class _PageSignUpState extends State<PageSignUp> {
                     });
                   },
                   placeholder: "Masukkan email"),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               InputPassword(
                   name: 'Password',
                   onChange: (v) {
@@ -80,44 +80,42 @@ class _PageSignUpState extends State<PageSignUp> {
                     });
                   },
                   placeholder: 'Masukan Password Kamu'),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               Container(
-                child: Container(
-                  padding: EdgeInsets.only(top: 2, bottom: 2),
-                  child: Row(
-                    children: [
-                      Checkbox(
-                          value: isChecked,
-                          onChanged: (bool? value) {
-                            setState(() {
-                              isChecked = value!;
-                            });
-                          }),
-                      Text(
-                        "Saya setuju dengan",
-                        style: GoogleFonts.poppins(
-                            fontSize: 10,
-                            fontWeight: FontWeight.w500,
-                            color: surface),
-                      ),
-                      SizedBox(width: 2),
-                      Text(
-                        "Syarat & Ketentuan",
-                        style: GoogleFonts.poppins(
-                            fontSize: 10,
-                            fontWeight: FontWeight.w500,
-                            color: primary),
-                      ),
-                      SizedBox(width: 2),
-                      Text(
-                        "yang berlaku.",
-                        style: GoogleFonts.poppins(
-                            fontSize: 10,
-                            fontWeight: FontWeight.w500,
-                            color: surface),
-                      ),
-                    ],
-                  ),
+                padding: const EdgeInsets.only(top: 2, bottom: 2),
+                child: Row(
+                  children: [
+                    Checkbox(
+                        value: isChecked,
+                        onChanged: (bool? value) {
+                          setState(() {
+                            isChecked = value!;
+                          });
+                        }),
+                    Text(
+                      "Saya setuju dengan",
+                      style: GoogleFonts.poppins(
+                          fontSize: 10,
+                          fontWeight: FontWeight.w500,
+                          color: surface),
+                    ),
+                    SizedBox(width: 2),
+                    Text(
+                      "Syarat & Ketentuan",
+                      style: GoogleFonts.poppins(
+                          fontSize: 10,
+                          fontWeight: FontWeight.w500,
+                          color: primary),
+                    ),
+                    SizedBox(width: 2),
+                    Text(
+                      "yang berlaku.",
+                      style: GoogleFonts.poppins(
+                          fontSize: 10,
+                          fontWeight: FontWeight.w500,
+                          color: surface),
+                    ),
+                  ],
                 ),
               ),
               SizedBox(height: 24),
@@ -148,12 +146,14 @@ class _PageSignUpState extends State<PageSignUp> {
                         //TODO Handle login google
                       },
                     ),
-                    SizedBox(height: 90),
+                    const SizedBox(height: 90),
                     ButtonPrimary(
                       name: "Daftar gratis",
-                      onClick: registerWithEmailAndPassword(),
+                      onClick:(){
+                        registerWithEmailAndPassword();
+                      },
                     ),
-                    SizedBox(height: 31),
+                    const SizedBox(height: 31),
                     GestureDetector(
                       onTap: () {
                         //TODO Handle jalur masuk ketika sudah punya akun
@@ -162,7 +162,7 @@ class _PageSignUpState extends State<PageSignUp> {
                         height: 50,
                         width: 328,
                         padding:
-                            EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                            const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
