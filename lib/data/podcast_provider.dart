@@ -15,6 +15,7 @@ class PodcastProvider with ChangeNotifier, DiagnosticableTreeMixin {
   List<PodcastModel> get podcasts => _podcasts;
 
   List<PodcastModel> _searchPodcast = [];
+
   List<PodcastModel> get SearchPodcast => _searchPodcast;
 
   //end region
@@ -28,7 +29,7 @@ class PodcastProvider with ChangeNotifier, DiagnosticableTreeMixin {
 
   //region
   Future<Response> getDetailPodcast(String podcastId) async {
-    //TODO : ambil podcast berdasarkan id
+    //get data podcast by id
     final data = await db
         .collection("PODCAST")
         .doc(podcastId)
@@ -37,17 +38,21 @@ class PodcastProvider with ChangeNotifier, DiagnosticableTreeMixin {
             toFirestore: (dp, _) => dp.toFirestore())
         .get();
 
+    //check if the data has found
     if (data.exists) {
+      //get actual data
       final finalResult = data.data();
+      //make sure the data is not null
       if (finalResult != null) {
+        //assign data to state and notify subscriber
         _detailPodcast = finalResult;
         notifyListeners();
       }
       return Future.value(Response.Ok(message: ""));
-      } else {
+    } else {
       return Future.value(Response.Failed(message: ""));
-      }
     }
+  }
 
   Future<Response> getListPodcast() {
     //TODO: ambil data keseluruhan podcast
@@ -60,19 +65,23 @@ class PodcastProvider with ChangeNotifier, DiagnosticableTreeMixin {
   }
 
   Future<Response> searchPodcast(String keyword) async {
+    //get data by title with keyword is exist
     final data = await db
-        .collection("PPODCAST")
+        .collection("PODCAST")
         .where("title", isEqualTo: keyword)
         .withConverter(
             fromFirestore: PodcastModel.fromFirestore,
             toFirestore: (podcast, _) => podcast.toFirestore())
         .get();
 
+    //convert in array [PodcastModel]
     final convertData = data.docs.map((podcast) => podcast.data());
 
+    //notify apps the data has changed
     _searchPodcast.addAll(convertData);
     notifyListeners();
 
+    //always return success
     return Future.value(Response.Ok(message: ""));
   }
 

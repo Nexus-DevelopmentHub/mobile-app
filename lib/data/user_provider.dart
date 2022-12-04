@@ -1,7 +1,8 @@
 import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:podcast_app/models/callback_model.dart';
 import 'package:podcast_app/models/topic_model.dart';
@@ -13,6 +14,10 @@ class UserProvider with ChangeNotifier, DiagnosticableTreeMixin {
 
   bool get isLoggedIn => _isLoggedIn;
 
+  String _completeProfilePictureUrl = "";
+
+  String get completeProfilePictureUrl => _completeProfilePictureUrl;
+
   UserModel _user = UserModel();
 
   UserModel get user => _user;
@@ -23,9 +28,11 @@ class UserProvider with ChangeNotifier, DiagnosticableTreeMixin {
 
   //end region
 
-  FirebaseFirestore get db => FirebaseFirestore.instance;
+  FirebaseFirestore  db = FirebaseFirestore.instance;
 
-  FirebaseAuth get auth => FirebaseAuth.instance;
+  FirebaseAuth  auth = FirebaseAuth.instance;
+
+  FirebaseStorage  storage = FirebaseStorage.instance;
 
   //region
   Future<Response> getMyProfile() {
@@ -33,31 +40,37 @@ class UserProvider with ChangeNotifier, DiagnosticableTreeMixin {
     return Future.value(Response.Ok(message: ""));
   }
 
+  ////https://stackoverflow.com/questions/65221515/flutter-firebase-logged-in-user-returns-a-null-currentuser-after-sign-in
   Future<bool> checkIsLoggedIn() async {
-    //TODO :: cek user sudah login atau belum
-    _isLoggedIn = true;
-    notifyListeners();
-    return false;
+    auth.authStateChanges()
+    .listen((event) {
+      _isLoggedIn = event != null;
+      notifyListeners();
+    });
+    return _isLoggedIn;
   }
 
-  Future<Response> signInWithEmailAndPassword(
-      String email, String password) async {
-    //TODO :: sign with email and password
+  Future<Response> signInWithEmailAndPassword(String email,
+      String password) async {
     try {
-
+      //sign in with email and password
       final credential = await auth.signInWithEmailAndPassword(
           email: email, password: password);
 
+      //if user empty sign in should be failed
       if (credential.user == null) {
         return Future.value(Response.Failed(message: 'Login Gagal'));
       }
+
+      //check if profile already exist
       final alreadyCompleteProfile = await db
           .collection('USER')
           .doc(credential.user!.uid)
           .withConverter(
-              fromFirestore: UserModel.fromFirestore,
-              toFirestore: (user, _) => user.toFirestore())
+          fromFirestore: UserModel.fromFirestore,
+          toFirestore: (user, _) => user.toFirestore())
           .get();
+      //tell app that user neet complete profile after loggedin
       if (!alreadyCompleteProfile.exists) {
         return Future.value(
             Response.OkCompleteProfile(message: 'Login Berhasil'));
@@ -81,15 +94,15 @@ class UserProvider with ChangeNotifier, DiagnosticableTreeMixin {
     return Future.value(Response.Ok(message: ""));
   }
 
-  Future<Response> registerWithEmailAndPassword(
-      String email, String password, String name) async {
+  Future<Response> registerWithEmailAndPassword(String email, String password,
+      String name) async {
     //TODO :: sign up
     try {
       final credential = await auth.createUserWithEmailAndPassword(
           email: email, password: password);
 
       final user = UserModel(name: name);
-      final alreadyName = await db
+      await db
           .collection('USER')
           .doc(credential.user!.uid)
           .set(user.toFirestore());
@@ -106,21 +119,52 @@ class UserProvider with ChangeNotifier, DiagnosticableTreeMixin {
     }
   }
 
-  Future<Response> uploadProfilePicture(File file, String userUid) {
-    return Future.value(Response.Ok(message: ""));
-  }
+  Future<Response> uploadProfilePicture(File file) async {
+    //get userUid for name image ex: userUid.jpg
+    //https://stackoverflow.com/questions/65221515/flutter-firebase-logged-in-user-returns-a-null-currentuser-after-sign-in
+    var currentUser = auth.currentUser;
+    if (currentUser == null) {
+      auth.authStateChanges().listen((event) {
+        currentUser = event;
+      });
+    }
 
-  Future<Response> completeProfile(UserModel arg) {
-    //TODO:: complete profile
-    return Future.value(Response.Ok(message: ""));
-  }
+    final userId = currentUser?.uid ?? DateTime.now().microsecondsSinceEpoch.toString();
+    //create folder and location file
+    final profileRef = storage
+        .ref()
+        .child("USER_PROFILE")
+        .child("$userId.jpg");
 
-  Future<Response> saveMyTopic(List<TopicModel> topics) {
-    return Future.value(Response.Ok(message: ""));
-  }
+    try {
+      //start uplaoding
+      await profileRef.putFile(file);
 
-  Future<Response> signOut() async {
+      //save upload url temporary
+      _completeProfilePictureUrl = await profileRef.getDownloadURL();
+      notifyListeners();
+
+      return Response.Ok(message: "Gambar profile berhasil di upload");
+    } on FirebaseException catch (e) {
+      return Response.Failed(message: e.message.toString());
+    }
+
+
     return Future.value(Response.Ok(message: ""));
   }
-  //end region
 }
+
+Future<Response> completeProfile(UserModel arg) {
+  //TODO:: complete profile
+  return Future.value(Response.Ok(message: ""));
+}
+
+Future<Response> saveMyTopic(List<TopicModel> topics) {
+  return Future.value(Response.Ok(message: ""));
+}
+
+Future<Response> signOut() async {
+  return Future.value(Response.Ok(message: ""));
+}
+//end region
+
