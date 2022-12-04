@@ -14,6 +14,9 @@ class PodcastProvider with ChangeNotifier, DiagnosticableTreeMixin {
 
   List<PodcastModel> get podcasts => _podcasts;
 
+  List<PodcastModel> _searchPodcast = [];
+  List<PodcastModel> get SearchPodcast => _searchPodcast;
+
   //end region
 
   //region firebase
@@ -36,6 +39,23 @@ class PodcastProvider with ChangeNotifier, DiagnosticableTreeMixin {
 
   Future<Response> getTrendingPodcast() async {
     //TODO: ambil data  episode berdasarkan likes terbanyak
+    return Future.value(Response.Ok(message: ""));
+  }
+
+  Future<Response> searchPodcast(String keyword) async {
+    final data = await db
+        .collection("PPODCAST")
+        .where("title", isEqualTo: keyword)
+        .withConverter(
+            fromFirestore: PodcastModel.fromFirestore,
+            toFirestore: (podcast, _) => podcast.toFirestore())
+        .get();
+
+    final convertData = data.docs.map((podcast) => podcast.data());
+
+    _searchPodcast.addAll(convertData);
+    notifyListeners();
+
     return Future.value(Response.Ok(message: ""));
   }
 
