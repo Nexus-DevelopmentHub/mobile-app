@@ -5,9 +5,11 @@ import 'package:podcast_app/components/input_text.dart';
 import 'package:podcast_app/components/button_primary.dart';
 import 'package:podcast_app/components/button_socialgoogle.dart';
 import 'package:podcast_app/components/input_password.dart';
+import 'package:podcast_app/data/user_provider.dart';
 import 'package:podcast_app/route/routes.dart';
 import 'package:podcast_app/theme/style/button_google.dart';
 import 'package:podcast_app/theme/theme.dart';
+import 'package:provider/provider.dart';
 
 class PageSignIn extends StatefulWidget {
   const PageSignIn({Key? key}) : super(key: key);
@@ -17,7 +19,13 @@ class PageSignIn extends StatefulWidget {
 }
 
 class _PageSignInState extends State<PageSignIn> {
-  String emaillogin = "";
+  String email = "";
+  String password = "";
+
+  signInWithEmailAndPassword() {
+    context.read<UserProvider>().
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,14 +54,24 @@ class _PageSignInState extends State<PageSignIn> {
               ),
             ),
             InputText(
-                name: "Email", onChange: (v) {}, placeholder: "Email Kamu"),
+                name: "Email",
+                onChange: (v) {
+                  setState(() {
+                    email = v;
+                  });
+                },
+                placeholder: "Email Kamu"),
             SizedBox(
               height: 20.0,
               width: 10.0,
             ),
             InputPassword(
                 name: "Password",
-                onChange: (v) {},
+                onChange: (v) {
+                  setState(() {
+                    password = v;
+                  });
+                },
                 placeholder: "Masukan password kamu"),
             SizedBox(
               height: 40.0,
@@ -115,21 +133,22 @@ class _PageSignInState extends State<PageSignIn> {
               padding: EdgeInsets.only(bottom: 150, top: 10),
               child: ButtonGoogle(name: "Masuk dengan Google"),
             ),
-            ButtonPrimary(name: "Masuk",onClick: (){
-              Navigator.of(context).pushNamed(Routes.completeProfile);
-            },),
+            ButtonPrimary(
+              name: "Masuk",
+              onClick: () {
+                Navigator.of(context).pushNamed(Routes.completeProfile);
+              },
+            ),
             SizedBox(
               height: 10.0,
               width: 10.0,
             ),
             Container(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
+              child:
+                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                 Align(
                   alignment: Alignment.topCenter,
-                  child: Text(
-                      "Kamu belum punya akun?",
+                  child: Text("Kamu belum punya akun?",
                       style: TextStyle(
                         color: neutral,
                         height: 1,
