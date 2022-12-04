@@ -27,10 +27,27 @@ class PodcastProvider with ChangeNotifier, DiagnosticableTreeMixin {
   //end region
 
   //region
-  Future<Response> getDetailPodcast(String podcastId) {
+  Future<Response> getDetailPodcast(String podcastId) async {
     //TODO : ambil podcast berdasarkan id
-    return Future.value(Response.Ok(message: ""));
-  }
+    final data = await db
+        .collection("PODCAST")
+        .doc(podcastId)
+        .withConverter(
+            fromFirestore: PodcastModel.fromFirestore,
+            toFirestore: (dp, _) => dp.toFirestore())
+        .get();
+
+    if (data.exists) {
+      final finalResult = data.data();
+      if (finalResult != null) {
+        _detailPodcast = finalResult;
+        notifyListeners();
+      }
+      return Future.value(Response.Ok(message: ""));
+      } else {
+      return Future.value(Response.Failed(message: ""));
+      }
+    }
 
   Future<Response> getListPodcast() {
     //TODO: ambil data keseluruhan podcast
