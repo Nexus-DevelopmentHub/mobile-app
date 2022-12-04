@@ -28,11 +28,11 @@ class UserProvider with ChangeNotifier, DiagnosticableTreeMixin {
 
   //end region
 
-  FirebaseFirestore get db => FirebaseFirestore.instance;
+  FirebaseFirestore  db = FirebaseFirestore.instance;
 
-  FirebaseAuth get auth => FirebaseAuth.instance;
+  FirebaseAuth  auth = FirebaseAuth.instance;
 
-  FirebaseStorage get storage => FirebaseStorage.instance;
+  FirebaseStorage  storage = FirebaseStorage.instance;
 
   //region
   Future<Response> getMyProfile() {
@@ -42,14 +42,12 @@ class UserProvider with ChangeNotifier, DiagnosticableTreeMixin {
 
   ////https://stackoverflow.com/questions/65221515/flutter-firebase-logged-in-user-returns-a-null-currentuser-after-sign-in
   Future<bool> checkIsLoggedIn() async {
-
-
-    final user = await auth.authStateChanges()
-    .first;
-
-    _isLoggedIn = _user != null;
-    notifyListeners();
-    return user != null;
+    auth.authStateChanges()
+    .listen((event) {
+      _isLoggedIn = event != null;
+      notifyListeners();
+    });
+    return _isLoggedIn;
   }
 
   Future<Response> signInWithEmailAndPassword(String email,
