@@ -173,7 +173,9 @@ class _PageSignInState extends State<PageSignIn> {
                     style: TextButton.styleFrom(
                       backgroundColor: onNeutral,
                     ),
-                    onPressed: () {},
+                    onPressed: () {setState(() {
+                      Navigator.of(context).pushNamed(Routes.signUp);
+                    });},
                     child: Text(
                       "Daftar disini",
                       style: TextStyle(

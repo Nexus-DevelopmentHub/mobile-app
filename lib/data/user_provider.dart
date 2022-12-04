@@ -6,7 +6,6 @@ import 'package:flutter/foundation.dart';
 import 'package:podcast_app/models/callback_model.dart';
 import 'package:podcast_app/models/topic_model.dart';
 import 'package:podcast_app/models/user_model.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 
 class UserProvider with ChangeNotifier, DiagnosticableTreeMixin {
   //region state
@@ -77,37 +76,33 @@ class UserProvider with ChangeNotifier, DiagnosticableTreeMixin {
 
   Future<Response> signInWithGoogle() async {
     //TODO :: sign with google
-    try {
-      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
-      final GoogleSignInAuthentication? googleAuth =
-          await googleUser?.authentication;
-
-      final UserCredential = await GoogleAuthProvider.credential(
-        accessToken: googleAuth?.accessToken,
-        idToken: googleAuth?.idToken,
-      );
-
-      final result =
-          await FirebaseAuth.instance.signInWithCredential(UserCredential);
-      return Future.value(Response.Ok(message: 'Berhasil Login'));
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'account-exists-with-different-credential') {
-        return Future.value(Response.Failed(
-            message:
-                'The account already exists with a different credential.'));
-      } else if (e.code == 'invalid-credential') {
-        return Future.value(Response.Failed(
-            message: 'Error occurred while accessing credentials. Try again.'));
-      }
-      return Future.value(Response.Failed(message: e.code));
-    }
+    return Future.value(Response.Ok(message: ""));
   }
 
   Future<Response> registerWithEmailAndPassword(
-      String email, String password, String name) {
-    //TODO:: register with email and password
-    return Future.value(Response.Ok(message: ""));
+      String email, String password, String name) async {
+    //TODO :: sign up
+    try {
+      final credential = await auth.createUserWithEmailAndPassword(
+          email: email, password: password);
+
+      final user = UserModel(name: name);
+      final alreadyName = await db
+          .collection('USER')
+          .doc(credential.user!.uid)
+          .set(user.toFirestore());
+      return Future.value(
+          Response.OkCompleteProfile(message: 'Daftar Berhasil'));
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        return Future.value(
+            Response.Failed(message: 'The password provided is too weak.'));
+      } else if (e.code == 'email-already-in-use') {
+        Response.Failed(message: 'The account already exists for that email.');
+      }
+      return Future.value(Response.Failed(message: e.code));
+    }
   }
 
   Future<Response> uploadProfilePicture(File file, String userUid) {

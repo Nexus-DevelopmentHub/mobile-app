@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:podcast_app/components/button_primary.dart';
+import 'package:podcast_app/data/user_provider.dart';
 import 'package:podcast_app/components/button_socialgoogle.dart';
 import 'package:podcast_app/components/input_password.dart';
 import 'package:podcast_app/components/input_text.dart';
+import 'package:podcast_app/route/routes.dart';
 import 'package:podcast_app/theme/theme.dart';
+import 'package:provider/provider.dart';
 
 class PageSignUp extends StatefulWidget {
   const PageSignUp({Key? key}) : super(key: key);
@@ -14,9 +17,25 @@ class PageSignUp extends StatefulWidget {
 }
 
 class _PageSignUpState extends State<PageSignUp> {
-  String nama = "";
+  String name = "";
   String email = "";
   String password = "";
+
+  registerWithEmailAndPassword() {
+    context
+        .read<UserProvider>()
+        .registerWithEmailAndPassword(email, password, name)
+        .then((value) => {
+              if (value.success)
+                {
+                  {Navigator.of(context).pushNamed(Routes.completeProfile)}
+                }
+              else
+                {
+                  //TO DO KETIKA GAGAL
+                }
+            });
+  }
 
   bool isChecked = false;
 
@@ -25,7 +44,7 @@ class _PageSignUpState extends State<PageSignUp> {
     return Scaffold(
         backgroundColor: onPrimary,
         body: Container(
-          padding: EdgeInsets.only(right: 24, left: 24),
+          padding: EdgeInsets.only(right: 24, left: 24, top: 60, bottom: 40),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -34,14 +53,33 @@ class _PageSignUpState extends State<PageSignUp> {
                 style: GoogleFonts.poppins(
                     fontSize: 28, fontWeight: FontWeight.w600, color: surface),
               ),
-              SizedBox(height: 23),
+              SizedBox(height: 24),
               InputText(
-                  name: "Nama", onChange: (v) {}, placeholder: "Nama lengkap"),
+                  name: "Nama",
+                  onChange: (v) {
+                    setState(() {
+                      name = v;
+                    });
+                  },
+                  placeholder: "Nama lengkap"),
               SizedBox(height: 16),
               InputText(
                   name: "Email",
-                  onChange: (v) {},
+                  onChange: (v) {
+                    setState(() {
+                      email = v;
+                    });
+                  },
                   placeholder: "Masukkan email"),
+              SizedBox(height: 16),
+              InputPassword(
+                  name: 'Password',
+                  onChange: (v) {
+                    setState(() {
+                      password = v;
+                    });
+                  },
+                  placeholder: 'Masukan Password Kamu'),
               SizedBox(height: 16),
               Container(
                 child: Container(
@@ -113,9 +151,7 @@ class _PageSignUpState extends State<PageSignUp> {
                     SizedBox(height: 90),
                     ButtonPrimary(
                       name: "Daftar gratis",
-                      onClick: () {
-                        //TODO Handle button daftar
-                      },
+                      onClick: registerWithEmailAndPassword(),
                     ),
                     SizedBox(height: 31),
                     GestureDetector(
