@@ -6,6 +6,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:podcast_app/models/callback_model.dart';
+import 'package:podcast_app/models/history_search_model.dart';
 import 'package:podcast_app/models/topic_model.dart';
 import 'package:podcast_app/models/user_model.dart';
 
@@ -26,6 +27,10 @@ class UserProvider with ChangeNotifier, DiagnosticableTreeMixin {
   List<TopicModel> _myTopics = [];
 
   List<TopicModel> get myTopics => _myTopics;
+
+  List<HistorySearchModel> _historySearch = [];
+
+  List<HistorySearchModel> get historySearch => _historySearch;
 
   //end region
 
@@ -57,6 +62,32 @@ class UserProvider with ChangeNotifier, DiagnosticableTreeMixin {
       notifyListeners();
     });
     return _isLoggedIn;
+  }
+
+  Future<Response> getHistorySearch() async {
+    final userId = await auth.currentUser;
+    if (userId == null) {
+      return Future.value(Response.Failed(message: ""));
+    }
+
+    final data = await db
+        .collection("USER")
+        .doc(userId.uid)
+        .collection("HISTORY SEARCH")
+        .withConverter(
+            fromFirestore: HistorySearchModel.fromFirestore,
+            toFirestore: (hs, _) => hs.toFirestore())
+        .get();
+
+    //convert in array [HistorySearchModel]
+    final convertData = data.docs.map((hs) => hs.data());
+
+    //notify apps the data has changed
+    _historySearch.addAll(convertData);
+    notifyListeners();
+
+    //always return success
+    return Future.value(Response.Ok(message: ""));
   }
 
   Future<Response> signInWithEmailAndPassword(
