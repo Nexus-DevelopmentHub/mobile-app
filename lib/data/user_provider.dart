@@ -192,6 +192,7 @@ class UserProvider with ChangeNotifier, DiagnosticableTreeMixin {
     } on FirebaseException catch (e) {
       return Response.Failed(message: e.message.toString());
     }
+    ;
   }
 
   Future<Response> completeProfile(UserModel arg) {
