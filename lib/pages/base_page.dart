@@ -3,6 +3,7 @@ import 'package:podcast_app/components/input_search.dart';
 import 'package:podcast_app/components/navigasi_bar.dart';
 import 'package:podcast_app/pages/detail_podcast.dart';
 import 'package:podcast_app/pages/home.dart';
+import 'package:podcast_app/pages/profile.dart';
 import 'package:podcast_app/pages/search.dart';
 import 'package:podcast_app/theme/theme.dart';
 import 'detail_episode.dart';
@@ -30,7 +31,7 @@ class _BasePageState extends State<BasePage> {
         pinned: true,
       );
     }
-    if(selected == 1){
+    if (selected == 1) {
       return SliverPadding(
         padding: EdgeInsets.only(
           left: 4,
@@ -43,8 +44,8 @@ class _BasePageState extends State<BasePage> {
                 padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
                 height: 40,
                 width: 40,
-                child: IconButton(
-                    onPressed: () {}, icon: Icon(Icons.arrow_back)),
+                child:
+                    IconButton(onPressed: () {}, icon: Icon(Icons.arrow_back)),
               )
             ],
           ),
@@ -76,11 +77,18 @@ class _BasePageState extends State<BasePage> {
       return SliverPadding(
         padding: EdgeInsets.only(left: 8, right: 8),
         sliver: SliverAppBar(
+          title: Text(
+            'Profile',
+            style: TextStyle(
+              fontSize: 20,
+              color: neutral,
+              fontWeight: FontWeight.w800,
+            ),
+          ),
           leading: Icon(Icons.arrow_back),
           forceElevated: innerBoxIsScrolled,
           backgroundColor: onNeutral,
           pinned: true,
-          actions: [Icon(Icons.more_vert_rounded)],
         ),
       );
     }
@@ -101,7 +109,7 @@ class _BasePageState extends State<BasePage> {
     }
 
     if (selected == 3) {
-      return PageDetailEpisode();
+      return PageProfile();
     }
 
     return Container();

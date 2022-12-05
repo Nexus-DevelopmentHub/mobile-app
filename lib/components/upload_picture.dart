@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:podcast_app/data/user_provider.dart';
-import 'package:podcast_app/theme/style/button_oufline.dart';
+import 'package:podcast_app/theme/style/button_outline.dart';
 import 'package:provider/provider.dart';
 
 class UploadProfilePictureComponent extends StatefulWidget {

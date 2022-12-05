@@ -28,13 +28,22 @@ class UserProvider with ChangeNotifier, DiagnosticableTreeMixin {
 
   //end region
 
-  FirebaseFirestore  db = FirebaseFirestore.instance;
+  FirebaseFirestore db = FirebaseFirestore.instance;
 
-  FirebaseAuth  auth = FirebaseAuth.instance;
+  FirebaseAuth auth = FirebaseAuth.instance;
 
-  FirebaseStorage  storage = FirebaseStorage.instance;
+  FirebaseStorage storage = FirebaseStorage.instance;
 
   //region
+  Future<Response> signOut() async {
+    try {
+      final credential = await auth.signOut();
+      return Future.value(Response.Ok(message: ""));
+    } on FirebaseAuthException catch (e) {
+      return Response.Failed(message: e.code);
+    }
+  }
+
   Future<Response> getMyProfile() {
     //TODO : ambil profile user yang sedang login
     return Future.value(Response.Ok(message: ""));
@@ -42,12 +51,15 @@ class UserProvider with ChangeNotifier, DiagnosticableTreeMixin {
 
   //https://stackoverflow.com/questions/65221515/flutter-firebase-logged-in-user-returns-a-null-currentuser-after-sign-in
   Future<bool> checkIsLoggedIn() async {
-    auth.userChanges();
+    auth.authStateChanges().listen((event) {
+      _isLoggedIn = event != null;
+      notifyListeners();
+    });
     return _isLoggedIn;
   }
 
-  Future<Response> signInWithEmailAndPassword(String email,
-      String password) async {
+  Future<Response> signInWithEmailAndPassword(
+      String email, String password) async {
     try {
       //sign in with email and password
       final credential = await auth.signInWithEmailAndPassword(
@@ -63,8 +75,8 @@ class UserProvider with ChangeNotifier, DiagnosticableTreeMixin {
           .collection('USER')
           .doc(credential.user!.uid)
           .withConverter(
-          fromFirestore: UserModel.fromFirestore,
-          toFirestore: (user, _) => user.toFirestore())
+              fromFirestore: UserModel.fromFirestore,
+              toFirestore: (user, _) => user.toFirestore())
           .get();
       //tell app that user neet complete profile after loggedin
       if (!alreadyCompleteProfile.exists) {
@@ -90,8 +102,8 @@ class UserProvider with ChangeNotifier, DiagnosticableTreeMixin {
     return Future.value(Response.Ok(message: ""));
   }
 
-  Future<Response> registerWithEmailAndPassword(String email, String password,
-      String name) async {
+  Future<Response> registerWithEmailAndPassword(
+      String email, String password, String name) async {
     //TODO :: sign up
     try {
       final credential = await auth.createUserWithEmailAndPassword(
@@ -124,12 +136,10 @@ class UserProvider with ChangeNotifier, DiagnosticableTreeMixin {
       });
     }
 
-    final userId = currentUser?.uid ?? DateTime.now().microsecondsSinceEpoch.toString();
+    final userId =
+        currentUser?.uid ?? DateTime.now().microsecondsSinceEpoch.toString();
     //create folder and location file
-    final profileRef = storage
-        .ref()
-        .child("USER_PROFILE")
-        .child("$userId.jpg");
+    final profileRef = storage.ref().child("USER_PROFILE").child("$userId.jpg");
 
     try {
       //start uplaoding
@@ -144,7 +154,6 @@ class UserProvider with ChangeNotifier, DiagnosticableTreeMixin {
       return Response.Failed(message: e.message.toString());
     }
 
-
     return Future.value(Response.Ok(message: ""));
   }
 }
@@ -158,8 +167,6 @@ Future<Response> saveMyTopic(List<TopicModel> topics) {
   return Future.value(Response.Ok(message: ""));
 }
 
-Future<Response> signOut() async {
-  return Future.value(Response.Ok(message: ""));
-}
+
 //end region
 
