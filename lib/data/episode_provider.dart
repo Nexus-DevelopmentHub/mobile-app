@@ -29,7 +29,8 @@ class EpisodeProvider with ChangeNotifier, DiagnosticableTreeMixin {
 
   //region
   Future<Response> getDetailEpisode(String episodeId) async {
-    //TODO : ambil episode berdasarkan id
+
+    //get data from firestore
     final data = await db
         .collection("EPISODE")
         .doc(episodeId)
@@ -38,6 +39,7 @@ class EpisodeProvider with ChangeNotifier, DiagnosticableTreeMixin {
             toFirestore: (e, _) => e.toFirestore())
         .get();
 
+    //check if data has found
     if (data.exists) {
       final finalResult = data.data();
       if (finalResult != null) {

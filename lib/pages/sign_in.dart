@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:podcast_app/components/input_text.dart';
 import 'package:podcast_app/components/button_primary.dart';
 import 'package:podcast_app/components/button_socialgoogle.dart';
@@ -27,16 +28,43 @@ class _PageSignInState extends State<PageSignIn> {
         .read<UserProvider>()
         .signInWithEmailAndPassword(email, password)
         .then((value) => {
-          if(value.success) {
-            if(value.shouldCompleteProfile) {
-              Navigator.of(context).pushNamed(Routes.completeProfile)
-            } else {
-              Navigator.of(context).pushNamed(Routes.home)
-            }
-          } else {
-            //TO DO KETIKA GAGAL
-          }
-        });
+              if (value.success)
+                {
+                  if (value.shouldCompleteProfile)
+                    {Navigator.of(context).pushNamed(Routes.completeProfile)}
+                  else
+                    {Navigator.of(context).pushNamed(Routes.home)}
+                }
+              else
+                {
+                  //TO DO KETIKA GAGAL
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Icon(
+                          Icons.error_outline_rounded,
+                          size: 24,
+                          color: neutral,
+                        ),
+                        const SizedBox(
+                          width: 16,
+                        ),
+                        Expanded(
+                            child: Text(
+                          'Kayaknya ada yang salah nih, coba kamu cek lagi ya!',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: neutral,
+                          ),
+                        ))
+                      ],
+                    ),
+                    backgroundColor: Colors.red,
+                  ))
+                }
+            });
   }
 
   @override
@@ -87,8 +115,7 @@ class _PageSignInState extends State<PageSignIn> {
                 },
                 placeholder: "Masukan password kamu"),
             SizedBox(
-              height: 40.0,
-              width: 10.0,
+              height: 8.0,
             ),
             Container(
               child: Row(children: [
@@ -97,7 +124,6 @@ class _PageSignInState extends State<PageSignIn> {
                   child: Text("Kamu lupa Password?",
                       style: TextStyle(
                         color: neutral,
-                        height: -2.0,
                       )),
                 ),
                 TextButton(
@@ -109,14 +135,15 @@ class _PageSignInState extends State<PageSignIn> {
                     "Click disini",
                     style: TextStyle(
                       color: primary,
-                      height: -2.0,
                     ),
                   ),
                 ),
               ]),
             ),
+            const SizedBox(
+              height: 16,
+            ),
             Container(
-              width: 327,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -130,62 +157,71 @@ class _PageSignInState extends State<PageSignIn> {
                 ],
               ),
             ),
+            const SizedBox(
+              height: 16,
+            ),
             Container(
               padding: EdgeInsets.only(bottom: 8, top: 10),
               child: Align(
                 alignment: Alignment.topCenter,
                 child: Text(
                   "OR",
-                  style: TextStyle(
-                    color: neutral,
-                  ),
+                  style: GoogleFonts.poppins(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                      color: surface),
                 ),
               ),
             ),
+            const SizedBox(
+              height: 16,
+            ),
             Container(
-              padding: EdgeInsets.only(bottom: 150, top: 10),
               child: ButtonGoogle(name: "Masuk dengan Google"),
+            ),
+            const SizedBox(
+              height: 76,
             ),
             ButtonPrimary(
               name: "Masuk",
               onClick: () {
-                Navigator.of(context).pushNamed(Routes.completeProfile);
+                signInWithEmailAndPassword();
               },
             ),
             SizedBox(
-              height: 10.0,
-              width: 10.0,
+              height: 24,
             ),
-            Container(
-              child:
-                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                Align(
-                  alignment: Alignment.topCenter,
-                  child: Text("Kamu belum punya akun?",
-                      style: TextStyle(
-                        color: neutral,
-                        height: 1,
-                      )),
-                ),
-                Container(
-                  alignment: Alignment.topCenter,
-                  child: TextButton(
-                    style: TextButton.styleFrom(
-                      backgroundColor: onNeutral,
+            GestureDetector(
+              onTap: () {
+                Navigator.of(context).pushNamed(Routes.signUp);
+              },
+              child: Container(
+                height: 50,
+                width: 328,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Kamu Belum Punya Akun",
+                      style: GoogleFonts.poppins(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          color: surface),
                     ),
-                    onPressed: () {setState(() {
-                      Navigator.of(context).pushNamed(Routes.signUp);
-                    });},
-                    child: Text(
+                    SizedBox(width: 2),
+                    Text(
                       "Daftar disini",
-                      style: TextStyle(
+                      style: GoogleFonts.poppins(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
                         color: primary,
-                        height: 1.0,
                       ),
                     ),
-                  ),
+                  ],
                 ),
-              ]),
+              ),
             ),
           ],
         ),

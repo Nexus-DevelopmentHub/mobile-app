@@ -41,14 +41,26 @@ class UserProvider with ChangeNotifier, DiagnosticableTreeMixin {
   FirebaseStorage storage = FirebaseStorage.instance;
 
   //region
+  Future<Response> signOut() async {
+    try {
+      final credential = await auth.signOut();
+      return Future.value(Response.Ok(message: ""));
+    } on FirebaseAuthException catch (e) {
+      return Response.Failed(message: e.code);
+    }
+  }
+
   Future<Response> getMyProfile() {
     //TODO : ambil profile user yang sedang login
     return Future.value(Response.Ok(message: ""));
   }
 
-  ////https://stackoverflow.com/questions/65221515/flutter-firebase-logged-in-user-returns-a-null-currentuser-after-sign-in
+  //https://stackoverflow.com/questions/65221515/flutter-firebase-logged-in-user-returns-a-null-currentuser-after-sign-in
   Future<bool> checkIsLoggedIn() async {
-    auth.userChanges();
+    auth.authStateChanges().listen((event) {
+      _isLoggedIn = event != null;
+      notifyListeners();
+    });
     return _isLoggedIn;
   }
 
@@ -149,7 +161,6 @@ class UserProvider with ChangeNotifier, DiagnosticableTreeMixin {
 
   Future<Response> uploadProfilePicture(File file) async {
     //get userUid for name image ex: userUid.jpg
-    //https://stackoverflow.com/questions/65221515/flutter-firebase-logged-in-user-returns-a-null-currentuser-after-sign-in
     var currentUser = auth.currentUser;
     if (currentUser == null) {
       auth.authStateChanges().listen((event) {
@@ -188,8 +199,6 @@ Future<Response> saveMyTopic(List<TopicModel> topics) {
   return Future.value(Response.Ok(message: ""));
 }
 
-Future<Response> signOut() async {
-  return Future.value(Response.Ok(message: ""));
-}
+
 //end region
 
