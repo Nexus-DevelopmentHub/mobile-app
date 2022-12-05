@@ -49,7 +49,7 @@ class UserProvider with ChangeNotifier, DiagnosticableTreeMixin {
     return Future.value(Response.Ok(message: ""));
   }
 
-  ////https://stackoverflow.com/questions/65221515/flutter-firebase-logged-in-user-returns-a-null-currentuser-after-sign-in
+  //https://stackoverflow.com/questions/65221515/flutter-firebase-logged-in-user-returns-a-null-currentuser-after-sign-in
   Future<bool> checkIsLoggedIn() async {
     auth.authStateChanges().listen((event) {
       _isLoggedIn = event != null;
@@ -129,7 +129,6 @@ class UserProvider with ChangeNotifier, DiagnosticableTreeMixin {
 
   Future<Response> uploadProfilePicture(File file) async {
     //get userUid for name image ex: userUid.jpg
-    //https://stackoverflow.com/questions/65221515/flutter-firebase-logged-in-user-returns-a-null-currentuser-after-sign-in
     var currentUser = auth.currentUser;
     if (currentUser == null) {
       auth.authStateChanges().listen((event) {
