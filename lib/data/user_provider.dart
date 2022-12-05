@@ -234,7 +234,5 @@ class UserProvider with ChangeNotifier, DiagnosticableTreeMixin {
   Future<Response> saveMyTopic(List<TopicModel> topics) {
     return Future.value(Response.Ok(message: ""));
   }
-
 //end region
-
 }
