@@ -20,13 +20,24 @@ class TopicProvider with ChangeNotifier, DiagnosticableTreeMixin {
   //end region
 
   //region
-  Future<Response> createTopics(){
+  Future<Response> createTopics() {
     //TODO::
     return Future.value(Response.Ok(message: ""));
   }
 
-  Future<Response> getListTopics() {
-    //TODO: ambil data keseluruhan podcast
+  //ambil data keseluruhan podcast
+  Future<Response> getListTopics() async {
+    final data = await db
+        .collection("")
+        .withConverter(
+            fromFirestore: TopicModel.fromFirestore,
+            toFirestore: (listTopics, _) => listTopics.toFirestore())
+        .get();
+
+    final topicResult = data.docs.map((listTopics) => listTopics.data());
+    _topics.addAll(topicResult);
+    notifyListeners();
+
     return Future.value(Response.Ok(message: ""));
   }
 //end region
