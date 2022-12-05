@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
-import 'package:podcast_app/components/input_search.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:podcast_app/models/callback_model.dart';
 import 'package:podcast_app/models/history_search_model.dart';
 import 'package:podcast_app/models/topic_model.dart';
@@ -110,6 +110,7 @@ class UserProvider with ChangeNotifier, DiagnosticableTreeMixin {
               fromFirestore: UserModel.fromFirestore,
               toFirestore: (user, _) => user.toFirestore())
           .get();
+
       //tell app that user neet complete profile after loggedin
       if (!alreadyCompleteProfile.exists) {
         return Future.value(
@@ -129,9 +130,46 @@ class UserProvider with ChangeNotifier, DiagnosticableTreeMixin {
   }
 
   Future<Response> signInWithGoogle() async {
-    //TODO :: sign with google
+    try {
+      // Trigger the authentication flow
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
-    return Future.value(Response.Ok(message: ""));
+      // Obtain the auth details from the request
+      final GoogleSignInAuthentication? googleAuth =
+          await googleUser?.authentication;
+
+      // Create a new credential
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth?.accessToken,
+        idToken: googleAuth?.idToken,
+      );
+
+      final user = await auth.signInWithCredential(credential);
+
+      //if user empty sign in should be failed
+      if (user.user == null) {
+        return Future.value(Response.Failed(message: 'Login Gagal'));
+      }
+
+      //check if profile already exist
+      final alreadyCompleteProfile = await db
+          .collection('USER')
+          .doc(user.user!.uid)
+          .withConverter(
+              fromFirestore: UserModel.fromFirestore,
+              toFirestore: (user, _) => user.toFirestore())
+          .get();
+
+      //tell app that user neet complete profile after loggedin
+      if (!alreadyCompleteProfile.exists) {
+        return Future.value(
+            Response.OkCompleteProfile(message: 'Login Berhasil'));
+      }
+
+      return Future.value(Response.Ok(message: ""));
+    } on FirebaseAuthException catch (e) {
+      return Future.value(Response.Failed(message: e.code));
+    }
   }
 
   Future<Response> registerWithEmailAndPassword(
@@ -185,20 +223,17 @@ class UserProvider with ChangeNotifier, DiagnosticableTreeMixin {
     } on FirebaseException catch (e) {
       return Response.Failed(message: e.message.toString());
     }
+  }
 
+  Future<Response> completeProfile(UserModel arg) {
+    //TODO:: complete profile
     return Future.value(Response.Ok(message: ""));
   }
-}
 
-Future<Response> completeProfile(UserModel arg) {
-  //TODO:: complete profile
-  return Future.value(Response.Ok(message: ""));
-}
-
-Future<Response> saveMyTopic(List<TopicModel> topics) {
-  return Future.value(Response.Ok(message: ""));
-}
-
+  Future<Response> saveMyTopic(List<TopicModel> topics) {
+    return Future.value(Response.Ok(message: ""));
+  }
 
 //end region
 
+}
