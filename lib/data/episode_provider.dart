@@ -59,6 +59,20 @@ class EpisodeProvider with ChangeNotifier, DiagnosticableTreeMixin {
 
   Future<Response> getTopEpisodes() async {
     //TODO: ambil data  episode berdasarkan likes terbanyak
+        final data = await db
+        .collection("EPISODE")
+        .orderBy("likes", descending: true).limit(5)
+        .withConverter(
+            fromFirestore: EpisodeModel.fromFirestore,
+            toFirestore: (episode, _) => episode.toFirestore())
+        .get();
+
+    final convertData = data.docs.map((episode) => episode.data());
+
+    //notify apps the data has changed
+    _topEpisodes.addAll(convertData);
+    notifyListeners();
+
     return Future.value(Response.Ok(message: ""));
   }
 //end region
