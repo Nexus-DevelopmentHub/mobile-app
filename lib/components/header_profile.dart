@@ -24,15 +24,15 @@ class _HeaderProfileState extends State<HeaderProfile> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 66,
+      height: 80,
       width: 247,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            height: 64,
-            width: 64,
+            height: 80,
+            width: 80,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(60),
               image: DecorationImage(

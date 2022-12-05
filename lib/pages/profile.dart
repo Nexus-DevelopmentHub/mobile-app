@@ -3,7 +3,11 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:podcast_app/components/header_profile.dart';
 import 'package:podcast_app/components/item_profile.dart';
+import 'package:podcast_app/route/routes.dart';
+import 'package:podcast_app/theme/alert_dialog.dart';
 import 'package:podcast_app/theme/theme.dart';
+import 'package:podcast_app/data/user_provider.dart';
+import 'package:provider/provider.dart';
 
 class PageProfile extends StatefulWidget {
   const PageProfile({super.key});
@@ -13,24 +17,16 @@ class PageProfile extends StatefulWidget {
 }
 
 class _PageProfileState extends State<PageProfile> {
+  signOut() {
+    context.read<UserProvider>().signOut().then((value) async => {
+          await Navigator.of(context).pushNamedAndRemoveUntil(
+              Routes.signIn, (Route<dynamic> route) => false)
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: onNeutral,
-        leading: IconButton(
-          onPressed: () {},
-          icon: Icon(Icons.arrow_back),
-        ),
-        title: Text(
-          'Profile',
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.w800,
-            color: neutral,
-          ),
-        ),
-      ),
       backgroundColor: onNeutral,
       body: SingleChildScrollView(
         child: Column(
@@ -38,7 +34,7 @@ class _PageProfileState extends State<PageProfile> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             const SizedBox(
-              height: 16,
+              height: 8,
             ),
             Container(
               margin: EdgeInsets.only(left: 24, right: 24),
@@ -53,7 +49,7 @@ class _PageProfileState extends State<PageProfile> {
             ),
             Container(
               width: 375,
-              height: 64,
+              height: 80,
               color: Colors.grey.shade900,
               child: Padding(
                 padding: EdgeInsets.only(
@@ -178,7 +174,16 @@ class _PageProfileState extends State<PageProfile> {
                   height: 48,
                   width: 327,
                   child: TextButton.icon(
-                    onPressed: () {},
+                    onPressed: () async {
+                      final action = await AlertDialogs.yesCancelDialog(
+                          context, 'Logout', 'kamu beneran yakin ingin keluar dari aplikasi Opini?');
+                      if (action == DialogsAction.yes) {
+                        signOut();
+                        setState(() => true);
+                      } else {
+                        setState(() => false);
+                      }
+                    },
                     icon: Icon(
                       Icons.logout_rounded,
                       color: primary,
@@ -192,7 +197,7 @@ class _PageProfileState extends State<PageProfile> {
                       ),
                     ),
                   ),
-                )
+                ),
               ],
             ),
           ],
