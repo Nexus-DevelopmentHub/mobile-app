@@ -182,7 +182,7 @@ class UserProvider with ChangeNotifier, DiagnosticableTreeMixin {
       final user = UserModel(
           name: name,
           email: email,
-          le
+          level: "USER"
       );
       await db
           .collection('USER')
