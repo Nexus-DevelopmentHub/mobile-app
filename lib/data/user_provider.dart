@@ -223,6 +223,7 @@ class UserProvider with ChangeNotifier, DiagnosticableTreeMixin {
     } on FirebaseException catch (e) {
       return Response.Failed(message: e.message.toString());
     }
+    ;
   }
 
   Future<Response> completeProfile(UserModel arg) {
@@ -233,7 +234,5 @@ class UserProvider with ChangeNotifier, DiagnosticableTreeMixin {
   Future<Response> saveMyTopic(List<TopicModel> topics) {
     return Future.value(Response.Ok(message: ""));
   }
-
 //end region
-
 }
