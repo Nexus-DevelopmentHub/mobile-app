@@ -32,6 +32,14 @@ class UserProvider with ChangeNotifier, DiagnosticableTreeMixin {
 
   List<HistorySearchModel> get historySearch => _historySearch;
 
+  List<UserModel> _myProfile = [];
+
+  List<UserModel> get myProfile => _myProfile;
+  
+  List<UserModel> _listeningPodcast = [];
+
+  List<UserModel> get listeningPodcast => _listeningPodcast;
+
   //end region
 
   FirebaseFirestore db = FirebaseFirestore.instance;
@@ -49,9 +57,42 @@ class UserProvider with ChangeNotifier, DiagnosticableTreeMixin {
       return Response.Failed(message: e.code);
     }
   }
+Future<Response> getListeningPodcast () async{
+   final data = await db
+        .collection("USER")
+        .doc()
+        .collection("LISTENING")
+        .withConverter(
+            fromFirestore: UserModel.fromFirestore,
+            toFirestore: (l, _) => l.toFirestore())
+        .get();
 
-  Future<Response> getMyProfile() {
+    //convert in array 
+    final convertData = data.docs.map((user) => user.data());
+
+    //notify apps the data has changed
+    _listeningPodcast.addAll(convertData);
+    notifyListeners();
+
+  return Future.value(Response.Ok(message: ""));
+}
+  Future<Response> getMyprofile() async {
     //TODO : ambil profile user yang sedang login
+    final data = await db
+        .collection("USER")
+        .doc()
+        .withConverter(
+            fromFirestore: UserModel.fromFirestore,
+            toFirestore: (mp, _) => mp.toFirestore())
+        .get();
+
+    if (data.exists) {
+      final myProfileResult = data.data();
+      if (myProfileResult != null) {
+        _myProfile = myProfileResult as List<UserModel>;
+        notifyListeners();
+      }
+    }
     return Future.value(Response.Ok(message: ""));
   }
 
@@ -236,3 +277,6 @@ class UserProvider with ChangeNotifier, DiagnosticableTreeMixin {
   }
 //end region
 }
+
+
+
