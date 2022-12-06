@@ -179,7 +179,11 @@ class UserProvider with ChangeNotifier, DiagnosticableTreeMixin {
       final credential = await auth.createUserWithEmailAndPassword(
           email: email, password: password);
 
-      final user = UserModel(name: name);
+      final user = UserModel(
+          name: name,
+          email: email,
+          level: "USER"
+      );
       await db
           .collection('USER')
           .doc(credential.user!.uid)
@@ -233,6 +237,31 @@ class UserProvider with ChangeNotifier, DiagnosticableTreeMixin {
 
   Future<Response> saveMyTopic(List<TopicModel> topics) {
     return Future.value(Response.Ok(message: ""));
+  }
+
+  Future<Response> saveTopicUser(List<TopicModel> topics) async {
+    try {
+      //buat batch transaction contract
+      final batch = db.batch();
+      var currentUser = auth.currentUser;
+
+      //looping topicnya
+      topics.forEach((topic) {
+        //cari datanya mau di taro di mana dan geneeratee unique id
+        final doc = db
+            .collection("USER")
+            .doc(currentUser!.uid)
+            .collection("USER")
+            .doc();
+        batch.set(doc, topic.toFirestore());
+      });
+
+      // Set value topic
+
+      return Future.value(Response.Ok(message: ""));
+    } on FirebaseException catch (e) {
+      return Response.Failed(message: e.message.toString());
+    }
   }
 //end region
 }
