@@ -64,7 +64,7 @@ class EpisodeProvider with ChangeNotifier, DiagnosticableTreeMixin {
             toFirestore: (listEpisode, _) => listEpisode.toFirestore())
         .get();
 
-    //convert in array [EpisodeModel]
+    //convert in array [EpisodeModel]..
     final convertData = data.docs.map((listEpisode) => listEpisode.data());
 
     //notify apps the data has changed
