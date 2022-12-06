@@ -179,7 +179,11 @@ class UserProvider with ChangeNotifier, DiagnosticableTreeMixin {
       final credential = await auth.createUserWithEmailAndPassword(
           email: email, password: password);
 
-      final user = UserModel(name: name);
+      final user = UserModel(
+          name: name,
+          email: email,
+          le
+      );
       await db
           .collection('USER')
           .doc(credential.user!.uid)
