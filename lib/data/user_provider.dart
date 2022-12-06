@@ -6,6 +6,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:podcast_app/models/callback_model.dart';
+import 'package:podcast_app/models/episode_model.dart';
 import 'package:podcast_app/models/history_search_model.dart';
 import 'package:podcast_app/models/topic_model.dart';
 import 'package:podcast_app/models/user_model.dart';
@@ -36,9 +37,9 @@ class UserProvider with ChangeNotifier, DiagnosticableTreeMixin {
 
   List<UserModel> get myProfile => _myProfile;
   
-  List<UserModel> _listeningPodcast = [];
+  List<EpisodeModel> _listeningPodcast = [];
 
-  List<UserModel> get listeningPodcast => _listeningPodcast;
+  List<EpisodeModel> get listeningPodcast => _listeningPodcast;
 
   //end region
 
@@ -58,12 +59,16 @@ class UserProvider with ChangeNotifier, DiagnosticableTreeMixin {
     }
   }
 Future<Response> getListeningPodcast () async{
+    final userId = await auth.currentUser;
+   if (userId == null) {
+      return Future.value(Response.Failed(message: ""));
+    }
    final data = await db
         .collection("USER")
-        .doc()
+        .doc(userId.uid)
         .collection("LISTENING")
         .withConverter(
-            fromFirestore: UserModel.fromFirestore,
+            fromFirestore: EpisodeModel.fromFirestore,
             toFirestore: (l, _) => l.toFirestore())
         .get();
 
@@ -78,19 +83,23 @@ Future<Response> getListeningPodcast () async{
 }
   Future<Response> getMyprofile() async {
     //TODO : ambil profile user yang sedang login
+
+    final userId = await auth.currentUser;
+   if (userId == null) {
+      return Future.value(Response.Failed(message: ""));
+    }
     final data = await db
         .collection("USER")
-        .doc()
+        .doc(userId.uid)
         .withConverter(
             fromFirestore: UserModel.fromFirestore,
             toFirestore: (mp, _) => mp.toFirestore())
         .get();
 
-    if (data.exists) {
+      if (data.exists) {
       final myProfileResult = data.data();
       if (myProfileResult != null) {
-        _myProfile = myProfileResult as List<UserModel>;
-        notifyListeners();
+         notifyListeners();
       }
     }
     return Future.value(Response.Ok(message: ""));
