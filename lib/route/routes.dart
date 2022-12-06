@@ -1,4 +1,4 @@
-class Routes{
+class Routes {
   static const splash = 'splash';
   static const chooseTopic = 'choose_topic';
   static const detailDetailEpisode = 'detail_episodes';
@@ -10,4 +10,5 @@ class Routes{
   static const detailPodcast = 'detail_podcast';
   static const detailPlayer = 'detail_player';
   static const completeProfile = 'complete_profile';
+  static const profile = 'profile';
 }

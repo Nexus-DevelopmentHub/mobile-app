@@ -45,8 +45,8 @@ dependencies:
   percent_indicator: ^4.2.2
   carousel_slider: ^4.1.1
   google_fonts: ^3.0.1
-  google_sign_in: '^4.5.1'
   firebase_storage: ^11.0.6
+  google_sign_in: ^4.5.1
 
 dev_dependencies:
   flutter_test:

@@ -21,6 +21,52 @@ class _PageSignUpState extends State<PageSignUp> {
   String email = "";
   String password = "";
 
+  signUpWithGoogle() {
+    context.read<UserProvider>().signInWithGoogle().then((value) => {
+          if (value.success)
+            {
+              if (value.shouldCompleteProfile)
+                {Navigator.of(context).pushNamed(Routes.completeProfile)}
+              else
+                {Navigator.of(context).pushNamed(Routes.home)}
+            }
+          else
+            {
+              //TO DO KETIKA GAGAL
+              showDialogError(
+                  'Kayaknya ada yang salah nih, coba kamu cek lagi ya!')
+            }
+        });
+  }
+
+  showDialogError(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Icon(
+            Icons.error_outline_rounded,
+            size: 24,
+            color: neutral,
+          ),
+          const SizedBox(
+            width: 16,
+          ),
+          Expanded(
+              child: Text(
+            message,
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+              color: neutral,
+            ),
+          ))
+        ],
+      ),
+      backgroundColor: Colors.red,
+    ));
+  }
+
   registerWithEmailAndPassword() {
     context
         .read<UserProvider>()
@@ -33,6 +79,8 @@ class _PageSignUpState extends State<PageSignUp> {
               else
                 {
                   //TO DO KETIKA GAGAL
+                  showDialogError(
+                      'Kayaknya ada yang salah nih, coba kamu cek lagi ya!')
                 }
             });
   }
@@ -43,8 +91,9 @@ class _PageSignUpState extends State<PageSignUp> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: onPrimary,
-        body: Container(
-          padding: const EdgeInsets.only(right: 24, left: 24, top: 60, bottom: 40),
+        body: SingleChildScrollView(
+          padding:
+              const EdgeInsets.only(right: 24, left: 24, top: 60, bottom: 40),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -80,12 +129,18 @@ class _PageSignUpState extends State<PageSignUp> {
                     });
                   },
                   placeholder: 'Masukan Password Kamu'),
-              const SizedBox(height: 16),
+              const SizedBox(height: 8),
               Container(
-                padding: const EdgeInsets.only(top: 2, bottom: 2),
+                padding: const EdgeInsets.only(
+                  top: 2,
+                  bottom: 2,
+                ),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Checkbox(
+                        side: BorderSide(color: onSurface),
+                        activeColor: primary,
                         value: isChecked,
                         onChanged: (bool? value) {
                           setState(() {
@@ -101,7 +156,7 @@ class _PageSignUpState extends State<PageSignUp> {
                     ),
                     SizedBox(width: 2),
                     Text(
-                      "Syarat & Ketentuan",
+                      "Syarat Ketentuan",
                       style: GoogleFonts.poppins(
                           fontSize: 10,
                           fontWeight: FontWeight.w500,
@@ -118,7 +173,7 @@ class _PageSignUpState extends State<PageSignUp> {
                   ],
                 ),
               ),
-              SizedBox(height: 24),
+              SizedBox(height: 16),
               Container(
                 width: 327,
                 child: Column(
@@ -131,7 +186,7 @@ class _PageSignUpState extends State<PageSignUp> {
                         color: surface,
                       ),
                     ),
-                    SizedBox(height: 8),
+                    SizedBox(height: 16),
                     Text(
                       "OR",
                       style: GoogleFonts.poppins(
@@ -143,26 +198,26 @@ class _PageSignUpState extends State<PageSignUp> {
                     ButtonGoogle(
                       name: "Masuk dengan Google",
                       onClick: () {
-                        //TODO Handle login google
+                        signUpWithGoogle();
                       },
                     ),
-                    const SizedBox(height: 90),
+                    const SizedBox(height: 76),
                     ButtonPrimary(
                       name: "Daftar gratis",
-                      onClick:(){
+                      onClick: () {
                         registerWithEmailAndPassword();
                       },
                     ),
-                    const SizedBox(height: 31),
+                    const SizedBox(height: 24),
                     GestureDetector(
                       onTap: () {
-                        //TODO Handle jalur masuk ketika sudah punya akun
+                        Navigator.of(context).pushNamed(Routes.signIn);
                       },
                       child: Container(
                         height: 50,
                         width: 328,
-                        padding:
-                            const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 12),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [

@@ -18,6 +18,11 @@ class PodcastProvider with ChangeNotifier, DiagnosticableTreeMixin {
 
   List<PodcastModel> get SearchPodcast => _searchPodcast;
 
+  List<PodcastModel> _trendingPodcast = [];
+
+  List<PodcastModel> get TrendingPodcast => _searchPodcast;
+
+
   //end region
 
   //region firebase
@@ -61,6 +66,19 @@ class PodcastProvider with ChangeNotifier, DiagnosticableTreeMixin {
 
   Future<Response> getTrendingPodcast() async {
     //TODO: ambil data  episode berdasarkan likes terbanyak
+            final data = await db
+        .collection("PODCAST")
+        .orderBy("likes", descending: true).limit(5)
+        .withConverter(
+            fromFirestore: PodcastModel.fromFirestore,
+            toFirestore: (podcast, _) => podcast.toFirestore())
+        .get();
+
+    final convertData = data.docs.map((podcast) => podcast.data());
+
+    //notify apps the data has changed
+    _trendingPodcast.addAll(convertData);
+    notifyListeners();
     return Future.value(Response.Ok(message: ""));
   }
 

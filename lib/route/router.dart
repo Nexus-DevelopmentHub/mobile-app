@@ -6,6 +6,7 @@ import 'package:podcast_app/pages/detail_player.dart';
 import 'package:podcast_app/pages/detail_podcast.dart';
 import 'package:podcast_app/pages/base_page.dart';
 import 'package:podcast_app/pages/list_episode.dart';
+import 'package:podcast_app/pages/profile.dart';
 import 'package:podcast_app/pages/search.dart';
 import 'package:podcast_app/pages/sign_in.dart';
 import 'package:podcast_app/pages/sign_up.dart';
@@ -37,6 +38,8 @@ class RoutePage{
         return MaterialPageRoute(builder: (_)=>const PageDetailPlayer());
       case Routes.completeProfile:
         return MaterialPageRoute(builder: (_)=>const PageCompleteProfile());
+      case Routes.profile:
+        return MaterialPageRoute(builder: (_)=>const PageProfile());
       default:
         return MaterialPageRoute(builder: (_)=>const PageSplashScreen());
     }
