@@ -234,5 +234,25 @@ class UserProvider with ChangeNotifier, DiagnosticableTreeMixin {
   Future<Response> saveMyTopic(List<TopicModel> topics) {
     return Future.value(Response.Ok(message: ""));
   }
+
+  Future<Response> saveTopicUser(List<TopicModel> topics) async {
+    try {
+      // Write batch
+      final batch = db.batch();
+
+      // Set value topic
+      var currentUser = auth.currentUser;
+      var topicRef = await db
+      .collection('USER')
+      .doc(currentUser!.uid)
+      .collection('TOPICS')
+      .doc(); batch
+      .set(topicRef, {TopicModel});
+
+      return Future.value(Response.Ok(message: ""));
+    } on FirebaseException catch (e) {
+      return Response.Failed(message: e.message.toString());
+    }
+  }
 //end region
 }
