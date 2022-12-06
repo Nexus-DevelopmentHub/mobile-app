@@ -21,6 +21,52 @@ class _PageSignUpState extends State<PageSignUp> {
   String email = "";
   String password = "";
 
+  signUpWithGoogle() {
+    context.read<UserProvider>().signInWithGoogle().then((value) => {
+          if (value.success)
+            {
+              if (value.shouldCompleteProfile)
+                {Navigator.of(context).pushNamed(Routes.completeProfile)}
+              else
+                {Navigator.of(context).pushNamed(Routes.home)}
+            }
+          else
+            {
+              //TO DO KETIKA GAGAL
+              showDialogError(
+                  'Kayaknya ada yang salah nih, coba kamu cek lagi ya!')
+            }
+        });
+  }
+
+  showDialogError(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Icon(
+            Icons.error_outline_rounded,
+            size: 24,
+            color: neutral,
+          ),
+          const SizedBox(
+            width: 16,
+          ),
+          Expanded(
+              child: Text(
+            message,
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+              color: neutral,
+            ),
+          ))
+        ],
+      ),
+      backgroundColor: Colors.red,
+    ));
+  }
+
   registerWithEmailAndPassword() {
     context
         .read<UserProvider>()
@@ -33,31 +79,8 @@ class _PageSignUpState extends State<PageSignUp> {
               else
                 {
                   //TO DO KETIKA GAGAL
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    content: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Icon(
-                          Icons.error_outline_rounded,
-                          size: 24,
-                          color: neutral,
-                        ),
-                        const SizedBox(
-                          width: 16,
-                        ),
-                        Expanded(
-                            child: Text(
-                          'Kayaknya ada yang salah nih, coba kamu cek lagi ya!',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                            color: neutral,
-                          ),
-                        ))
-                      ],
-                    ),
-                    backgroundColor: Colors.red,
-                  ))
+                  showDialogError(
+                      'Kayaknya ada yang salah nih, coba kamu cek lagi ya!')
                 }
             });
   }
@@ -175,7 +198,7 @@ class _PageSignUpState extends State<PageSignUp> {
                     ButtonGoogle(
                       name: "Masuk dengan Google",
                       onClick: () {
-                        //TODO Handle login google
+                        signUpWithGoogle();
                       },
                     ),
                     const SizedBox(height: 76),
