@@ -11,16 +11,17 @@ class ListEpisode extends StatefulWidget {
       required this.name,
       required this.artist,
       required this.image,
-      this.onClick,
+      this.onDownnload,
       required this.totalIndex,
-      required this.index});
+      required this.index, required this.onClick});
 
+  final VoidCallback onClick;
   final int totalIndex;
   final int index;
   final String name;
   final String artist;
   final String image;
-  final VoidCallback? onClick;
+  final VoidCallback? onDownnload;
 
   @override
   State<ListEpisode> createState() => _ListEpisodeState();
@@ -31,7 +32,8 @@ class _ListEpisodeState extends State<ListEpisode> {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(
-          bottom: (widget.index == 0) ? 8 : 8,),
+        bottom: (widget.index == 0) ? 8 : 8,
+      ),
       width: 327,
       height: 80,
       child: Row(

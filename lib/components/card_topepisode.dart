@@ -11,13 +11,14 @@ class TopEpisode extends StatefulWidget {
       required this.image,
       required this.episode,
       required this.index,
-      required this.totalIndex});
+      required this.totalIndex, required this.onClick});
   final int totalIndex;
   final String name;
   final String artist;
   final String image;
   final String episode;
   final int index;
+  final VoidCallback onClick;
 
   @override
   State<TopEpisode> createState() => _TopEpisodeState();
