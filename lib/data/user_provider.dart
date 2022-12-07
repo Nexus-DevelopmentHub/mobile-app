@@ -107,10 +107,8 @@ Future<Response> getListeningPodcast () async{
 
   //https://stackoverflow.com/questions/65221515/flutter-firebase-logged-in-user-returns-a-null-currentuser-after-sign-in
   Future<bool> checkIsLoggedIn() async {
-    auth.authStateChanges().listen((event) {
-      _isLoggedIn = event != null;
-      notifyListeners();
-    });
+    _isLoggedIn = auth.currentUser != null;
+    print(auth.currentUser.toString());
     return _isLoggedIn;
   }
 
