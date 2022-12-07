@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:podcast_app/components/card_listepisode.dart';
 import 'package:podcast_app/components/chip_text.dart';
 import 'package:podcast_app/components/header_detailpodcast.dart';
+import 'package:podcast_app/data/episode_provider.dart';
+import 'package:podcast_app/data/podcast_provider.dart';
 import 'package:podcast_app/route/routes.dart';
 import 'package:podcast_app/theme/theme.dart';
+import 'package:provider/provider.dart';
 
 class PageDetailPodcast extends StatefulWidget {
   const PageDetailPodcast({Key? key}) : super(key: key);
@@ -13,6 +16,19 @@ class PageDetailPodcast extends StatefulWidget {
 }
 
 class _PageDetailPodcastState extends State<PageDetailPodcast> {
+  void initState() {
+    // TODO: implement initState
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      final routes =
+          ModalRoute.of(context)?.settings.arguments as Map<String, String>;
+
+      if (routes['id'] == null) {
+        context.read<PodcastProvider>().getDetailPodcast(routes['id']!);
+      }
+    });
+    super.initState();
+  }
+
   var dataCategory = [
     "Berita",
     "Komedi",
@@ -29,12 +45,11 @@ class _PageDetailPodcastState extends State<PageDetailPodcast> {
         Container(
           padding: EdgeInsets.only(left: 24, right: 24),
           child: HeaderDetailPodcast(
-              image:
-                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDXVBhpoyFQDdjlBcLiiu7i-TU0hlM5iBVdQ&usqp=CAU',
+              image: context.watch<PodcastProvider>().detailPodcast.thumbnail.toString(),
               name: 'Follow',
               description:
-                  'Conversations about science. tech, history, philosophu, and nature intellegence',
-              artist: 'The Fahrul Show'),
+                  context.watch<PodcastProvider>().detailPodcast.description.toString(),
+              artist: context.watch<PodcastProvider>().detailPodcast.createdBy.toString(),),
         ),
         SizedBox(
           height: 16,
@@ -80,13 +95,13 @@ class _PageDetailPodcastState extends State<PageDetailPodcast> {
               scrollDirection: Axis.vertical,
               itemCount: 10,
               itemBuilder: (BuildContext context, int index) {
+                final data = context.watch<EpisodeProvider>().episodes[index];
                 return ListEpisode(
-                  totalIndex: 10,
+                  totalIndex: context.watch<EpisodeProvider>().episodes.length,
                   index: index,
-                  name: 'Stories & Cities Jakarta',
-                  artist: 'The Fahrul Show',
-                  image:
-                      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDXVBhpoyFQDdjlBcLiiu7i-TU0hlM5iBVdQ&usqp=CAU',
+                  name: data.title.toString(),
+                  artist: data.createdBy.toString(),
+                  image: data.thumbnail.toString(),
                   onClick: () {
                     Navigator.of(context).pushNamed(Routes.detailDetailEpisode,
                         arguments: {'id': ""});

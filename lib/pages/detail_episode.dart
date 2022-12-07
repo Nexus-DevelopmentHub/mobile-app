@@ -69,7 +69,25 @@ class _PageDetailEpisodeState extends State<PageDetailEpisode> {
                     .detailEpisode
                     .durationInSeconds!
                     .toDouble(),
+                onClick: (() {
+                  // Download Episode
+                }),
               ),
+            ),
+            SizedBox(
+              height: 16,
+            ),
+            CtaDetailEpisode(
+              name: 'Play',
+              onClick: () {
+                // Rute Player
+              },
+              onShareClick: () {
+                // Share Episode
+              },
+              onLikeClick: () {
+                // Like Episode
+              },
             ),
             SizedBox(
               height: 16,
