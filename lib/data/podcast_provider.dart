@@ -59,8 +59,24 @@ class PodcastProvider with ChangeNotifier, DiagnosticableTreeMixin {
     }
   }
 
-  Future<Response> getListPodcast() {
-    //TODO: ambil data keseluruhan podcast
+  Future<Response> getListPodcast() async {
+    
+    final data = await db
+        .collection("PODCAST")
+        .where("id", isEqualTo: podcasts)
+        .withConverter(
+            fromFirestore: PodcastModel.fromFirestore,
+            toFirestore: (listPodcast, _) => listPodcast.toFirestore())
+        .get();
+
+    //convert in array [EpisodeModel]
+    final convertData = data.docs.map((listPodcast) => listPodcast.data());
+
+    //notify apps the data has changed
+    _podcasts.addAll(convertData);
+    notifyListeners();
+
+    //always return success
     return Future.value(Response.Ok(message: ""));
   }
 

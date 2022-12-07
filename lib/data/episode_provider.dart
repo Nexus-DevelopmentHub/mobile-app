@@ -12,7 +12,11 @@ class EpisodeProvider with ChangeNotifier, DiagnosticableTreeMixin {
 
   List<EpisodeModel> _episodes = [];
 
-  List<EpisodeModel> get episodes => _episodes;
+  List<EpisodeModel> get episodes => _listEpisodes;
+
+  List<EpisodeModel> _listEpisodes = [];
+
+  List<EpisodeModel> get listEpisodes => _listEpisodes;
 
   List<EpisodeModel> _topEpisodes = [];
 
@@ -29,7 +33,6 @@ class EpisodeProvider with ChangeNotifier, DiagnosticableTreeMixin {
 
   //region
   Future<Response> getDetailEpisode(String episodeId) async {
-
     //get data from firestore
     final data = await db
         .collection("EPISODE")
@@ -52,16 +55,32 @@ class EpisodeProvider with ChangeNotifier, DiagnosticableTreeMixin {
     }
   }
 
-  Future<Response> getListEpisodeByPodcast(String podcastId) {
-    //TODO: ambil data  episode berdasarkan podcast
+  Future<Response> getListEpisodeByPodcast(String podcastId) async {
+    final data = await db
+        .collection("EPISODE")
+        .where("podcastId", isEqualTo: podcastId)
+        .withConverter(
+            fromFirestore: EpisodeModel.fromFirestore,
+            toFirestore: (listEpisode, _) => listEpisode.toFirestore())
+        .get();
+
+    //convert in array [EpisodeModel]..
+    final convertData = data.docs.map((listEpisode) => listEpisode.data());
+
+    //notify apps the data has changed
+    _listEpisodes.addAll(convertData);
+    notifyListeners();
+
+    //always return success
     return Future.value(Response.Ok(message: ""));
   }
 
   Future<Response> getTopEpisodes() async {
     //TODO: ambil data  episode berdasarkan likes terbanyak
-        final data = await db
+    final data = await db
         .collection("EPISODE")
-        .orderBy("likes", descending: true).limit(5)
+        .orderBy("likes", descending: true)
+        .limit(5)
         .withConverter(
             fromFirestore: EpisodeModel.fromFirestore,
             toFirestore: (episode, _) => episode.toFirestore())
