@@ -280,9 +280,19 @@ Future<Response> getListeningPodcast () async{
     ;
   }
 
-  Future<Response> completeProfile(UserModel arg) {
+  Future<Response> completeProfile(UserModel arg) async {
+    var currentUser = auth.currentUser;
+    final userId = currentUser?.uid;
+
+    await db
+        .collection("USER")
+        .doc(userId)
+        .withConverter(
+            fromFirestore: UserModel.fromFirestore,
+            toFirestore: (user, _) => user.toFirestore())
+        .set(arg);
     //TODO:: complete profile
-    return Future.value(Response.Ok(message: ""));
+    return Future.value(Response.Ok(message: "Profile berhasil disimpan"));
   }
 
   Future<Response> saveMyTopic(List<TopicModel> topics) {
