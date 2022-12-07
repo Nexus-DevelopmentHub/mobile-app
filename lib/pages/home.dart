@@ -10,7 +10,7 @@ import 'package:podcast_app/data/podcast_provider.dart';
 import 'package:podcast_app/route/routes.dart';
 import 'package:podcast_app/theme/theme.dart';
 import 'package:provider/provider.dart';
-import '../data/topic_provider.dart';
+import 'package:podcast_app/data/topic_provider.dart';
 
 class PageHome extends StatefulWidget {
   const PageHome({Key? key}) : super(key: key);
@@ -23,11 +23,9 @@ class _PageHomeState extends State<PageHome> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      context.read<EpisodeProvider>().getTopEpisodes();
       context.read<TopicProvider>().getListTopics();
       context.read<EpisodeProvider>().getTopEpisodes();
       context.read<PodcastProvider>().getTrendingPodcast();
-      context.read<EpisodeProvider>().getTopEpisodes();
     });
 
     super.initState();
@@ -121,7 +119,7 @@ class _PageHomeState extends State<PageHome> {
                     ),
                     IconButton(
                       onPressed: () {},
-                      icon: Icon(Icons.chevron_right_rounded),
+                      icon: const Icon(Icons.chevron_right_rounded),
                       color: neutral,
                     ),
                   ],
@@ -140,12 +138,12 @@ class _PageHomeState extends State<PageHome> {
                       final data =
                           context.watch<EpisodeProvider>().topEpisodes[index];
                       return ContinueListening(
-                          totalIndex: 10,
-                          index: index,
-                          image: data.thumbnail.toString(),
-                          name: data.title.toString(),
-                          //
-                          percent: 0.6,
+                        totalIndex: 10,
+                        index: index,
+                        image: data.thumbnail.toString(),
+                        name: data.title.toString(),
+                        //
+                        percent: 0.6,
                         onClick: () {
                           Navigator.of(context).pushNamed(
                               Routes.detailDetailEpisode,
@@ -172,7 +170,7 @@ class _PageHomeState extends State<PageHome> {
                     ),
                     IconButton(
                       onPressed: () {},
-                      icon: Icon(Icons.chevron_right_rounded),
+                      icon: const Icon(Icons.chevron_right_rounded),
                       color: neutral,
                     ),
                   ],
@@ -187,14 +185,18 @@ class _PageHomeState extends State<PageHome> {
                     scrollDirection: Axis.horizontal,
                     itemCount: context.watch<TopicProvider>().topics.length,
                     itemBuilder: (BuildContext context, int index) {
-                      final data = context.watch<TopicProvider>().topics[index];
-                      return CardTopics(
-                          totalIndex: 10,
-                          index: index,
-                          name: data.name.toString(),
-                          color: HexColor.fromHex(data.color.toString()),
-                          Image: data.image.toString());
-                    }),
+                      final data = context
+                          .watch<TopicProvider>()
+                          .topics[index];
+                      return  CardTopics(
+                            totalIndex: 10,
+                            index: index,
+                            name: data.name.toString(),
+                            color: Colors.amber,
+                            Image: "https://via.placeholder.com/150"
+                      );
+
+                    })
               ),
               const SizedBox(
                 height: 8,
@@ -227,17 +229,17 @@ class _PageHomeState extends State<PageHome> {
                 height: 200,
                 child: ListView.builder(
                     scrollDirection: Axis.horizontal,
-                    itemCount: context.watch<EpisodeProvider>().episodes.length,
+                    itemCount: context.watch<EpisodeProvider>().topEpisodes.length,
                     itemBuilder: (BuildContext context, int index) {
                       final data =
-                          context.watch<EpisodeProvider>().episodes[index];
+                          context.watch<EpisodeProvider>().topEpisodes[index];
                       return CardEpisode(
-                          totalIndex: 10,
-                          index: index,
-                          name: data.title.toString(),
-                          artist: data.createdBy.toString(),
-                          image: data.thumbnail.toString(),
-                          time: data.durationInSeconds.toString());
+                        totalIndex: 10,
+                        index: index,
+                        name: data.title.toString(),
+                        artist: data.createdBy.toString(),
+                        image: data.thumbnail.toString(),
+                        time: data.durationInSeconds.toString(),
                         onClick: () {
                           Navigator.of(context).pushNamed(
                               Routes.detailDetailEpisode,
@@ -246,11 +248,11 @@ class _PageHomeState extends State<PageHome> {
                       );
                     }),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 8,
               ),
               Container(
-                padding: EdgeInsets.only(bottom: 8, top: 8, left: 24, right: 8),
+                padding: const EdgeInsets.only(bottom: 8, top: 8, left: 24, right: 8),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -282,13 +284,13 @@ class _PageHomeState extends State<PageHome> {
                       final data =
                           context.watch<EpisodeProvider>().topEpisodes[index];
                       return TopEpisode(
-                          totalIndex: 5,
-                          index: index,
-                          name: data.title.toString(),
-                          artist: data.createdBy.toString(),
-                          episode: 'Episode 4',
-                          image: data.thumbnail.toString(),
-                          onClick: () {
+                        totalIndex: 5,
+                        index: index,
+                        name: data.title.toString(),
+                        artist: data.createdBy.toString(),
+                        episode: 'Episode 4',
+                        image: data.thumbnail.toString(),
+                        onClick: () {
                           Navigator.of(context).pushNamed(
                               Routes.detailDetailEpisode,
                               arguments: {'id': ""});
@@ -296,14 +298,14 @@ class _PageHomeState extends State<PageHome> {
                       );
                     }),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 8,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 12,
               ),
               Container(
-                padding: EdgeInsets.only(bottom: 8, top: 8, left: 24, right: 8),
+                padding: const EdgeInsets.only(bottom: 8, top: 8, left: 24, right: 8),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -316,13 +318,13 @@ class _PageHomeState extends State<PageHome> {
                     ),
                     IconButton(
                       onPressed: () {},
-                      icon: Icon(Icons.chevron_right_rounded),
+                      icon: const Icon(Icons.chevron_right_rounded),
                       color: neutral,
                     ),
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 4,
               ),
               Container(
