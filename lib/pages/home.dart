@@ -143,6 +143,7 @@ class _PageHomeState extends State<PageHome> {
                           index: index,
                           image: data.thumbnail.toString(),
                           name: data.title.toString(),
+                          //
                           percent: 0.6);
                     }),
               ),
