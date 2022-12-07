@@ -63,7 +63,6 @@ class PodcastProvider with ChangeNotifier, DiagnosticableTreeMixin {
     
     final data = await db
         .collection("PODCAST")
-        .where("id", isEqualTo: podcasts)
         .withConverter(
             fromFirestore: PodcastModel.fromFirestore,
             toFirestore: (listPodcast, _) => listPodcast.toFirestore())
