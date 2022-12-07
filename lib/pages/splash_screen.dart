@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:podcast_app/components/button_primary.dart';
+import 'package:podcast_app/data/podcast_provider.dart';
 import 'package:podcast_app/data/user_provider.dart';
+import 'package:podcast_app/pages/detail_podcast.dart';
 import 'package:podcast_app/route/routes.dart';
 import 'package:podcast_app/theme/theme.dart';
 import 'package:provider/provider.dart';
@@ -16,17 +18,21 @@ class PageSplashScreen extends StatefulWidget {
 class _PageSplashScreenState extends State<PageSplashScreen> {
   @override
   void initState() {
+
     /**
      * when user already logged in redirect to home and otherwise redirect to sign in
      */
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      context.read<UserProvider>().checkIsLoggedIn().then((isLoggedIn) =>
+      context.read<PodcastProvider>().getDetailPodcast("123").then((value) => 
       {
-        if (isLoggedIn)
-          {Navigator.of(context).pushNamed(Routes.home)}
-        else
-          {Navigator.of(context).pushNamed(Routes.signIn)}
-      });
+        print(context.watch<PodcastProvider>().detailPodcast.title)
+      // context.read<UserProvider>().checkIsLoggedIn().then((isLoggedIn) =>
+      // {
+      //   if (isLoggedIn)
+      //     {Navigator.of(context).pushNamed(Routes.home)}
+      //   else
+      //     {Navigator.of(context).pushNamed(Routes.signIn)}
+       });
     });
 
     super.initState();

@@ -61,7 +61,6 @@ class PodcastProvider with ChangeNotifier, DiagnosticableTreeMixin {
   Future<Response> getListPodcast() async {
     final data = await db
         .collection("PODCAST")
-        .where("id", isEqualTo: podcasts)
         .withConverter(
             fromFirestore: PodcastModel.fromFirestore,
             toFirestore: (listPodcast, _) => listPodcast.toFirestore())
