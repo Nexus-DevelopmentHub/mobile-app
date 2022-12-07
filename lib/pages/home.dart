@@ -5,6 +5,7 @@ import 'package:podcast_app/components/card_episode.dart';
 import 'package:podcast_app/components/card_topepisode.dart';
 import 'package:podcast_app/components/card_topics.dart';
 import 'package:podcast_app/components/slider_banner.dart';
+import 'package:podcast_app/route/routes.dart';
 import 'package:podcast_app/theme/theme.dart';
 
 class PageHome extends StatefulWidget {
@@ -120,12 +121,18 @@ class _PageHomeState extends State<PageHome> {
                     itemCount: 10,
                     itemBuilder: (BuildContext context, int index) {
                       return ContinueListening(
-                          totalIndex: 10,
-                          index: index,
-                          image:
-                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDXVBhpoyFQDdjlBcLiiu7i-TU0hlM5iBVdQ&usqp=CAU',
-                          name: 'Relaxing Mids episod...',
-                          percent: 0.6);
+                        totalIndex: 10,
+                        index: index,
+                        image:
+                            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDXVBhpoyFQDdjlBcLiiu7i-TU0hlM5iBVdQ&usqp=CAU',
+                        name: 'Relaxing Mids episod...',
+                        percent: 0.6,
+                        onClick: () {
+                          Navigator.of(context).pushNamed(
+                              Routes.detailDetailEpisode,
+                              arguments: {'id': ""});
+                        },
+                      );
                     }),
               ),
               const SizedBox(
@@ -204,13 +211,19 @@ class _PageHomeState extends State<PageHome> {
                     itemCount: 10,
                     itemBuilder: (BuildContext context, int index) {
                       return CardEpisode(
-                          totalIndex: 10,
-                          index: index,
-                          name: 'Stories & Cities Jakarta',
-                          artist: 'The Fahrul Show',
-                          image:
-                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDXVBhpoyFQDdjlBcLiiu7i-TU0hlM5iBVdQ&usqp=CAU',
-                          time: '1 Hour, 5 Min');
+                        totalIndex: 10,
+                        index: index,
+                        name: 'Stories & Cities Jakarta',
+                        artist: 'The Fahrul Show',
+                        image:
+                            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDXVBhpoyFQDdjlBcLiiu7i-TU0hlM5iBVdQ&usqp=CAU',
+                        time: '1 Hour, 5 Min',
+                        onClick: () {
+                          Navigator.of(context).pushNamed(
+                              Routes.detailDetailEpisode,
+                              arguments: {'id': ""});
+                        },
+                      );
                     }),
               ),
               SizedBox(
@@ -246,13 +259,19 @@ class _PageHomeState extends State<PageHome> {
                     itemCount: 5,
                     itemBuilder: (BuildContext context, int index) {
                       return TopEpisode(
-                          totalIndex: 5,
-                          index: index,
-                          name: 'Stories & Cities Jakarta',
-                          artist: 'The fahrul Show',
-                          episode: 'Episode 4',
-                          image:
-                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDXVBhpoyFQDdjlBcLiiu7i-TU0hlM5iBVdQ&usqp=CAU');
+                        totalIndex: 5,
+                        index: index,
+                        name: 'Stories & Cities Jakarta',
+                        artist: 'The fahrul Show',
+                        episode: 'Episode 4',
+                        image:
+                            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDXVBhpoyFQDdjlBcLiiu7i-TU0hlM5iBVdQ&usqp=CAU',
+                        onClick: () {
+                          Navigator.of(context).pushNamed(
+                              Routes.detailDetailEpisode,
+                              arguments: {'id': ""});
+                        },
+                      );
                     }),
               ),
               SizedBox(
@@ -291,12 +310,18 @@ class _PageHomeState extends State<PageHome> {
                     itemCount: 5,
                     itemBuilder: (BuildContext context, int index) {
                       return CardAudioBook(
-                          totalIndex: 5,
-                          index: index,
-                          image:
-                              'https://d1csarkz8obe9u.cloudfront.net/posterpreviews/yellow-business-leadership-book-cover-design-template-dce2f5568638ad4643ccb9e725e5d6ff.jpg?ts=1637017516',
-                          name: 'The Mean Of A Leader',
-                          description: 'Seorang pemimpin...');
+                        totalIndex: 5,
+                        index: index,
+                        image:
+                            'https://d1csarkz8obe9u.cloudfront.net/posterpreviews/yellow-business-leadership-book-cover-design-template-dce2f5568638ad4643ccb9e725e5d6ff.jpg?ts=1637017516',
+                        name: 'The Mean Of A Leader',
+                        description: 'Seorang pemimpin...',
+                        onClick: () {
+                          Navigator.of(context).pushNamed(
+                              Routes.detailDetailEpisode,
+                              arguments: {'id': ""});
+                        },
+                      );
                     }),
               ),
             ],

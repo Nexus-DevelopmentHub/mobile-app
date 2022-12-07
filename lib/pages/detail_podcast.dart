@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:podcast_app/components/card_listepisode.dart';
 import 'package:podcast_app/components/chip_text.dart';
 import 'package:podcast_app/components/header_detailpodcast.dart';
+import 'package:podcast_app/route/routes.dart';
 import 'package:podcast_app/theme/theme.dart';
 
 class PageDetailPodcast extends StatefulWidget {
@@ -80,12 +81,17 @@ class _PageDetailPodcastState extends State<PageDetailPodcast> {
               itemCount: 10,
               itemBuilder: (BuildContext context, int index) {
                 return ListEpisode(
-                    totalIndex: 10,
-                    index: index,
-                    name: 'Stories & Cities Jakarta',
-                    artist: 'The Fahrul Show',
-                    image:
-                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDXVBhpoyFQDdjlBcLiiu7i-TU0hlM5iBVdQ&usqp=CAU');
+                  totalIndex: 10,
+                  index: index,
+                  name: 'Stories & Cities Jakarta',
+                  artist: 'The Fahrul Show',
+                  image:
+                      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDXVBhpoyFQDdjlBcLiiu7i-TU0hlM5iBVdQ&usqp=CAU',
+                  onClick: () {
+                    Navigator.of(context).pushNamed(Routes.detailDetailEpisode,
+                        arguments: {'id': ""});
+                  },
+                );
               }),
         ),
       ],
