@@ -229,11 +229,7 @@ Future<Response> getListeningPodcast () async{
       final credential = await auth.createUserWithEmailAndPassword(
           email: email, password: password);
 
-      final user = UserModel(
-          name: name,
-          email: email,
-          level: "USER"
-      );
+      final user = UserModel(name: name, email: email, level: "USER");
       await db
           .collection('USER')
           .doc(credential.user!.uid)
@@ -280,13 +276,41 @@ Future<Response> getListeningPodcast () async{
     ;
   }
 
-  Future<Response> completeProfile(UserModel arg) {
+  Future<Response> completeProfile(UserModel arg) async {
+    var currentUser = auth.currentUser;
+    final userId = currentUser?.uid;
+
+    await db
+        .collection("USER")
+        .doc(userId)
+        .withConverter(
+            fromFirestore: UserModel.fromFirestore,
+            toFirestore: (user, _) => user.toFirestore())
+        .set(arg);
     //TODO:: complete profile
-    return Future.value(Response.Ok(message: ""));
+    return Future.value(Response.Ok(message: "Profile berhasil disimpan"));
   }
 
-  Future<Response> saveMyTopic(List<TopicModel> topics) {
-    return Future.value(Response.Ok(message: ""));
+  Future<Response> saveMyTopic(List<TopicModel> topics) async {
+    try {
+      final batch = db.batch();
+      var currentUser = auth.currentUser;
+
+      //looping topicnya
+      myTopics.forEach((myTopics) {
+        final doc = db
+            .collection("TOPICS")
+            .doc(currentUser!.uid)
+            .collection("TOPICS")
+            .doc();
+        batch.set(doc, myTopics.toFirestore());
+      });
+
+      //set value topic
+      return Future.value(Response.Ok(message: ""));
+    } on FirebaseException catch (e) {
+      return Response.Failed(message: e.message.toString());
+    }
   }
 
   Future<Response> saveTopicUser(List<TopicModel> topics) async {
