@@ -3,6 +3,8 @@ import 'package:podcast_app/components/card_listepisode.dart';
 import 'package:podcast_app/components/header_detailepisode.dart';
 import 'package:podcast_app/components/input_ctadetailepisode.dart';
 import 'package:podcast_app/data/episode_provider.dart';
+import 'package:podcast_app/data/podcast_provider.dart';
+import 'package:podcast_app/models/episode_model.dart';
 import 'package:podcast_app/route/routes.dart';
 import 'package:podcast_app/theme/theme.dart';
 import 'package:provider/provider.dart';
@@ -15,6 +17,8 @@ class PageDetailEpisode extends StatefulWidget {
 }
 
 class _PageDetailEpisodeState extends State<PageDetailEpisode> {
+  final title = 2;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -39,14 +43,33 @@ class _PageDetailEpisodeState extends State<PageDetailEpisode> {
           children: [
             Container(
               padding: EdgeInsets.only(left: 24, right: 24),
-              child: const HeaderDetailEpisode(
-                  name: 'Stories & Cities Jakarta',
-                  image:
-                      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDXVBhpoyFQDdjlBcLiiu7i-TU0hlM5iBVdQ&usqp=CAU',
-                  artist: 'The Fahrul Show',
-                  description:
-                      'Conversations about science. tech, history, philosophu, and nature intellegence',
-                  percent: 0.6),
+              child: HeaderDetailEpisode(
+                name: context
+                    .watch<EpisodeProvider>()
+                    .detailEpisode
+                    .title
+                    .toString(),
+                image: context
+                    .watch<EpisodeProvider>()
+                    .detailEpisode
+                    .thumbnail
+                    .toString(),
+                artist: context
+                    .watch<EpisodeProvider>()
+                    .detailEpisode
+                    .createdBy
+                    .toString(),
+                description: context
+                    .watch<EpisodeProvider>()
+                    .detailEpisode
+                    .description
+                    .toString(),
+                percent: context
+                    .watch<EpisodeProvider>()
+                    .detailEpisode
+                    .durationInSeconds!
+                    .toDouble(),
+              ),
             ),
             SizedBox(
               height: 16,
@@ -87,15 +110,16 @@ class _PageDetailEpisodeState extends State<PageDetailEpisode> {
               height: 326,
               child: ListView.builder(
                   scrollDirection: Axis.vertical,
-                  itemCount: 50,
+                  itemCount: context.watch<EpisodeProvider>().episodes.length,
                   itemBuilder: (BuildContext context, int index) {
+                    final data =
+                        context.watch<EpisodeProvider>().episodes[index];
                     return ListEpisode(
                       totalIndex: 50,
                       index: index,
-                      name: 'Stories & Cities Jakarta',
-                      artist: 'The Fahrul Show',
-                      image:
-                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDXVBhpoyFQDdjlBcLiiu7i-TU0hlM5iBVdQ&usqp=CAU',
+                      name: data.title.toString(),
+                      artist: data.createdBy.toString(),
+                      image: data.thumbnail.toString(),
                       onClick: () {
                         Navigator.of(context).pushNamed(
                             Routes.detailDetailEpisode,
