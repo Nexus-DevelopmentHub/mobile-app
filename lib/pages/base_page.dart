@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:podcast_app/components/input_search.dart';
 import 'package:podcast_app/components/navigasi_bar.dart';
+import 'package:podcast_app/data/podcast_provider.dart';
 import 'package:podcast_app/pages/detail_podcast.dart';
 import 'package:podcast_app/pages/home.dart';
 import 'package:podcast_app/pages/profile.dart';
 import 'package:podcast_app/pages/search.dart';
 import 'package:podcast_app/theme/theme.dart';
+import 'package:provider/provider.dart';
 import 'detail_episode.dart';
 
 class BasePage extends StatefulWidget {
@@ -23,7 +25,9 @@ class _BasePageState extends State<BasePage> {
       return SliverAppBar(
         title: InputSearch(
             name: '',
-            onChange: ((p0) {}),
+            onChange: ((q) {
+              context.read<PodcastProvider>().searchPodcast(q);
+            }),
             placeholder: 'Find topics, podcaster, etc'),
         toolbarHeight: 72,
         forceElevated: innerBoxIsScrolled,
