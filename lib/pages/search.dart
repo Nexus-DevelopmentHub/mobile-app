@@ -1,7 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:podcast_app/components/card_recentsearch.dart';
 import 'package:podcast_app/components/chip_text.dart';
+import 'package:podcast_app/data/topic_provider.dart';
 import 'package:podcast_app/theme/theme.dart';
+import 'package:provider/provider.dart';
+
+import '../data/podcast_provider.dart';
 
 class PageSearch extends StatefulWidget {
   const PageSearch({Key? key}) : super(key: key);
@@ -25,8 +30,13 @@ class _PageSearchState extends State<PageSearch> {
             height: 40,
             child: ListView.builder(
                 scrollDirection: Axis.horizontal,
-                itemCount: 6,
+                itemCount:
+                    context.watch<PodcastProvider>().searchPodcastState.length,
                 itemBuilder: (BuildContext context, int index) {
+                  final data = context
+                      .watch<PodcastProvider>()
+                      .searchPodcastState[index];
+
                   return Container(
                     margin: EdgeInsets.only(
                         left: (index == 0) ? 24 : 8,
@@ -43,7 +53,8 @@ class _PageSearchState extends State<PageSearch> {
             child: ListView.builder(
                 physics: NeverScrollableScrollPhysics(),
                 scrollDirection: Axis.vertical,
-                itemCount: 6,
+                itemCount:
+                    context.watch<PodcastProvider>().searchPodcastState.length,
                 itemBuilder: (BuildContext context, int index) {
                   return Container(
                     margin: (EdgeInsets.only(
