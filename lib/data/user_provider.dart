@@ -6,6 +6,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:podcast_app/models/callback_model.dart';
+import 'package:podcast_app/models/episode_model.dart';
 import 'package:podcast_app/models/history_search_model.dart';
 import 'package:podcast_app/models/topic_model.dart';
 import 'package:podcast_app/models/user_model.dart';
@@ -32,6 +33,14 @@ class UserProvider with ChangeNotifier, DiagnosticableTreeMixin {
 
   List<HistorySearchModel> get historySearch => _historySearch;
 
+  List<UserModel> _myProfile = [];
+
+  List<UserModel> get myProfile => _myProfile;
+  
+  List<EpisodeModel> _listeningPodcast = [];
+
+  List<EpisodeModel> get listeningPodcast => _listeningPodcast;
+
   //end region
 
   FirebaseFirestore db = FirebaseFirestore.instance;
@@ -49,9 +58,50 @@ class UserProvider with ChangeNotifier, DiagnosticableTreeMixin {
       return Response.Failed(message: e.code);
     }
   }
+Future<Response> getListeningPodcast () async{
+    final userId = await auth.currentUser;
+   if (userId == null) {
+      return Future.value(Response.Failed(message: ""));
+    }
+   final data = await db
+        .collection("USER")
+        .doc(userId.uid)
+        .collection("LISTENING")
+        .withConverter(
+            fromFirestore: EpisodeModel.fromFirestore,
+            toFirestore: (l, _) => l.toFirestore())
+        .get();
 
-  Future<Response> getMyProfile() {
+    //convert in array 
+    final convertData = data.docs.map((user) => user.data());
+
+    //notify apps the data has changed
+    _listeningPodcast.addAll(convertData);
+    notifyListeners();
+
+  return Future.value(Response.Ok(message: ""));
+}
+  Future<Response> getMyprofile() async {
     //TODO : ambil profile user yang sedang login
+
+    final userId = await auth.currentUser;
+   if (userId == null) {
+      return Future.value(Response.Failed(message: ""));
+    }
+    final data = await db
+        .collection("USER")
+        .doc(userId.uid)
+        .withConverter(
+            fromFirestore: UserModel.fromFirestore,
+            toFirestore: (mp, _) => mp.toFirestore())
+        .get();
+
+      if (data.exists) {
+      final myProfileResult = data.data();
+      if (myProfileResult != null) {
+         notifyListeners();
+      }
+    }
     return Future.value(Response.Ok(message: ""));
   }
 
@@ -179,7 +229,11 @@ class UserProvider with ChangeNotifier, DiagnosticableTreeMixin {
       final credential = await auth.createUserWithEmailAndPassword(
           email: email, password: password);
 
-      final user = UserModel(name: name);
+      final user = UserModel(
+          name: name,
+          email: email,
+          level: "USER"
+      );
       await db
           .collection('USER')
           .doc(credential.user!.uid)
@@ -244,5 +298,33 @@ class UserProvider with ChangeNotifier, DiagnosticableTreeMixin {
   Future<Response> saveMyTopic(List<TopicModel> topics) {
     return Future.value(Response.Ok(message: ""));
   }
+
+  Future<Response> saveTopicUser(List<TopicModel> topics) async {
+    try {
+      //buat batch transaction contract
+      final batch = db.batch();
+      var currentUser = auth.currentUser;
+
+      //looping topicnya
+      topics.forEach((topic) {
+        //cari datanya mau di taro di mana dan geneeratee unique id
+        final doc = db
+            .collection("USER")
+            .doc(currentUser!.uid)
+            .collection("USER")
+            .doc();
+        batch.set(doc, topic.toFirestore());
+      });
+
+      // Set value topic
+
+      return Future.value(Response.Ok(message: ""));
+    } on FirebaseException catch (e) {
+      return Response.Failed(message: e.message.toString());
+    }
+  }
 //end region
 }
+
+
+

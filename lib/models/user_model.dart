@@ -7,11 +7,13 @@ class UserModel{
   String? dateOfBirth="";
   String? gender="";
   String? address="";
+  String? level="";
 
   UserModel({
     this.name,
     this.address,
     this.email,
+    this.level,
     this.photoProfile,
     this.dateOfBirth,
     this.gender,
@@ -32,7 +34,8 @@ class UserModel{
       photoProfile: data?['photoProfile'],
       dateOfBirth: data?['dateOfBirth'],
       gender: data?['gender'],
-      address: data?['address']
+      address: data?['address'],
+      level:data?['level']
     );
 
   }
@@ -44,7 +47,8 @@ class UserModel{
       if(photoProfile != null) "photoProfile":photoProfile,
       if(dateOfBirth != null) "dateOfBirth":dateOfBirth,
       if(gender != null) "gender":gender,
-      if(address != null) "address":address
+      if(address != null) "address":address,
+      if(level != null) "level":level
     };
   }
 }

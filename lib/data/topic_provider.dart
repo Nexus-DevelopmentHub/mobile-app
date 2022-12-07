@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:podcast_app/models/callback_model.dart';
+import 'package:podcast_app/models/podcast_model.dart';
 import 'package:podcast_app/models/topic_model.dart';
 
 class TopicProvider with ChangeNotifier, DiagnosticableTreeMixin {
@@ -20,14 +21,25 @@ class TopicProvider with ChangeNotifier, DiagnosticableTreeMixin {
   //end region
 
   //region
-  Future<Response> createTopics(){
+  Future<Response> createTopics() {
     //TODO::
     return Future.value(Response.Ok(message: ""));
   }
 
-  Future<Response> getListTopics() {
-    //TODO: ambil data keseluruhan podcast
-    return Future.value(Response.Ok(message: ""));
+  //ambil data keseluruhan podcast
+  Future<Response> getListTopics() async {
+    final data = await db
+        .collection("TOPICS")
+        .withConverter(
+            fromFirestore: TopicModel.fromFirestore,
+            toFirestore: (listTopics, _) => listTopics.toFirestore())
+        .get();
+
+    final convertData = data.docs.map((listTopics) => listTopics.data());
+    _topics.addAll(convertData);
+    notifyListeners();
+
+    return Future.value(Response.Ok(message: "Berhasil"));
   }
-//end region
 }
+//end region
