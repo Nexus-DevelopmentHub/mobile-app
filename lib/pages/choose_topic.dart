@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:podcast_app/components/button_primary.dart';
 import 'package:podcast_app/components/chip_text.dart';
 import 'package:podcast_app/data/topic_provider.dart';
+import 'package:podcast_app/data/user_provider.dart';
 import 'package:podcast_app/route/routes.dart';
 import 'package:podcast_app/theme/theme.dart';
 import 'package:provider/provider.dart';
+
+import '../models/topic_model.dart';
 
 class PageChooseTopic extends StatefulWidget {
   const PageChooseTopic({Key? key}) : super(key: key);
@@ -14,16 +17,27 @@ class PageChooseTopic extends StatefulWidget {
 }
 
 class _PageChooseTopicState extends State<PageChooseTopic> {
-  var data = ["Berita", "Anak", "Komedi", "Motivasi", "Budaya", "Film TV"];
+  List<TopicModel> selectedTopic = [];
 
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       context.read<TopicProvider>().getListTopics();
-
     });
-
     super.initState();
+  }
+
+  saveMyTopics() {
+    context.read<UserProvider>().saveMyTopic(selectedTopic).then((value) => {
+          if (value.success)
+            {
+                Navigator.of(context).pushNamed(Routes.home)
+            }
+          else
+            {
+              //TO DO KETIKA GAGAL
+            }
+        });
   }
 
   @override
@@ -73,10 +87,16 @@ class _PageChooseTopicState extends State<PageChooseTopic> {
                       children: List<Widget>.generate(
                           context.watch<TopicProvider>().topics.length,
                           (int index) {
-                        final data = context.watch<TopicProvider>().topics[index];
+                        final data =
+                            context.watch<TopicProvider>().topics[index];
 
                         return ChipText(
-                            name: data.name.toString(), selected: index == 2);
+                          name: data.name.toString(),
+                          selected: index == 2,
+                          onClick: () {
+                            selectedTopic.add(data);
+                          },
+                        );
                       }).toList(),
                     ),
                   ],
@@ -91,7 +111,7 @@ class _PageChooseTopicState extends State<PageChooseTopic> {
                   child: ButtonPrimary(
                     name: "Memulai",
                     onClick: () {
-                      Navigator.of(context).pushNamed(Routes.home);
+                      saveMyTopics();
                     },
                   ),
                 ),
