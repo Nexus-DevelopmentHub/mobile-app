@@ -12,13 +12,14 @@ class CardEpisode extends StatefulWidget {
       required this.image,
       required this.time,
       required this.index,
-      required this.totalIndex});
+      required this.totalIndex, required this.onClick});
   final int totalIndex;
   final int index;
   final String name;
   final String artist;
   final String image;
   final String time;
+  final VoidCallback onClick;
 
   @override
   State<CardEpisode> createState() => _CardEpisodeState();
@@ -28,7 +29,7 @@ class _CardEpisodeState extends State<CardEpisode> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        margin: EdgeInsets.only(
+      margin: EdgeInsets.only(
           left: (widget.index == 0) ? 24 : 8,
           right: (widget.index == widget.totalIndex - 1) ? 24 : 0),
       width: 120,

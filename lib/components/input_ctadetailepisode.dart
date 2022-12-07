@@ -6,10 +6,17 @@ import 'package:podcast_app/theme/style/button_cta.dart';
 import 'package:podcast_app/theme/theme.dart';
 
 class CtaDetailEpisode extends StatefulWidget {
-  const CtaDetailEpisode({super.key, required this.name, this.onClick});
+  const CtaDetailEpisode(
+      {super.key,
+      required this.name,
+      this.onClick,
+      this.onShareClick,
+      this.onLikeClick});
 
   final String name;
   final VoidCallback? onClick;
+  final VoidCallback? onShareClick;
+  final VoidCallback? onLikeClick;
 
   @override
   State<CtaDetailEpisode> createState() => _CtaDetailEpisodeState();
@@ -38,7 +45,7 @@ class _CtaDetailEpisodeState extends State<CtaDetailEpisode> {
             padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
             color: neutral,
             onPressed: () {
-              widget?.onClick?.call();
+              widget?.onShareClick?.call();
             },
             icon: Icon(Icons.share_rounded)),
         SizedBox(
@@ -48,7 +55,11 @@ class _CtaDetailEpisodeState extends State<CtaDetailEpisode> {
             padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
             color: neutral,
             onPressed: () {
-              widget?.onClick?.call();
+              Icon(
+                Icons.favorite,
+                color: primary,
+              );
+              widget?.onLikeClick?.call();
             },
             icon: Icon(Icons.favorite_outline_rounded)),
       ],

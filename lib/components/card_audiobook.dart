@@ -10,7 +10,7 @@ class CardAudioBook extends StatefulWidget {
     required this.name,
     required this.description,
     required this.index,
-    required this.totalIndex,
+    required this.totalIndex, required this.onClick,
   });
 
   final int totalIndex;
@@ -18,6 +18,7 @@ class CardAudioBook extends StatefulWidget {
   final String name;
   final String description;
   final int index;
+  final VoidCallback onClick;
 
   @override
   State<CardAudioBook> createState() => _CardAudioBookState();

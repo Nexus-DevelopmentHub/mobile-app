@@ -10,8 +10,10 @@ class ContinueListening extends StatefulWidget {
       required this.image,
       required this.name,
       required this.percent,
-      required this.index, required this.totalIndex});
+      required this.index,
+      required this.totalIndex, required this.onClick});
 
+  final VoidCallback onClick;
   final int totalIndex;
   final int index;
   final String image;
