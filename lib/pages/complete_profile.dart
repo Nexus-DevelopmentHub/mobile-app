@@ -4,8 +4,11 @@ import 'package:podcast_app/components/input_dateofbirth.dart';
 import 'package:podcast_app/components/input_gender.dart';
 import 'package:podcast_app/components/input_text.dart';
 import 'package:podcast_app/components/upload_picture.dart';
+import 'package:podcast_app/data/user_provider.dart';
+import 'package:podcast_app/models/user_model.dart';
 import 'package:podcast_app/route/routes.dart';
 import 'package:podcast_app/theme/theme.dart';
+import 'package:provider/provider.dart';
 
 class PageCompleteProfile extends StatefulWidget {
   const PageCompleteProfile({Key? key}) : super(key: key);
@@ -20,6 +23,21 @@ class _PageCompleteProfileState extends State<PageCompleteProfile> {
   String UserName = "";
   String Gender = "";
   String kota = "";
+
+  saveProfile(){
+    context.read<UserProvider>().completeProfile(
+      UserModel(
+        photoProfile: photourl,
+        name: Nama,
+        gender: Gender,
+        address: kota
+      )
+    ).then((value) => {
+      if(value.success){
+        Navigator.of(context).pushNamed(Routes.chooseTopic)
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -137,7 +155,7 @@ class _PageCompleteProfileState extends State<PageCompleteProfile> {
               child: ButtonPrimary(
                 name: "Selesai",
                 onClick: () {
-                  Navigator.of(context).pushNamed(Routes.chooseTopic);
+                  saveProfile();
                 },
               ),
             ),

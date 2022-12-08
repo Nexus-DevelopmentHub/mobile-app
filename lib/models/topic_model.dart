@@ -20,7 +20,7 @@ class TopicModel{
     final data = snapshot.data();
     return TopicModel(
       name: data?['name'],
-      key: data?['key'],
+      key: data?['key'].toString(),
       image: data?['image'],
       color: data?['color']
     );
