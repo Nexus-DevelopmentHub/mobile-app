@@ -42,7 +42,7 @@ class _PagePlayerState extends State<PagePlayer> {
             child: SliderPlayer(),
           ),
           const SizedBox(
-            height: 68,
+            height: 40,
           ),
           Container(
             margin: EdgeInsets.only(left: 24, right: 24),
