@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:podcast_app/components/card_continuelistening.dart';
 import 'package:podcast_app/models/callback_model.dart';
 import 'package:podcast_app/models/episode_model.dart';
 import 'package:podcast_app/models/history_search_model.dart';
@@ -36,7 +37,7 @@ class UserProvider with ChangeNotifier, DiagnosticableTreeMixin {
   List<UserModel> _myProfile = [];
 
   List<UserModel> get myProfile => _myProfile;
-  
+
   List<EpisodeModel> _listeningPodcast = [];
 
   List<EpisodeModel> get listeningPodcast => _listeningPodcast;
@@ -58,12 +59,13 @@ class UserProvider with ChangeNotifier, DiagnosticableTreeMixin {
       return Response.Failed(message: e.code);
     }
   }
-Future<Response> getListeningPodcast () async{
+
+  Future<Response> getListeningPodcast() async {
     final userId = await auth.currentUser;
-   if (userId == null) {
+    if (userId == null) {
       return Future.value(Response.Failed(message: ""));
     }
-   final data = await db
+    final data = await db
         .collection("USER")
         .doc(userId.uid)
         .collection("LISTENING")
@@ -72,20 +74,21 @@ Future<Response> getListeningPodcast () async{
             toFirestore: (l, _) => l.toFirestore())
         .get();
 
-    //convert in array 
+    //convert in array
     final convertData = data.docs.map((user) => user.data());
 
     //notify apps the data has changed
     _listeningPodcast.addAll(convertData);
     notifyListeners();
 
-  return Future.value(Response.Ok(message: ""));
-}
+    return Future.value(Response.Ok(message: ""));
+  }
+
   Future<Response> getMyprofile() async {
     //TODO : ambil profile user yang sedang login
 
     final userId = await auth.currentUser;
-   if (userId == null) {
+    if (userId == null) {
       return Future.value(Response.Failed(message: ""));
     }
     final data = await db
@@ -96,10 +99,10 @@ Future<Response> getListeningPodcast () async{
             toFirestore: (mp, _) => mp.toFirestore())
         .get();
 
-      if (data.exists) {
+    if (data.exists) {
       final myProfileResult = data.data();
       if (myProfileResult != null) {
-         notifyListeners();
+        notifyListeners();
       }
     }
     return Future.value(Response.Ok(message: ""));
@@ -335,8 +338,23 @@ Future<Response> getListeningPodcast () async{
       return Response.Failed(message: e.message.toString());
     }
   }
+
+  Future<Response> continueListening() async {
+    try {
+      final data = await db
+          .collection("USER")
+          .doc(auth.currentUser!.uid)
+          .collection("LISTENING")
+          .withConverter(
+              fromFirestore: EpisodeModel.fromFirestore,
+              toFirestore: (listening, _) => listening.toFirestore())
+          .get();
+      _listeningPodcast.addAll(data.docs.map((value) => value.data()));
+      notifyListeners();
+      return Future.value(Response.Ok(message: ""));
+    } on FirebaseAuthException catch (e) {
+      return Future.value(Response.Failed(message: e.code));
+    }
+  }
 //end region
 }
-
-
-
