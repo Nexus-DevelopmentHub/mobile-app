@@ -76,7 +76,7 @@ class EpisodeProvider with ChangeNotifier, DiagnosticableTreeMixin {
   }
 
   Future<Response> getTopEpisodes() async {
-    //TODO: ambil data  episode berdasarkan likes terbanyak
+
     final data = await db
         .collection("EPISODE")
         .orderBy("likes", descending: true)
@@ -87,6 +87,7 @@ class EpisodeProvider with ChangeNotifier, DiagnosticableTreeMixin {
         .get();
 
     final convertData = data.docs.map((episode) => episode.data());
+    print(convertData);
 
     //notify apps the data has changed
     _topEpisodes.addAll(convertData);

@@ -32,27 +32,35 @@ class _CardTopicsState extends State<CardTopics> {
           left: (widget.index == 0) ? 24 : 8,
           right: (widget.index == widget.totalIndex - 1) ? 24 : 0),
           height: 88,
-          width: 152,
-          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 28),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                widget.name,
-                style: TextStyle(
-                  color: neutral,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w800,
-                ),
-              ),
-              Container(
-                child: Image.network(widget.Image),
-              ),
-            ],
-          ),
+          width:140,
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 28),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8), color: widget.color),
-        )
+          child:  Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  width: 50,
+                  child: Text(
+                    widget.name,
+                    overflow: TextOverflow.ellipsis,
+                    softWrap: false,
+                    maxLines: 2,
+                    style: TextStyle(
+                      color: neutral,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
+                ),
+                Image.network(
+                    widget.Image,
+                  fit: BoxFit.fill,
+                ),
+              ],
+            ),
+          ),
+
       ],
     );
   }

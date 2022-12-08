@@ -5,18 +5,24 @@ class UserModel{
   String? email="";
   String? photoProfile="";
   String? dateOfBirth="";
+  bool? isActive=true;
   String? gender="";
   String? address="";
   String? level="";
+  int? updatedAt=0;
+  int? createdAt=0;
 
   UserModel({
     this.name,
-    this.address,
     this.email,
-    this.level,
     this.photoProfile,
     this.dateOfBirth,
+    this.isActive,
     this.gender,
+    this.address,
+    this.level,
+    this.updatedAt,
+    this.createdAt
 });
 
   bool isMale(){
@@ -33,9 +39,12 @@ class UserModel{
       email: data?['email'],
       photoProfile: data?['photoProfile'],
       dateOfBirth: data?['dateOfBirth'],
+      isActive:data?["isActive"],
       gender: data?['gender'],
       address: data?['address'],
-      level:data?['level']
+      level:data?['level'],
+      updatedAt: data?['updatedAt'],
+      createdAt: data?['createdAt']
     );
 
   }
@@ -46,9 +55,12 @@ class UserModel{
       if(email != null) "email":email,
       if(photoProfile != null) "photoProfile":photoProfile,
       if(dateOfBirth != null) "dateOfBirth":dateOfBirth,
+      if(isActive != null) "isActive":isActive,
       if(gender != null) "gender":gender,
       if(address != null) "address":address,
-      if(level != null) "level":level
+      if(level != null) "level":level,
+      if(updatedAt != null) "updatedAt":updatedAt,
+      if(createdAt != null) "createdAt":createdAt
     };
   }
 }
