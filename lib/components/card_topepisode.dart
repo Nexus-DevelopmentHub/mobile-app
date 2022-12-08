@@ -33,7 +33,7 @@ class _TopEpisodeState extends State<TopEpisode> {
       margin: EdgeInsets.only(
           left: (widget.index == 0) ? 24 : 8,
           right: (widget.index == widget.totalIndex - 1) ? 24 : 0),
-      width: 220,
+      width: 240,
       height: 68,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -52,14 +52,16 @@ class _TopEpisodeState extends State<TopEpisode> {
               Container(
                 padding: const EdgeInsets.only(top: 6, bottom: 6),
               ),
-              Text(
-                widget.name,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                style: TextStyle(
-                  color: neutral,
-                  fontSize: 12,
-                  fontWeight: FontWeight.w600,
+              Container(
+                width: 160,
+                child: Text(
+                  widget.name,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    color: neutral,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
               ),
               const SizedBox(height: 4),
