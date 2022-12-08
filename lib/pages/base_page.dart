@@ -1,15 +1,14 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:podcast_app/components/input_search.dart';
 import 'package:podcast_app/components/navigasi_bar.dart';
 import 'package:podcast_app/data/podcast_provider.dart';
 import 'package:podcast_app/pages/detail_podcast.dart';
 import 'package:podcast_app/pages/home.dart';
+import 'package:podcast_app/pages/live.dart';
 import 'package:podcast_app/pages/profile.dart';
 import 'package:podcast_app/pages/search.dart';
 import 'package:podcast_app/theme/theme.dart';
 import 'package:provider/provider.dart';
-import 'detail_episode.dart';
 
 class BasePage extends StatefulWidget {
   const BasePage({Key? key}) : super(key: key);
@@ -20,16 +19,6 @@ class BasePage extends StatefulWidget {
 
 class _BasePageState extends State<BasePage> {
   int selected = 0;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      final s =  FirebaseAuth.instance.currentUser;
-      print(s);
-    });
-    super.initState();
-  }
 
   Widget buildAppBar(BuildContext context, bool innerBoxIsScrolled) {
     if (selected == 0) {
@@ -48,7 +37,7 @@ class _BasePageState extends State<BasePage> {
     }
     if (selected == 1) {
       return SliverPadding(
-        padding: EdgeInsets.only(
+        padding: const EdgeInsets.only(
           left: 4,
           right: 8,
         ),
@@ -56,11 +45,12 @@ class _BasePageState extends State<BasePage> {
           leading: Row(
             children: [
               Container(
-                padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
                 height: 40,
                 width: 40,
-                child:
-                    IconButton(onPressed: () {}, icon: Icon(Icons.arrow_back)),
+                child: IconButton(
+                    onPressed: () {}, icon: const Icon(Icons.arrow_back)),
               )
             ],
           ),
@@ -77,20 +67,20 @@ class _BasePageState extends State<BasePage> {
     }
     if (selected == 2) {
       return SliverPadding(
-        padding: EdgeInsets.only(left: 8, right: 8),
+        padding: const EdgeInsets.only(left: 8, right: 8),
         sliver: SliverAppBar(
-          leading: Icon(Icons.arrow_back),
+          leading: const Icon(Icons.arrow_back),
           forceElevated: innerBoxIsScrolled,
           backgroundColor: onNeutral,
           pinned: true,
-          actions: [Icon(Icons.more_vert_rounded)],
+          actions: const [Icon(Icons.more_vert_rounded)],
         ),
       );
     }
 
     if (selected == 3) {
       return SliverPadding(
-        padding: EdgeInsets.only(left: 8, right: 8),
+        padding: const EdgeInsets.only(left: 8, right: 8),
         sliver: SliverAppBar(
           title: Text(
             'Profile',
@@ -100,7 +90,7 @@ class _BasePageState extends State<BasePage> {
               fontWeight: FontWeight.w800,
             ),
           ),
-          leading: Icon(Icons.arrow_back),
+          leading: const Icon(Icons.arrow_back),
           forceElevated: innerBoxIsScrolled,
           backgroundColor: onNeutral,
           pinned: true,
@@ -120,7 +110,7 @@ class _BasePageState extends State<BasePage> {
     }
 
     if (selected == 2) {
-      return const PageDetailPodcast();
+      return const PageLive();
     }
 
     if (selected == 3) {

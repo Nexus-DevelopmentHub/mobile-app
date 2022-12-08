@@ -27,63 +27,61 @@ class HeaderDetailPodcast extends StatefulWidget {
 class _HeaderDetailPodcastState extends State<HeaderDetailPodcast> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                height: 208,
-                width: 208,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(24),
-                  child: Image(image: NetworkImage(widget.image)),
-                ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            SizedBox(
+              height: 208,
+              width: 208,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(24),
+                child: Image(image: NetworkImage(widget.image)),
               ),
-              ElevatedButton(
-                  style: buttonOutline,
-                  onPressed: (() {
-                    widget?.onClick?.call();
-                  }),
-                  child: Text(
-                    widget.name,
-                    style: TextStyle(
-                      color: primary,
-                    ),
-                  )),
-            ],
-          ),
-          SizedBox(
-            height: 12,
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                widget.artist,
-                style: TextStyle(
-                  color: neutral,
-                  fontSize: 28,
-                  fontWeight: FontWeight.w800,
-                ),
+            ),
+            ElevatedButton(
+                style: buttonOutline,
+                onPressed: (() {
+                  widget.onClick?.call();
+                }),
+                child: Text(
+                  widget.name,
+                  style: TextStyle(
+                    color: primary,
+                  ),
+                )),
+          ],
+        ),
+        SizedBox(
+          height: 12,
+        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              widget.artist,
+              style: TextStyle(
+                color: neutral,
+                fontSize: 28,
+                fontWeight: FontWeight.w800,
               ),
-              SizedBox(
-                height: 8,
+            ),
+            SizedBox(
+              height: 8,
+            ),
+            Text(
+              widget.description,
+              style: TextStyle(
+                color: subtitle,
+                fontSize: 14,
+                fontWeight: FontWeight.normal,
               ),
-              Text(
-                widget.description,
-                style: TextStyle(
-                  color: subtitle,
-                  fontSize: 14,
-                  fontWeight: FontWeight.normal,
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:podcast_app/theme/theme.dart';
@@ -27,51 +28,56 @@ class CardAudioBook extends StatefulWidget {
 class _CardAudioBookState extends State<CardAudioBook> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(
-          left: (widget.index == 0) ? 24 : 8,
-          right: (widget.index == widget.totalIndex - 1) ? 24 : 0),
-      width: 120,
-      height: 210,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            width: 120,
-            height: 144,
-            child: ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: Image(
-                  image: NetworkImage(widget.image),
-                  fit: BoxFit.fill,
-                )),
-          ),
-          SizedBox(height: 8),
-          Container(
-            child: (Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  widget.name,
-                  style: TextStyle(
-                    color: neutral,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
+    return InkWell(
+      onTap: (){
+        widget.onClick();
+      },
+      child: Container(
+        margin: EdgeInsets.only(
+            left: (widget.index == 0) ? 24 : 8,
+            right: (widget.index == widget.totalIndex - 1) ? 24 : 0),
+        width: 120,
+        height: 210,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              width: 120,
+              height: 144,
+              child: ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: Image(
+                    image: NetworkImage(widget.image),
+                    fit: BoxFit.fill,
+                  )),
+            ),
+            SizedBox(height: 8),
+            Container(
+              child: (Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    widget.name,
+                    style: TextStyle(
+                      color: neutral,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
-                ),
-                SizedBox(height: 4),
-                Text(
-                  widget.description,
-                  style: TextStyle(
-                    color: subtitle,
-                    fontSize: 12,
-                    fontWeight: FontWeight.normal,
+                  SizedBox(height: 4),
+                  Text(
+                    widget.description,
+                    style: TextStyle(
+                      color: subtitle,
+                      fontSize: 12,
+                      fontWeight: FontWeight.normal,
+                    ),
                   ),
-                ),
-              ],
-            )),
-          )
-        ],
+                ],
+              )),
+            )
+          ],
+        ),
       ),
     );
   }

@@ -34,9 +34,6 @@ class UserProvider with ChangeNotifier, DiagnosticableTreeMixin {
 
   List<HistorySearchModel> get historySearch => _historySearch;
 
-  List<UserModel> _myProfile = [];
-
-  List<UserModel> get myProfile => _myProfile;
 
   List<EpisodeModel> _listeningPodcast = [];
 
@@ -53,7 +50,7 @@ class UserProvider with ChangeNotifier, DiagnosticableTreeMixin {
   //region
   Future<Response> signOut() async {
     try {
-      final credential = await auth.signOut();
+      await auth.signOut();
       return Future.value(Response.Ok(message: ""));
     } on FirebaseAuthException catch (e) {
       return Response.Failed(message: e.code);
@@ -61,7 +58,7 @@ class UserProvider with ChangeNotifier, DiagnosticableTreeMixin {
   }
 
   Future<Response> getListeningPodcast() async {
-    final userId = await auth.currentUser;
+    final userId = auth.currentUser;
     if (userId == null) {
       return Future.value(Response.Failed(message: ""));
     }
@@ -85,7 +82,7 @@ class UserProvider with ChangeNotifier, DiagnosticableTreeMixin {
   }
 
   Future<Response> getMyprofile() async {
-    final userId = await auth.currentUser;
+    final userId = auth.currentUser;
     if (userId == null) {
       return Future.value(Response.Failed(message: ""));
     }
@@ -100,6 +97,7 @@ class UserProvider with ChangeNotifier, DiagnosticableTreeMixin {
     if (data.exists) {
       final myProfileResult = data.data();
       if (myProfileResult != null) {
+        _user = myProfileResult;
         notifyListeners();
       }
     }
@@ -109,7 +107,6 @@ class UserProvider with ChangeNotifier, DiagnosticableTreeMixin {
   //https://stackoverflow.com/questions/65221515/flutter-firebase-logged-in-user-returns-a-null-currentuser-after-sign-in
   Future<bool> checkIsLoggedIn() async {
     _isLoggedIn = auth.currentUser != null;
-    print(auth.currentUser.toString());
     return _isLoggedIn;
   }
 

@@ -3,12 +3,17 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:podcast_app/models/callback_model.dart';
 import 'package:podcast_app/models/episode_model.dart';
+import 'package:podcast_app/models/user_model.dart';
 
 class EpisodeProvider with ChangeNotifier, DiagnosticableTreeMixin {
   //state region
   EpisodeModel _detailEpisode = EpisodeModel();
 
   EpisodeModel get detailEpisode => _detailEpisode;
+
+  UserModel _ownerPodcast = UserModel();
+
+  UserModel get ownerPodcast => _ownerPodcast;
 
   List<EpisodeModel> _episodes = [];
 
@@ -48,6 +53,20 @@ class EpisodeProvider with ChangeNotifier, DiagnosticableTreeMixin {
       if (finalResult != null) {
         _detailEpisode = finalResult;
         notifyListeners();
+
+        //get owner podcst
+        final owner = await db.collection("USER")
+            .doc(finalResult.createdBy)
+            .withConverter(fromFirestore: UserModel.fromFirestore, toFirestore: (user,_)=>user.toFirestore())
+            .get();
+
+        if(owner.exists){
+          final finalOwner = owner.data();
+          if(finalOwner != null) {
+            _ownerPodcast = finalOwner;
+            notifyListeners();
+          }
+        }
       }
       return Future.value(Response.Ok(message: "Berhasil"));
     } else {
@@ -68,7 +87,7 @@ class EpisodeProvider with ChangeNotifier, DiagnosticableTreeMixin {
     final convertData = data.docs.map((listEpisode) => listEpisode.data());
 
     //notify apps the data has changed
-    _listEpisodes.addAll(convertData);
+    _listEpisodes =convertData.toList();
     notifyListeners();
 
     //always return success
@@ -87,10 +106,10 @@ class EpisodeProvider with ChangeNotifier, DiagnosticableTreeMixin {
         .get();
 
     final convertData = data.docs.map((episode) => episode.data());
-    print(convertData);
 
     //notify apps the data has changed
-    _topEpisodes.addAll(convertData);
+
+    _topEpisodes = convertData.toList();
     notifyListeners();
 
     return Future.value(Response.Ok(message: ""));

@@ -20,8 +20,8 @@ class RoutePage{
         return MaterialPageRoute(builder: (_)=>const PageSplashScreen());
       case Routes.chooseTopic:
         return MaterialPageRoute(builder: (_)=>const PageChooseTopic());
-      case Routes.detailDetailEpisode:
-        return MaterialPageRoute(builder: (_)=>const PageDetailEpisode());
+      case Routes.detailEpisode:
+        return MaterialPageRoute(builder: (_)=>PageDetailEpisode(settings: settings,));
       case Routes.listEpisode:
         return MaterialPageRoute(builder: (_)=>const PageListEpisode());
       case Routes.signIn:
@@ -33,7 +33,7 @@ class RoutePage{
       case Routes.search:
         return MaterialPageRoute(builder: (_)=>const PageSearch());
       case Routes.detailPodcast:
-        return MaterialPageRoute(builder: (_)=>const PageDetailPodcast());
+        return MaterialPageRoute(builder: (_)=> PageDetailPodcast(settings: settings,));
       case Routes.detailPlayer:
         return MaterialPageRoute(builder: (_)=>const PageDetailPlayer());
       case Routes.completeProfile:

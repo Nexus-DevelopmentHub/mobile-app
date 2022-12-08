@@ -36,7 +36,7 @@ class TopicProvider with ChangeNotifier, DiagnosticableTreeMixin {
         .get();
 
     final convertData = data.docs.map((listTopics) => listTopics.data());
-    _topics.addAll(convertData);
+    _topics = convertData.toList();
     notifyListeners();
 
     return Future.value(Response.Ok(message: "Berhasil"));

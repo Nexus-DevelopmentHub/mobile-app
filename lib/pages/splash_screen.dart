@@ -74,7 +74,7 @@ class _PageSplashScreenState extends State<PageSplashScreen> {
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [Image.asset('lib/icons/splash.png')],
+              children: [Image.asset('lib/icons/splash.webp')],
             ),
           ),
           const SizedBox(

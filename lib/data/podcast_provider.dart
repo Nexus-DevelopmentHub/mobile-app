@@ -3,12 +3,17 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:podcast_app/models/callback_model.dart';
 import 'package:podcast_app/models/podcast_model.dart';
+import 'package:podcast_app/models/user_model.dart';
 
 class PodcastProvider with ChangeNotifier, DiagnosticableTreeMixin {
   //state region
   PodcastModel _detailPodcast = PodcastModel();
 
   PodcastModel get detailPodcast => _detailPodcast;
+
+  UserModel _ownerPodcast = UserModel();
+
+  UserModel get ownerPodcast => _ownerPodcast;
 
   List<PodcastModel> _podcasts = [];
 
@@ -20,7 +25,7 @@ class PodcastProvider with ChangeNotifier, DiagnosticableTreeMixin {
 
   List<PodcastModel> _trendingPodcast = [];
 
-  List<PodcastModel> get TrendingPodcast => _searchPodcast;
+  List<PodcastModel> get trendingPodcast => _trendingPodcast;
 
   //end region
 
@@ -51,12 +56,27 @@ class PodcastProvider with ChangeNotifier, DiagnosticableTreeMixin {
         //assign data to state and notify subscriber
         _detailPodcast = finalResult;
         notifyListeners();
+
+        //get owner podcst
+        final owner = await db.collection("USER")
+        .doc(finalResult.createdBy)
+        .withConverter(fromFirestore: UserModel.fromFirestore, toFirestore: (user,_)=>user.toFirestore())
+        .get();
+
+        if(owner.exists){
+          final finalOwner = owner.data();
+          if(finalOwner != null) {
+            _ownerPodcast = finalOwner;
+            notifyListeners();
+          }
+        }
       }
       return Future.value(Response.Ok(message: ""));
     } else {
       return Future.value(Response.Failed(message: ""));
     }
   }
+
 
   Future<Response> getListPodcast() async {
     final data = await db
@@ -70,7 +90,28 @@ class PodcastProvider with ChangeNotifier, DiagnosticableTreeMixin {
     final convertData = data.docs.map((listPodcast) => listPodcast.data());
 
     //notify apps the data has changed
-    _podcasts.addAll(convertData);
+    _podcasts = convertData.toList();
+    notifyListeners();
+
+    //always return success
+    return Future.value(Response.Ok(message: ""));
+  }
+
+  Future<Response> getListPodcastHome() async {
+    final data = await db
+        .collection("PODCAST")
+        .withConverter(
+            fromFirestore: PodcastModel.fromFirestore,
+            toFirestore: (listPodcast, _) => listPodcast.toFirestore())
+        .limit(6)
+        .get();
+
+    //convert in array [EpisodeModel]
+    final convertData = data.docs.map((listPodcast) => listPodcast.data());
+
+    print(convertData.toString());
+    //notify apps the data has changed
+    _podcasts = convertData.toList();
     notifyListeners();
 
     //always return success
@@ -78,7 +119,6 @@ class PodcastProvider with ChangeNotifier, DiagnosticableTreeMixin {
   }
 
   Future<Response> getTrendingPodcast() async {
-    //TODO: ambil data  episode berdasarkan likes terbanyak
     final data = await db
         .collection("PODCAST")
         .orderBy("likes", descending: true)
@@ -91,7 +131,7 @@ class PodcastProvider with ChangeNotifier, DiagnosticableTreeMixin {
     final convertData = data.docs.map((podcast) => podcast.data());
 
     //notify apps the data has changed
-    _trendingPodcast.addAll(convertData);
+    _trendingPodcast = convertData.toList();
     notifyListeners();
     return Future.value(Response.Ok(message: ""));
   }
@@ -110,7 +150,7 @@ class PodcastProvider with ChangeNotifier, DiagnosticableTreeMixin {
     final convertData = data.docs.map((podcast) => podcast.data());
 
     //notify apps the data has changed
-    _searchPodcast.addAll(convertData);
+    _searchPodcast = convertData.toList();
     notifyListeners();
 
     //always return success

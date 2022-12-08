@@ -7,10 +7,10 @@ import 'package:podcast_app/components/card_topics.dart';
 import 'package:podcast_app/components/slider_banner.dart';
 import 'package:podcast_app/data/episode_provider.dart';
 import 'package:podcast_app/data/podcast_provider.dart';
+import 'package:podcast_app/data/topic_provider.dart';
 import 'package:podcast_app/route/routes.dart';
 import 'package:podcast_app/theme/theme.dart';
 import 'package:provider/provider.dart';
-import 'package:podcast_app/data/topic_provider.dart';
 
 class PageHome extends StatefulWidget {
   const PageHome({Key? key}) : super(key: key);
@@ -26,11 +26,13 @@ class _PageHomeState extends State<PageHome> {
       context.read<TopicProvider>().getListTopics();
       context.read<EpisodeProvider>().getTopEpisodes();
       context.read<PodcastProvider>().getTrendingPodcast();
+      context.read<PodcastProvider>().getListPodcastHome();
     });
 
     super.initState();
   }
 
+  @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
@@ -75,7 +77,7 @@ class _PageHomeState extends State<PageHome> {
                     const SizedBox(
                       width: 16,
                     ),
-                    Container(
+                    SizedBox(
                       width: 53,
                       height: 28,
                       child: Text(
@@ -142,12 +144,11 @@ class _PageHomeState extends State<PageHome> {
                         index: index,
                         image: data.thumbnail.toString(),
                         name: data.title.toString(),
-                        //
                         percent: 0.6,
                         onClick: () {
                           Navigator.of(context).pushNamed(
-                              Routes.detailDetailEpisode,
-                              arguments: {'id': ""});
+                              Routes.detailEpisode,
+                              arguments: {'id': data.id});
                         },
                       );
                     }),
@@ -180,24 +181,20 @@ class _PageHomeState extends State<PageHome> {
                 height: 4,
               ),
               SizedBox(
-                height: 95,
-                child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: context.watch<TopicProvider>().topics.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      final data = context
-                          .watch<TopicProvider>()
-                          .topics[index];
-                      return  CardTopics(
+                  height: 95,
+                  child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: context.watch<TopicProvider>().topics.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        final data =
+                            context.watch<TopicProvider>().topics[index];
+                        return CardTopics(
                             totalIndex: 10,
                             index: index,
                             name: data.name.toString(),
                             color: Colors.amber,
-                            Image: "https://via.placeholder.com/150"
-                      );
-
-                    })
-              ),
+                            Image: "https://via.placeholder.com/150");
+                      })),
               const SizedBox(
                 height: 8,
               ),
@@ -229,7 +226,8 @@ class _PageHomeState extends State<PageHome> {
                 height: 205,
                 child: ListView.builder(
                     scrollDirection: Axis.horizontal,
-                    itemCount: context.watch<EpisodeProvider>().topEpisodes.length,
+                    itemCount:
+                        context.watch<EpisodeProvider>().topEpisodes.length,
                     itemBuilder: (BuildContext context, int index) {
                       final data =
                           context.watch<EpisodeProvider>().topEpisodes[index];
@@ -242,7 +240,7 @@ class _PageHomeState extends State<PageHome> {
                         time: data.durationInSeconds.toString(),
                         onClick: () {
                           Navigator.of(context).pushNamed(
-                              Routes.detailDetailEpisode,
+                              Routes.detailEpisode,
                               arguments: {'id': ""});
                         },
                       );
@@ -252,7 +250,8 @@ class _PageHomeState extends State<PageHome> {
                 height: 8,
               ),
               Container(
-                padding: const EdgeInsets.only(bottom: 8, top: 8, left: 24, right: 8),
+                padding: const EdgeInsets.only(
+                    bottom: 8, top: 8, left: 24, right: 8),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -292,7 +291,7 @@ class _PageHomeState extends State<PageHome> {
                         image: data.thumbnail.toString(),
                         onClick: () {
                           Navigator.of(context).pushNamed(
-                              Routes.detailDetailEpisode,
+                              Routes.detailEpisode,
                               arguments: {'id': ""});
                         },
                       );
@@ -305,7 +304,8 @@ class _PageHomeState extends State<PageHome> {
                 height: 12,
               ),
               Container(
-                padding: const EdgeInsets.only(bottom: 8, top: 8, left: 24, right: 8),
+                padding: const EdgeInsets.only(
+                    bottom: 8, top: 8, left: 24, right: 8),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -327,23 +327,23 @@ class _PageHomeState extends State<PageHome> {
               const SizedBox(
                 height: 4,
               ),
-              Container(
+              SizedBox(
                 height: 235,
                 child: ListView.builder(
                     scrollDirection: Axis.horizontal,
-                    itemCount: 5,
+                    itemCount: context.watch<PodcastProvider>().podcasts.length,
                     itemBuilder: (BuildContext context, int index) {
+                      final data =
+                          context.watch<PodcastProvider>().podcasts[index];
                       return CardAudioBook(
                         totalIndex: 5,
                         index: index,
-                        image:
-                            'https://d1csarkz8obe9u.cloudfront.net/posterpreviews/yellow-business-leadership-book-cover-design-template-dce2f5568638ad4643ccb9e725e5d6ff.jpg?ts=1637017516',
-                        name: 'The Mean Of A Leader',
-                        description: 'Seorang pemimpin...',
+                        image: data.thumbnail.toString(),
+                        name: data.title.toString(),
+                        description: data.description.toString(),
                         onClick: () {
-                          Navigator.of(context).pushNamed(
-                              Routes.detailDetailEpisode,
-                              arguments: {'id': ""});
+                          Navigator.of(context).pushNamed(Routes.detailPodcast,
+                              arguments: {'id': data.id});
                         },
                       );
                     }),
