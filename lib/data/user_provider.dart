@@ -85,8 +85,6 @@ class UserProvider with ChangeNotifier, DiagnosticableTreeMixin {
   }
 
   Future<Response> getMyprofile() async {
-    //TODO : ambil profile user yang sedang login
-
     final userId = await auth.currentUser;
     if (userId == null) {
       return Future.value(Response.Failed(message: ""));
@@ -183,11 +181,11 @@ class UserProvider with ChangeNotifier, DiagnosticableTreeMixin {
   Future<Response> signInWithGoogle() async {
     try {
       // Trigger the authentication flow
-      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+      final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
 
       // Obtain the auth details from the request
       final GoogleSignInAuthentication? googleAuth =
-          await googleUser?.authentication;
+          await googleUser.authentication;
 
       // Create a new credential
       final credential = GoogleAuthProvider.credential(
@@ -225,7 +223,7 @@ class UserProvider with ChangeNotifier, DiagnosticableTreeMixin {
 
   Future<Response> registerWithEmailAndPassword(
       String email, String password, String name) async {
-    //TODO :: sign up
+
     try {
       final credential = await auth.createUserWithEmailAndPassword(
           email: email, password: password);
@@ -251,11 +249,6 @@ class UserProvider with ChangeNotifier, DiagnosticableTreeMixin {
   Future<Response> uploadProfilePicture(File file) async {
     //get userUid for name image ex: userUid.jpg
     var currentUser = auth.currentUser;
-    if (currentUser == null) {
-      auth.authStateChanges().listen((event) {
-        currentUser = event;
-      });
-    }
 
     final userId =
         currentUser?.uid ?? DateTime.now().microsecondsSinceEpoch.toString();
@@ -269,12 +262,12 @@ class UserProvider with ChangeNotifier, DiagnosticableTreeMixin {
       //save upload url temporary
       _completeProfilePictureUrl = await profileRef.getDownloadURL();
       notifyListeners();
-
-      return Response.Ok(message: "Gambar profile berhasil di upload");
+      return Response.OkWithArg(message: "Gambar profile berhasil di upload",arg: {
+        "url":_completeProfilePictureUrl
+      });
     } on FirebaseException catch (e) {
       return Response.Failed(message: e.message.toString());
     }
-    ;
   }
 
   Future<Response> completeProfile(UserModel arg) async {

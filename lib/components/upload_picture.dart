@@ -29,7 +29,7 @@ class _UploadProfileComponentState
       return;
     }
     context.read<UserProvider>().uploadProfilePicture(file!).then((value) => {
-          if (value.success) {widget.onSuccess("")},
+          if (value.success) {widget.onSuccess(value.arg['url'].toString())},
           ScaffoldMessenger.of(context)
               .showSnackBar(SnackBar(content: Text(value.message)))
         });
@@ -79,37 +79,35 @@ class _UploadProfileComponentState
         });
   }
 
-  Container buildSplashScreen() {
-    return Container(
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          file == null
-              ? Image.asset(
-                  'lib/icons/Avatar2.png',
-                  width: 98,
-                  height: 98,
-                )
-              : Image.file(
-                  file!,
-                  width: 98,
-                  height: 98,
-                ),
-          const SizedBox(
-            width: 24,
-          ),
-          // SvgPicture.asset('asset/images/upload.svg', height: 260.0),
-          Padding(
-            padding: const EdgeInsets.only(top: 20.0),
-            child: ElevatedButton(
-                style: buttonOutline,
-                child: const Text(
-                  "Photo Profil",
-                ),
-                onPressed: () => selectImage(context)),
-          ),
-        ],
-      ),
+  Widget buildSplashScreen() {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        file == null
+            ? Image.asset(
+                'lib/icons/Avatar2.png',
+                width: 98,
+                height: 98,
+              )
+            : Image.file(
+                file!,
+                width: 98,
+                height: 98,
+              ),
+        const SizedBox(
+          width: 24,
+        ),
+        // SvgPicture.asset('asset/images/upload.svg', height: 260.0),
+        Padding(
+          padding: const EdgeInsets.only(top: 20.0),
+          child: ElevatedButton(
+              style: buttonOutline,
+              child: const Text(
+                "Photo Profil",
+              ),
+              onPressed: () => selectImage(context)),
+        ),
+      ],
     );
   }
 
