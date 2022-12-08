@@ -7,8 +7,9 @@ class EpisodeModel {
   String? thumbnail = "";
   String? createdBy = "";
   int? durationInSeconds = 0;
-  String? podcastId = "";
+  int? likes = 0;
   String? audioUrl = "";
+  String? podcastId = "";
   int? createdAt = 0;
   int? updatedAt = 0;
 
@@ -19,6 +20,8 @@ class EpisodeModel {
       this.thumbnail,
       this.createdBy,
       this.durationInSeconds,
+      this.likes,
+      this.audioUrl,
       this.podcastId,
       this.createdAt,
       this.updatedAt});
@@ -34,6 +37,8 @@ class EpisodeModel {
         thumbnail: data?['thumbnail'],
         createdBy: data?['createdBy'],
         durationInSeconds: data?['durationInSeconds'],
+        audioUrl: data?['audioUrl'],
+        likes: data?['likes'],
         podcastId: data?['podcastId'],
         createdAt: data?['createdAt'],
         updatedAt: data?['updatedAt']);
@@ -47,6 +52,8 @@ class EpisodeModel {
       if (thumbnail != null) "thumbnail": thumbnail,
       if (createdBy != null) "createdBy": createdBy,
       if (durationInSeconds != null) "durationInSeconds": durationInSeconds,
+      if(likes != null) "likes":likes,
+      if (audioUrl != null) "audioUrl":audioUrl,
       if (podcastId != null) "podcastId": podcastId,
       if (createdAt != null) "createdAt": createdAt,
       if (updatedAt != null) "updated": updatedAt

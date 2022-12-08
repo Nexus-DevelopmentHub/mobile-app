@@ -55,7 +55,7 @@ class _PageDetailEpisodeState extends State<PageDetailEpisode> {
                 children: [
                   Container(
                     padding: const EdgeInsets.only(left: 24, right: 24),
-                    child: HeaderDetailEpisode(
+                    child: context.watch<EpisodeProvider>().detailEpisode.thumbnail != null ?  HeaderDetailEpisode(
                       name: context
                           .watch<EpisodeProvider>()
                           .detailEpisode
@@ -80,7 +80,7 @@ class _PageDetailEpisodeState extends State<PageDetailEpisode> {
                       onClick: (() {
                         // Download Episode
                       }),
-                    ),
+                    ) : Container(),
                   ),
                   const SizedBox(
                     height: 16,
@@ -94,6 +94,10 @@ class _PageDetailEpisodeState extends State<PageDetailEpisode> {
                       name: 'Play',
                       onClick: () {
                         // Rute Player
+                        final id = widget.settings?.arguments as Map<String,String>;
+                        Navigator.of(context).pushNamed(Routes.detailPlayer,arguments: {
+                          'id': id['id']
+                        });
                       },
                       onShareClick: () {
                         // Share Episode

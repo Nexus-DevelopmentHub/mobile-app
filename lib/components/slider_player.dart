@@ -6,14 +6,20 @@ import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:podcast_app/theme/theme.dart';
 
 class SliderPlayer extends StatefulWidget {
-  const SliderPlayer({
+   SliderPlayer({
     super.key,
     this.onReplay,
     this.onNext,
+    this.onPause,
+    this.duration=0,
+    this.current=0
   });
 
   final VoidCallback? onReplay;
   final VoidCallback? onNext;
+  final VoidCallback? onPause;
+   int? duration=0;
+   int? current=0;
 
   @override
   State<SliderPlayer> createState() => _SliderPlayerState();
@@ -34,9 +40,8 @@ class _SliderPlayerState extends State<SliderPlayer> {
             bufferedBarColor: Colors.white.withOpacity(0.24),
             barHeight: 5.0,
             thumbGlowColor: primary,
-            progress: Duration(milliseconds: 1000),
-            buffered: Duration(milliseconds: 1000),
-            total: Duration(milliseconds: 1000),
+            progress: Duration(seconds: widget.current!.toInt()),
+            total:  Duration(seconds: widget.duration!.toInt()),
             timeLabelLocation: TimeLabelLocation.below,
             timeLabelPadding: 8.0,
             timeLabelTextStyle: TextStyle(
@@ -52,7 +57,7 @@ class _SliderPlayerState extends State<SliderPlayer> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(
+              SizedBox(
                 height: 56,
                 width: 56,
                 child: IconButton(
@@ -76,6 +81,7 @@ class _SliderPlayerState extends State<SliderPlayer> {
                     size: 40,
                   ),
                   onPressed: () {
+                    widget.onPause!();
                     setState(() {
                       isPlaying = !isPlaying;
                     });

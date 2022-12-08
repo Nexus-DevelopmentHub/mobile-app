@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:podcast_app/pages/choose_topic.dart';
 import 'package:podcast_app/pages/complete_profile.dart';
 import 'package:podcast_app/pages/detail_episode.dart';
-import 'package:podcast_app/pages/detail_player.dart';
 import 'package:podcast_app/pages/detail_podcast.dart';
 import 'package:podcast_app/pages/base_page.dart';
 import 'package:podcast_app/pages/list_episode.dart';
+import 'package:podcast_app/pages/player.dart';
 import 'package:podcast_app/pages/profile.dart';
 import 'package:podcast_app/pages/search.dart';
 import 'package:podcast_app/pages/sign_in.dart';
@@ -35,7 +35,7 @@ class RoutePage{
       case Routes.detailPodcast:
         return MaterialPageRoute(builder: (_)=> PageDetailPodcast(settings: settings,));
       case Routes.detailPlayer:
-        return MaterialPageRoute(builder: (_)=>const PageDetailPlayer());
+        return MaterialPageRoute(builder: (_)=>PagePlayer(settings: settings,));
       case Routes.completeProfile:
         return MaterialPageRoute(builder: (_)=>const PageCompleteProfile());
       case Routes.profile:
