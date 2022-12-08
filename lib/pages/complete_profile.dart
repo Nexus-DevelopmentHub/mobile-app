@@ -16,20 +16,29 @@ class PageCompleteProfile extends StatefulWidget {
 
 class _PageCompleteProfileState extends State<PageCompleteProfile> {
   String photourl = "";
+  String Nama = "";
+  String UserName = "";
+  String Gender = "";
+  String kota = "";
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: onNeutral,
       body: SingleChildScrollView(
-        padding: const EdgeInsets.only(left: 24, right: 24, top: 40, bottom: 24),
+        padding:
+            const EdgeInsets.only(left: 24, right: 24, top: 40, bottom: 24),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Container(
               padding: const EdgeInsets.only(bottom: 8, top: 8),
               child: UploadProfilePictureComponent(
-                onSuccess: (v) {},
+                onSuccess: (v) {
+                  setState(() {
+                    photourl = v;
+                  });
+                },
               ),
             ),
             const SizedBox(
@@ -37,14 +46,24 @@ class _PageCompleteProfileState extends State<PageCompleteProfile> {
               width: 10.0,
             ),
             InputText(
-                name: "*Nama Lengkap", onChange: (v) {}, placeholder: "Nama"),
+                name: "*Nama Lengkap",
+                onChange: (v) {
+                  setState(() {
+                    Nama = v;
+                  });
+                },
+                placeholder: "Nama"),
             const SizedBox(
               height: 20.0,
               width: 10.0,
             ),
             InputText(
                 name: "*Username",
-                onChange: (v) {},
+                onChange: (v) {
+                  setState(() {
+                    UserName = v;
+                  });
+                },
                 placeholder: "Username kamu"),
             const SizedBox(
               height: 8,
@@ -62,7 +81,8 @@ class _PageCompleteProfileState extends State<PageCompleteProfile> {
             ),
             Container(
               padding: const EdgeInsets.only(bottom: 8, top: 10),
-              child: const InputDateOfBirth(placeholder: (""), name: "*Tahun Lahir"),
+              child: const InputDateOfBirth(
+                  placeholder: (""), name: "*Tahun Lahir"),
             ),
             Container(
               padding: const EdgeInsets.only(bottom: 8, top: 1),
@@ -79,7 +99,11 @@ class _PageCompleteProfileState extends State<PageCompleteProfile> {
               padding: const EdgeInsets.only(bottom: 15, top: 10),
               child: InputGender(
                 label: "*Jenis Kelamin",
-                onChange: (v) {},
+                onChange: (v) {
+                  setState(() {
+                    Gender = v;
+                  });
+                },
                 placeholder: "  Jenis Kelamin",
               ),
             ),
@@ -87,7 +111,11 @@ class _PageCompleteProfileState extends State<PageCompleteProfile> {
               padding: const EdgeInsets.only(bottom: 8, top: 10),
               child: InputText(
                   name: "Kota",
-                  onChange: (v) {},
+                  onChange: (v) {
+                    setState(() {
+                      kota = v;
+                    });
+                  },
                   placeholder: "Asal kota kamu"),
             ),
             Container(
