@@ -66,6 +66,8 @@ class _ContinueListeningState extends State<ContinueListening> {
             ),
             Text(
               widget.name,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 2,
               style: TextStyle(
                 color: neutral,
                 fontSize: 14,

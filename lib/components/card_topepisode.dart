@@ -54,6 +54,8 @@ class _TopEpisodeState extends State<TopEpisode> {
               ),
               Text(
                 widget.name,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
                 style: TextStyle(
                   color: neutral,
                   fontSize: 12,
