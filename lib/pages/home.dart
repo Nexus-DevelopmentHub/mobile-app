@@ -129,7 +129,7 @@ class _PageHomeState extends State<PageHome> {
                 height: 4,
               ),
               SizedBox(
-                height: 160,
+                height: 165,
                 child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     itemCount:
@@ -180,7 +180,7 @@ class _PageHomeState extends State<PageHome> {
                 height: 4,
               ),
               SizedBox(
-                height: 90,
+                height: 95,
                 child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     itemCount: context.watch<TopicProvider>().topics.length,
@@ -226,7 +226,7 @@ class _PageHomeState extends State<PageHome> {
                 height: 4,
               ),
               Container(
-                height: 200,
+                height: 205,
                 child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     itemCount: context.watch<EpisodeProvider>().topEpisodes.length,
@@ -275,7 +275,7 @@ class _PageHomeState extends State<PageHome> {
                 height: 4,
               ),
               Container(
-                height: 65,
+                height: 70,
                 child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     itemCount:
@@ -328,7 +328,7 @@ class _PageHomeState extends State<PageHome> {
                 height: 4,
               ),
               Container(
-                height: 230,
+                height: 235,
                 child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     itemCount: 5,

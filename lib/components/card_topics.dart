@@ -8,7 +8,10 @@ class CardTopics extends StatefulWidget {
   const CardTopics({
     super.key,
     required this.name,
-    required this.color, required this.Image, required this.index, required this.totalIndex,
+    required this.color,
+    required this.Image,
+    required this.index,
+    required this.totalIndex,
   });
 
   final int totalIndex;
@@ -29,38 +32,43 @@ class _CardTopicsState extends State<CardTopics> {
       children: [
         Container(
           margin: EdgeInsets.only(
-          left: (widget.index == 0) ? 24 : 8,
-          right: (widget.index == widget.totalIndex - 1) ? 24 : 0),
+              left: (widget.index == 0) ? 24 : 8,
+              right: (widget.index == widget.totalIndex - 1) ? 24 : 0),
           height: 88,
-          width:140,
+          width: 140,
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 28),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8), color: widget.color),
-          child:  Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  width: 50,
-                  child: Text(
-                    widget.name,
-                    overflow: TextOverflow.ellipsis,
-                    softWrap: false,
-                    maxLines: 2,
-                    style: TextStyle(
-                      color: neutral,
-                      fontSize: 12,
-                      fontWeight: FontWeight.w800,
-                    ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                width: 70,
+                child: Text(
+                  widget.name,
+                  overflow: TextOverflow.ellipsis,
+                  softWrap: false,
+                  maxLines: 2,
+                  style: TextStyle(
+                    color: neutral,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w800,
                   ),
                 ),
-                Image.network(
-                    widget.Image,
+              ),
+              Container(
+                width: 36,
+                height: 36,
+                child: Image.network(
+                  widget.Image,
                   fit: BoxFit.fill,
+                  width: 36,
+                  height: 36,
                 ),
-              ],
-            ),
+              )
+            ],
           ),
-
+        ),
       ],
     );
   }
