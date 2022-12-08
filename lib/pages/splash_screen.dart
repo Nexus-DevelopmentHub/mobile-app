@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:podcast_app/components/button_primary.dart';
-import 'package:podcast_app/data/podcast_provider.dart';
 import 'package:podcast_app/data/user_provider.dart';
-import 'package:podcast_app/pages/detail_podcast.dart';
 import 'package:podcast_app/route/routes.dart';
 import 'package:podcast_app/theme/theme.dart';
 import 'package:provider/provider.dart';
@@ -18,21 +16,13 @@ class PageSplashScreen extends StatefulWidget {
 class _PageSplashScreenState extends State<PageSplashScreen> {
   @override
   void initState() {
-
     /**
      * when user already logged in redirect to home and otherwise redirect to sign in
      */
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      context.read<PodcastProvider>().getDetailPodcast("123").then((value) => 
-      {
-        print(context.watch<PodcastProvider>().detailPodcast.title)
-      // context.read<UserProvider>().checkIsLoggedIn().then((isLoggedIn) =>
-      // {
-      //   if (isLoggedIn)
-      //     {Navigator.of(context).pushNamed(Routes.home)}
-      //   else
-      //     {Navigator.of(context).pushNamed(Routes.signIn)}
-       });
+      context.read<UserProvider>().checkIsLoggedIn().then((isLoggedIn) => {
+            if (isLoggedIn) {Navigator.of(context).pushNamed(Routes.home)}
+          });
     });
 
     super.initState();
@@ -47,7 +37,7 @@ class _PageSplashScreenState extends State<PageSplashScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            margin: EdgeInsets.only(left: 24, right: 24, top: 60),
+            margin: const EdgeInsets.only(left: 24, right: 24, top: 60),
             child: Text(
               'Dengarkan Podcast Terbaik di Opinion.',
               style: GoogleFonts.poppins(
@@ -57,11 +47,11 @@ class _PageSplashScreenState extends State<PageSplashScreen> {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 8,
           ),
           Container(
-            padding: EdgeInsets.only(
+            padding: const EdgeInsets.only(
               left: 24,
               right: 24,
             ),
@@ -74,11 +64,11 @@ class _PageSplashScreenState extends State<PageSplashScreen> {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 40,
           ),
           Container(
-            margin: EdgeInsets.only(
+            margin: const EdgeInsets.only(
               left: 24,
               right: 24,
             ),
@@ -87,30 +77,35 @@ class _PageSplashScreenState extends State<PageSplashScreen> {
               children: [Image.asset('lib/icons/splash.png')],
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 100,
           ),
           Container(
-            margin: EdgeInsets.only(
+            margin: const EdgeInsets.only(
               left: 24,
               right: 24,
             ),
             child: ButtonPrimary(
               name: 'Daftar Gratis',
+              onClick: () {
+                Navigator.of(context).pushNamed(Routes.signUp);
+              },
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 16,
           ),
           Container(
-            margin: EdgeInsets.only(
+            margin: const EdgeInsets.only(
               left: 24,
               right: 24,
             ),
             height: 44,
             width: 321,
             child: TextButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).pushNamed(Routes.signIn);
+              },
               child: Text(
                 'Masuk',
                 style: TextStyle(

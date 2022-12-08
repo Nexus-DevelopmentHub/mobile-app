@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:podcast_app/components/input_search.dart';
 import 'package:podcast_app/components/navigasi_bar.dart';
@@ -19,6 +20,16 @@ class BasePage extends StatefulWidget {
 
 class _BasePageState extends State<BasePage> {
   int selected = 0;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      final s =  FirebaseAuth.instance.currentUser;
+      print(s);
+    });
+    super.initState();
+  }
 
   Widget buildAppBar(BuildContext context, bool innerBoxIsScrolled) {
     if (selected == 0) {

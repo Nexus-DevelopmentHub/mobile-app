@@ -11,7 +11,9 @@ class TopEpisode extends StatefulWidget {
       required this.image,
       required this.episode,
       required this.index,
-      required this.totalIndex, required this.onClick});
+      required this.totalIndex,
+      required this.onClick});
+
   final int totalIndex;
   final String name;
   final String artist;
@@ -36,19 +38,19 @@ class _TopEpisodeState extends State<TopEpisode> {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
+          SizedBox(
               height: 68,
               width: 68,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8),
                 child: Image(image: NetworkImage(widget.image)),
               )),
-          SizedBox(width: 8),
+          const SizedBox(width: 8),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                padding: EdgeInsets.only(top: 6, bottom: 6),
+                padding: const EdgeInsets.only(top: 6, bottom: 6),
               ),
               Text(
                 widget.name,
@@ -58,7 +60,7 @@ class _TopEpisodeState extends State<TopEpisode> {
                   fontWeight: FontWeight.w600,
                 ),
               ),
-              SizedBox(height: 4),
+              const SizedBox(height: 4),
               Text(
                 widget.episode,
                 style: TextStyle(
@@ -67,17 +69,21 @@ class _TopEpisodeState extends State<TopEpisode> {
                   fontWeight: FontWeight.normal,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 4,
               ),
-              Text(
-                widget.artist,
-                style: TextStyle(
-                  color: subtitle,
-                  fontSize: 10,
-                  fontWeight: FontWeight.normal,
+              Container(
+                width: 100,
+                child: Text(
+                  widget.artist,
+                  style: TextStyle(
+                    color: subtitle,
+                    fontSize: 10,
+                    fontWeight: FontWeight.normal,
+                  ),
+                  overflow: TextOverflow.ellipsis,
                 ),
-              ),
+              )
             ],
           )
         ],
