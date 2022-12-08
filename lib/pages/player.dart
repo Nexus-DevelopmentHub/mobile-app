@@ -1,3 +1,4 @@
+import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:podcast_app/components/slider_player.dart';
@@ -17,8 +18,9 @@ class PagePlayer extends StatefulWidget {
 class _PagePlayerState extends State<PagePlayer> {
   AudioPlayer player = AudioPlayer();
   bool isPlay=false;
-  int totalDuration=0;
-  int currentPosition=0;
+  Duration totalDuration=Duration();
+  Duration currentPosition=Duration();
+
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
@@ -29,13 +31,15 @@ class _PagePlayerState extends State<PagePlayer> {
         }
       }
 
-      player.onDurationChanged.listen((event) {
-         totalDuration=event.inSeconds;
-      });
-      player.onPositionChanged.listen((event) {
-        currentPosition =event.inSeconds;
-      });
     });
+    player.onDurationChanged.listen((event) {
+      totalDuration = event;
+    });
+    player.onPositionChanged.listen((event) {
+      currentPosition = event;
+    });
+
+
     super.initState();
   }
 
@@ -101,8 +105,35 @@ class _PagePlayerState extends State<PagePlayer> {
                   height: 24,
                 ),
                 Container(
+                  margin: const EdgeInsets.only(
+                    left: 16,
+                    right: 16
+                  ),
+                  child:  ProgressBar(
+                    baseBarColor: Colors.white.withOpacity(0.24),
+                    progressBarColor: primary,
+                    thumbColor: neutral,
+                    bufferedBarColor: Colors.white.withOpacity(0.24),
+                    barHeight: 5.0,
+                    thumbGlowColor: primary,
+                    progress: currentPosition,
+                    total:  totalDuration,
+                    buffered: currentPosition,
+                    timeLabelLocation: TimeLabelLocation.below,
+                    timeLabelPadding: 8.0,
+                    timeLabelTextStyle: TextStyle(
+                      color: neutral,
+                      fontSize: 12,
+                      fontWeight: FontWeight.normal,
+                    ),
+                    onSeek: (duration) {},
+                  ),
+                ),
+                Container(
                   margin: const EdgeInsets.only(left: 24, right: 24),
                   child: SliderPlayer(
+                    duration: totalDuration,
+                    current: currentPosition,
                     onPause: (){
                       var url = context.read<EpisodeProvider>().detailEpisode.audioUrl.toString();
                       play(url);
