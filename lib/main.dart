@@ -1,4 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
+// @dart=2.9;
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -11,8 +11,6 @@ import 'package:podcast_app/route/router.dart';
 import 'package:podcast_app/route/routes.dart';
 import 'package:podcast_app/theme/theme.dart';
 import 'package:provider/provider.dart';
-import 'package:google_fonts/google_fonts.dart';
-
 void main() async {
   ErrorWidget.builder = (details) {
     if (kDebugMode) {
