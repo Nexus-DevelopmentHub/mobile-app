@@ -11,7 +11,8 @@ class CardAudioBook extends StatefulWidget {
     required this.name,
     required this.description,
     required this.index,
-    required this.totalIndex, required this.onClick,
+    required this.totalIndex,
+    required this.onClick,
   });
 
   final int totalIndex;
@@ -29,7 +30,7 @@ class _CardAudioBookState extends State<CardAudioBook> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: (){
+      onTap: () {
         widget.onClick();
       },
       child: Container(
@@ -58,6 +59,8 @@ class _CardAudioBookState extends State<CardAudioBook> {
                 children: [
                   Text(
                     widget.name,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 2,
                     style: TextStyle(
                       color: neutral,
                       fontSize: 14,
@@ -67,6 +70,8 @@ class _CardAudioBookState extends State<CardAudioBook> {
                   SizedBox(height: 4),
                   Text(
                     widget.description,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 2,
                     style: TextStyle(
                       color: subtitle,
                       fontSize: 12,

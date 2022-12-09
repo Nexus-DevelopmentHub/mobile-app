@@ -12,7 +12,8 @@ class CardEpisode extends StatefulWidget {
       required this.image,
       required this.time,
       required this.index,
-      required this.totalIndex, required this.onClick});
+      required this.totalIndex,
+      required this.onClick});
   final int totalIndex;
   final int index;
   final String name;
@@ -53,6 +54,8 @@ class _CardEpisodeState extends State<CardEpisode> {
               children: [
                 Text(
                   widget.name,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 2,
                   style: TextStyle(
                     color: neutral,
                     fontSize: 14,
@@ -62,6 +65,8 @@ class _CardEpisodeState extends State<CardEpisode> {
                 SizedBox(height: 4),
                 Text(
                   widget.artist,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
                   style: TextStyle(
                     color: subtitle,
                     fontSize: 12,

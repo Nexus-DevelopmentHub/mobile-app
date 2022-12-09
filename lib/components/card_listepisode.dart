@@ -13,7 +13,8 @@ class ListEpisode extends StatefulWidget {
       required this.image,
       this.onDownnload,
       required this.totalIndex,
-      required this.index, required this.onClick});
+      required this.index,
+      required this.onClick});
 
   final VoidCallback onClick;
   final int totalIndex;
@@ -64,6 +65,8 @@ class _ListEpisodeState extends State<ListEpisode> {
                   ),
                   Text(
                     widget.name,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
                     style: TextStyle(
                       color: neutral,
                       fontSize: 14,
