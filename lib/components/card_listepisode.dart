@@ -41,57 +41,65 @@ class _ListEpisodeState extends State<ListEpisode> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              Container(
-                height: 80,
-                width: 80,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
-                  child: Image(image: NetworkImage(widget.image)),
-                ),
-              ),
-              SizedBox(
-                width: 8,
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+          Container(
+            child: GestureDetector(
+              onTap: () {
+                widget?.onClick?.call();
+              },
+              child: Row(
                 children: [
                   Container(
-                    padding: EdgeInsets.only(
-                      top: 14,
-                      bottom: 14,
+                    height: 80,
+                    width: 80,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
+                      child: Image(image: NetworkImage(widget.image)),
                     ),
                   ),
-                  Text(
-                    widget.name,
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 1,
-                    style: TextStyle(
-                      color: neutral,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
-                    ),
+                  SizedBox(
+                    width: 8,
                   ),
-                  SizedBox(height: 4),
-                  Text(
-                    widget.artist,
-                    style: TextStyle(
-                      color: subtitle,
-                      fontSize: 12,
-                      fontWeight: FontWeight.normal,
-                    ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        padding: EdgeInsets.only(
+                          top: 14,
+                          bottom: 14,
+                        ),
+                      ),
+                      Container(
+                        width: 180,
+                        child: Text(
+                          widget.name,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                          style: TextStyle(
+                            color: neutral,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 4),
+                      Text(
+                        widget.artist,
+                        style: TextStyle(
+                          color: subtitle,
+                          fontSize: 12,
+                          fontWeight: FontWeight.normal,
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
-            ],
+            ),
           ),
           IconButton(
               padding: EdgeInsets.symmetric(horizontal: 16, vertical: 25),
               color: neutral,
-              onPressed: () {
-                widget?.onClick?.call();
-              },
+              onPressed: () {},
               icon: Icon(Icons.download_rounded)),
         ],
       ),

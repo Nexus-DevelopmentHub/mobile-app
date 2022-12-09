@@ -140,7 +140,7 @@ class _PageHomeState extends State<PageHome> {
                       final data =
                           context.watch<EpisodeProvider>().topEpisodes[index];
                       return ContinueListening(
-                        totalIndex: 10,
+                        totalIndex: 20,
                         index: index,
                         image: data.thumbnail.toString(),
                         name: data.title.toString(),
@@ -189,7 +189,7 @@ class _PageHomeState extends State<PageHome> {
                         final data =
                             context.watch<TopicProvider>().topics[index];
                         return CardTopics(
-                            totalIndex: 10,
+                            totalIndex: 20,
                             index: index,
                             name: data.name.toString(),
                             color: Colors.amber,
@@ -232,7 +232,7 @@ class _PageHomeState extends State<PageHome> {
                       final data =
                           context.watch<EpisodeProvider>().topEpisodes[index];
                       return CardEpisode(
-                        totalIndex: 10,
+                        totalIndex: 20,
                         index: index,
                         name: data.title.toString(),
                         artist: data.createdBy.toString(),
@@ -283,7 +283,7 @@ class _PageHomeState extends State<PageHome> {
                       final data =
                           context.watch<EpisodeProvider>().topEpisodes[index];
                       return TopEpisode(
-                        totalIndex: 5,
+                        totalIndex: 20,
                         index: index,
                         name: data.title.toString(),
                         artist: data.createdBy.toString(),
@@ -336,7 +336,7 @@ class _PageHomeState extends State<PageHome> {
                       final data =
                           context.watch<PodcastProvider>().podcasts[index];
                       return CardAudioBook(
-                        totalIndex: 5,
+                        totalIndex: 20,
                         index: index,
                         image: data.thumbnail.toString(),
                         name: data.title.toString(),
